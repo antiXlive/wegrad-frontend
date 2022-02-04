@@ -9,7 +9,7 @@ let baseURL;
 
 if (!process.env.NODE_ENV || process.env.NODE_ENV === "development")
    baseURL = "ws://192.168.43.96:3001";
-else baseURL = "ws://wegrad-backend.herokuapp.com/";
+else baseURL = "wss://wegrad-backend.herokuapp.com/";
 
 export const clientEventDispatcher = (payload) => {
    sendMessage(JSON.stringify(payload));
