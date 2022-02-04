@@ -15,7 +15,7 @@ function App() {
    const dispatch = useDispatch();
    const location = useLocation();
 
-   console.log(location);
+   // console.log(location);
 
    const [processing, setProcessing] = useState(true);
 

@@ -5,6 +5,8 @@ import authbg from "../../assets/auth-bg.webp";
 
 export const Div = styled(motion.div)`
    width: 100vw;
+   /* min-height: 700px; */
+   /* height: 100vh; */
    display: flex;
    box-sizing: border-box;
    align-items: center;

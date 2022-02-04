@@ -4,7 +4,12 @@ import { useDispatch } from "react-redux";
 import { appendNewsFeed, filterNewsFeed } from "../redux/actions/postActions";
 
 const WebSocketContext = createContext();
-const baseURL = "ws://192.168.43.96:3001";
+
+let baseURL;
+
+if (!process.env.NODE_ENV || process.env.NODE_ENV === "development")
+   baseURL = "ws://192.168.43.96:3001";
+else baseURL = "ws://wegrad-backend.herokuapp.com/";
 
 export const clientEventDispatcher = (payload) => {
    sendMessage(JSON.stringify(payload));

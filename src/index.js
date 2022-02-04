@@ -10,7 +10,7 @@ import thunk from "redux-thunk";
 
 import { BrowserRouter } from "react-router-dom";
 
-// import { WebSocketProvider } from "./lib/webSocket";
+import { WebSocketProvider } from "./lib/webSocket";
 
 const store = createStore(
    //  rootReducer,
@@ -24,11 +24,11 @@ const store = createStore(
 
 const app = (
    <Provider store={store}>
-      {/* <WebSocketProvider> */}
+      <WebSocketProvider>
          <BrowserRouter>
             <App />
          </BrowserRouter>
-      {/* </WebSocketProvider> */}
+      </WebSocketProvider>
    </Provider>
 );
 

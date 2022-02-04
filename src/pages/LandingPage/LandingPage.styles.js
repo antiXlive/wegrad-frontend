@@ -33,7 +33,7 @@ export const Div = styled.div`
       .cta {
          margin-top: 1.5vh;
          margin-bottom: 8vh;
-         padding: 8px 15px;
+         padding: 6px 18px;
          border-radius: 4px;
          background-color: var(--blue2);
          letter-spacing: 1px;
@@ -41,7 +41,7 @@ export const Div = styled.div`
          p {
             margin: 0;
             color: #fff;
-            font-size: clamp(15px, 4vw, 18px);
+            font-size: clamp(14px, 4vw, 18px);
             font-weight: normal;
          }
       }

@@ -70,7 +70,7 @@ const Signup = () => {
    return (
       windowHeight && (
          <Div
-            style={{ height: windowHeight }}
+            style={{ height: windowHeight < 500 ? "700px" : windowHeight }}
             // exit={{
             //    x: "-100vw",
             //    opacity: 0,
