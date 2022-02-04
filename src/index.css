@@ -1,37 +1,41 @@
 :root {
-  --blue1: #1e90ff;
-  --blue2: #0573b9;
+   --blue1: #1e90ff;
+   --blue2: #0573b9;
 }
 @font-face {
-  font-family: "Open Sans";
-  src: url("./fonts/Open_Sans/OpenSans-VariableFont_wdth\,wght.ttf")
-     format("ttf");
-  font-weight: 100 800;
+   font-family: "Open Sans";
+   src: url("./fonts/Open_Sans/OpenSans-VariableFont_wdth\,wght.ttf")
+      format("ttf");
+   font-weight: 100 800;
 }
 
 * {
-  box-sizing: border-box;
-  scroll-behavior: smooth;
-  -webkit-tap-highlight-color: transparent;
+   box-sizing: border-box;
+   scroll-behavior: smooth;
+   -webkit-tap-highlight-color: transparent;
 }
 
 body {
-  margin: 0;
-  font-family: "Open Sans", sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  box-sizing: border-box;
-  overflow: overlay;
+   margin: 0;
+   font-family: "Open Sans", sans-serif;
+   -webkit-font-smoothing: antialiased;
+   -moz-osx-font-smoothing: grayscale;
+   box-sizing: border-box;
+   overflow: overlay;
 }
 img {
-  font-size: 8px;
+   font-size: 8px;
+}
+a {
+   text-decoration: none;
+   color: inherit;
 }
 
 ::-webkit-scrollbar {
-  width: 7px;
+   width: 7px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #292929;
-  border-radius: 10px;
+   background: #292929;
+   border-radius: 10px;
 }

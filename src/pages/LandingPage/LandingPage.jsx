@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 
 import { Div, ParallaxDiv } from "./LandingPage.styles";
@@ -29,6 +30,11 @@ const LandingPage = () => {
             height: windowHeight,
             maxHeight: windowHeight,
          }}
+         exit={{
+            x: "-100vw",
+            opacity: 0,
+            transition: { duration: 0.3, ease: "easeInOut" },
+         }}
       >
          <WelcomeHeader />
          <Div>
@@ -41,13 +47,20 @@ const LandingPage = () => {
                   Delivering on the promise of the Alumni Network
                </motion.p>
                <motion.div
-                  whileTap={{ scale: 0.8 }}
                   className="cta"
-                  initial={{ y: 40, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  transition={{ delay: 0.5, duration: 0.5, type: "tween" }}
+                  initial={{
+                     y: 40,
+                     opacity: 0,
+                     transition: { delay: 0.5, duration: 0.5, type: "tween" },
+                  }}
+                  animate={{
+                     y: 0,
+                     opacity: 1,
+                     transition: { delay: 0.5, duration: 0.5, type: "tween" },
+                  }}
+                  whileTap={{ scale: 0.8 }}
                >
-                  Get Started
+                  <Link to="/auth/signup">Get Started</Link>
                </motion.div>
             </div>
             <motion.div

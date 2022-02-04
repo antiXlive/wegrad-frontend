@@ -1,13 +1,22 @@
 import React, { useEffect, useState } from "react";
-// import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { Route, Routes, useLocation } from "react-router-dom";
 
-import { Route, Routes } from "react-router-dom";
+import { AnimatePresence } from "framer-motion";
+
 import "./App.css";
 
 import LandingPage from "./pages/LandingPage/LandingPage";
 
+import Signup from "./pages/Auth/Signup";
+import Signin from "./pages/Auth/Signin";
+
 function App() {
-   //  const dispatch = useDispatch();
+   const dispatch = useDispatch();
+   const location = useLocation();
+
+   console.log(location);
+
    const [processing, setProcessing] = useState(true);
 
    useEffect(() => {
@@ -51,9 +60,13 @@ function App() {
    }, []);
    return (
       !processing && (
-         <Routes>
-            <Route path="/" element={<LandingPage />} />
-         </Routes>
+         <AnimatePresence exitBeforeEnter>
+            <Routes location={location} key={location.key}>
+               <Route path="/auth/signup" element={<Signup />} />
+               <Route path="/auth/signin" element={<Signin />} />
+               <Route path="/" element={<LandingPage />} />
+            </Routes>
+         </AnimatePresence>
       )
    );
 }

@@ -1,7 +1,8 @@
 import styled from "styled-components";
+import { motion } from "framer-motion";
 import Welcome_img from "../../assets/welcome-background.webp";
 
-export const ParallaxDiv = styled.div`
+export const ParallaxDiv = styled(motion.div)`
    /* border: 1px solid red; */
    width: 100vw;
    background-attachment: fixed;
