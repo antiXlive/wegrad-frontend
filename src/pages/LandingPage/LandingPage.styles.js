@@ -56,7 +56,7 @@ export const Div = styled.div`
          letter-spacing: 1px;
          text-align: center;
          color: #333;
-         text-shadow: 0 2px 40px #00000030;
+         /* text-shadow: 0 2px 40px #00000030; */
       }
    }
    .section-2 {
