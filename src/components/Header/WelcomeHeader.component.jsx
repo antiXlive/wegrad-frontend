@@ -14,20 +14,35 @@ const Menu = () => {
 };
 
 const WelcomeHeader = () => {
-   const [pageHeight, setPH] = useState(0);
+   const [windowHeight, setWH] = useState(0);
+   const [scrolled, setScrolled] = useState(false);
+
    useEffect(() => {
-      if (window) {
-         setPH(window.innerHeight);
-      }
-      window.addEventListener("resize", () => {
-         if (window) {
-            setPH(window.innerHeight);
-         }
-      });
+      handleResize();
+      window.addEventListener("resize", handleResize);
+      window.addEventListener("scroll", handleScroll);
+      return () => {
+         window.removeEventListener("resize", handleResize);
+         window.removeEventListener("scroll", handleScroll);
+      };
    }, []);
+
+   const handleResize = () => {
+      if (window) {
+         if (window.innerHeight > 700) {
+            setWH(window.innerHeight);
+         }
+      }
+   };
+
+   const handleScroll = () => {
+      if (window.pageYOffset > 80) setScrolled(true);
+      else setScrolled(false);
+   };
+
    return (
       <>
-         <MobileHeader>
+         <MobileHeader bgcolor={scrolled ? "#f6f6f6" : "transparent"}>
             <div className="logo-container">
                <Link to="/">
                   <img src={Logo} />
@@ -41,37 +56,47 @@ const WelcomeHeader = () => {
                <Menu />
             </motion.div>
          </MobileHeader>
-         {/* <DesktopHeader>
+         <DesktopHeader bgcolor={scrolled ? "#f6f6f6" : "transparent"}>
             <div className="logo-container">
-               <Link href="/">
-                  <a>
-                     <Image src={Logo} objectFit="contain" />
-                  </a>
+               <Link to="/">
+                  <img src={Logo} />
                </Link>
             </div>
             <div className="link-container">
-               <LinkBox whileHover={{ color: "#0070f3" }}>
-                  <Link href="/">
-                     <a>Home</a>
-                  </Link>
-               </LinkBox>
-               <LinkBox whileHover={{ color: "#0070f3" }}>
-                  <Link href="/">
-                     <a>About</a>
-                  </Link>
-               </LinkBox>
-               <LinkBox whileHover={{ color: "#0070f3" }}>
-                  <Link href="/">
-                     <a>Signin</a>
-                  </Link>
-               </LinkBox>
-               <LinkBox whileHover={{ color: "#0070f3" }}>
-                  <Link href="/">
-                     <a>Signup</a>
-                  </Link>
-               </LinkBox>
+               <Link to="/">
+                  <motion.p
+                     whileTap={{ color: "#0573b9" }}
+                     whileHover={{ color: "#0573b9" }}
+                  >
+                     Home
+                  </motion.p>
+               </Link>
+               <Link to="/">
+                  <motion.p
+                     whileTap={{ color: "#0573b9" }}
+                     whileHover={{ color: "#0573b9" }}
+                  >
+                     About
+                  </motion.p>
+               </Link>
+               <Link to="/">
+                  <motion.p
+                     whileTap={{ color: "#0573b9" }}
+                     whileHover={{ color: "#0573b9" }}
+                  >
+                     Signin
+                  </motion.p>
+               </Link>
+               <Link to="/">
+                  <motion.p
+                     whileTap={{ color: "#0573b9" }}
+                     whileHover={{ color: "#0573b9" }}
+                  >
+                     Signup
+                  </motion.p>
+               </Link>
             </div>
-         </DesktopHeader> */}
+         </DesktopHeader>
       </>
    );
 };

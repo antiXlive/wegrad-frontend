@@ -15,7 +15,7 @@ export const Div = styled(motion.div)`
    backdrop-filter: saturate(180%) blur(10px);
 
    .card {
-      width: 93vw;
+      width: 95vw;
       min-width: 320px;
       max-width: 500px;
       min-height: 460px;

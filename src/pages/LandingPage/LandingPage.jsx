@@ -20,15 +20,17 @@ const LandingPage = () => {
 
    const handleResize = () => {
       if (window) {
-         setWH(window.innerHeight);
+         if (window.innerHeight > 700) {
+            setWH(window.innerHeight);
+         }
       }
    };
 
    return (
       <ParallaxDiv
          style={{
-            height: windowHeight,
-            maxHeight: windowHeight,
+            height: windowHeight ? windowHeight : "auto",
+            maxHeight: windowHeight ? windowHeight : "auto",
          }}
          exit={{
             x: "-100vw",
@@ -46,22 +48,32 @@ const LandingPage = () => {
                >
                   Delivering on the promise of the Alumni Network
                </motion.p>
-               <motion.div
-                  className="cta"
-                  initial={{
-                     y: 40,
-                     opacity: 0,
-                     transition: { delay: 0.5, duration: 0.5, type: "tween" },
-                  }}
-                  animate={{
-                     y: 0,
-                     opacity: 1,
-                     transition: { delay: 0.5, duration: 0.5, type: "tween" },
-                  }}
-                  whileTap={{ scale: 0.8 }}
-               >
-                  <Link to="/auth/signup">Get Started</Link>
-               </motion.div>
+               <Link to="/auth/signup">
+                  <motion.div
+                     className="cta"
+                     initial={{
+                        y: 40,
+                        opacity: 0,
+                        transition: {
+                           delay: 0.5,
+                           duration: 0.5,
+                           type: "tween",
+                        },
+                     }}
+                     animate={{
+                        y: 0,
+                        opacity: 1,
+                        transition: {
+                           delay: 0.5,
+                           duration: 0.5,
+                           type: "tween",
+                        },
+                     }}
+                     whileTap={{ scale: 0.8 }}
+                  >
+                     <p>Get Started</p>
+                  </motion.div>
+               </Link>
             </div>
             <motion.div
                className="section-2"

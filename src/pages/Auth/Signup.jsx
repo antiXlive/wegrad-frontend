@@ -68,94 +68,103 @@ const Signup = () => {
    };
 
    return (
-      <Div
-         style={{ height: windowHeight }}
-         exit={{
-            x: "-100vw",
-            opacity: 0,
-            transition: { duration: 0.3, ease: "easeInOut" },
-         }}
-         disabled={
-            !(
-               validateEmail(email) &&
-               validatePassword(password) &&
-               validateFullname(fullname)
-            )
-               ? true
-               : false
-         }
-      >
-         <div className="card">
-            <div className="college-info">
-               <div className="logo">
-                  <Link to="/" style={{ textDecoration: "none" }}>
-                     <img src={iiitmlogo} alt="IIITM" />
-                  </Link>
+      windowHeight && (
+         <Div
+            style={{ height: windowHeight }}
+            // exit={{
+            //    x: "-100vw",
+            //    opacity: 0,
+            //    transition: { duration: 0.5, ease: "easeInOut" },
+            // }}
+            disabled={
+               !(
+                  validateEmail(email) &&
+                  validatePassword(password) &&
+                  validateFullname(fullname)
+               )
+                  ? true
+                  : false
+            }
+         >
+            <motion.div
+               className="card"
+               initial={{ y: "90vh", scale: 0.1 }}
+               animate={{ y: 0, scale: 1 }}
+               transition={{ duration: 0.3, type: "tween" }}
+            >
+               <div className="college-info">
+                  <div className="logo">
+                     <Link to="/" style={{ textDecoration: "none" }}>
+                        <img src={iiitmlogo} alt="IIITM" />
+                     </Link>
+                  </div>
+                  <div className="name">
+                     <Link to="/" style={{ textDecoration: "none" }}>
+                        <p>
+                           Indian Institute of Information Technology Senapati
+                        </p>
+                     </Link>
+                  </div>
                </div>
-               <div className="name">
-                  <Link to="/" style={{ textDecoration: "none" }}>
-                     <p>Indian Institute of Information Technology Senapati</p>
-                  </Link>
-               </div>
-            </div>
 
-            <div className="form">
-               <div className="form-title">
-                  <p>Create new account</p>
-               </div>
+               <div className="form">
+                  <div className="form-title">
+                     <p>Create new account</p>
+                  </div>
 
-               <div className="form-inputs">
-                  <Textinput
-                     name="fullname"
-                     inputType="text"
-                     type="name"
-                     label="FULLNAME"
-                     value={fullname}
-                     handleChange={handleChange}
-                     validator={validateFullname}
-                     errMsg="Fullname should be more than 4 characters"
-                  />
-                  <Textinput
-                     name="email"
-                     inputType="email"
-                     type="email"
-                     label="EMAIL"
-                     value={email}
-                     handleChange={handleChange}
-                     validator={validateEmail}
-                     errMsg="Please enter a valid institute email"
-                  />
-                  <Textinput
-                     name="password"
-                     inputType="password"
-                     type="password"
-                     label="PASSWORD"
-                     value={password}
-                     handleChange={handleChange}
-                     validator={validatePassword}
-                     errMsg="Password should be more than 7 characters"
-                  />
-                  <motion.div
-                     className="submit-button-common"
-                     whileTap={{ scale: 0.9 }}
-                     onClick={handleSubmit}
-                  >
-                     <p>Create Account</p>
-                  </motion.div>
+                  <div className="form-inputs">
+                     <Textinput
+                        name="fullname"
+                        inputType="text"
+                        type="name"
+                        label="FULLNAME"
+                        value={fullname}
+                        handleChange={handleChange}
+                        validator={validateFullname}
+                        errMsg="Fullname should be more than 4 characters"
+                     />
+                     <Textinput
+                        name="email"
+                        inputType="email"
+                        type="email"
+                        label="EMAIL"
+                        value={email}
+                        handleChange={handleChange}
+                        validator={validateEmail}
+                        errMsg="Please enter a valid institute email"
+                     />
+                     <Textinput
+                        name="password"
+                        inputType="password"
+                        type="password"
+                        label="PASSWORD"
+                        value={password}
+                        handleChange={handleChange}
+                        validator={validatePassword}
+                        errMsg="Password should be more than 7 characters"
+                     />
+                     <motion.div
+                        className="submit-button-common"
+                        whileTap={{ scale: 0.9 }}
+                        onClick={handleSubmit}
+                     >
+                        <p>Create Account</p>
+                     </motion.div>
+                  </div>
+                  <div className="footer-links">
+                     <p className="signin-cta">
+                        Already an user? <Link to="/auth/signin">Signin</Link>
+                     </p>
+                     <p>By signing up you agree to our</p>
+                     <p>
+                        <Link to="/">terms & conditions</Link> and{" "}
+                        <Link to="/">privacy policy</Link>.
+                     </p>
+                  </div>
                </div>
-               <div className="footer-links">
-                  <p className="signin-cta">
-                     Already an user? <Link to="/auth/signin">Signin</Link>
-                  </p>
-                  <p>By signing up you agree to our</p>
-                  <p>
-                     <Link to="/">terms & conditions</Link> and{" "}
-                     <Link to="/">privacy policy</Link>.
-                  </p>
-               </div>
-            </div>
-         </div>
-      </Div>
+            </motion.div>
+         </Div>
+      )
       //   <Div>
       //      {/* {signupEmail && (
       //         <Redirect

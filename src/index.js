@@ -10,6 +10,8 @@ import thunk from "redux-thunk";
 
 import { BrowserRouter } from "react-router-dom";
 
+import { WebSocketProvider } from "./lib/webSocket";
+
 const store = createStore(
    //  rootReducer,
    // persistedState,
@@ -22,11 +24,11 @@ const store = createStore(
 
 const app = (
    <Provider store={store}>
-      {/* <WebSocketProvider> */}
-      <BrowserRouter>
-         <App />
-      </BrowserRouter>
-      {/* </WebSocketProvider> */}
+      <WebSocketProvider>
+         <BrowserRouter>
+            <App />
+         </BrowserRouter>
+      </WebSocketProvider>
    </Provider>
 );
 
@@ -34,8 +36,3 @@ ReactDOM.render(
    <React.StrictMode>{app}</React.StrictMode>,
    document.getElementById("root")
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-// reportWebVitals();

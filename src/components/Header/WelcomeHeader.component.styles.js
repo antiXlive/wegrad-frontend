@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const MobileHeader = styled.div`
    /* border: 1px solid greenyellow; */
-   /* background-color: #f6f6f6; */
+   background-color: ${(props) => props.bgcolor};
    position: fixed;
    width: 100vw;
    /* height: 10; */
@@ -35,20 +35,30 @@ export const MobileHeader = styled.div`
 export const DesktopHeader = styled.div`
    display: none;
    @media (min-width: 700px) {
+      background-color: ${(props) => props.bgcolor};
       z-index: 10;
       position: fixed;
       display: flex;
       width: 100vw;
       align-items: center;
       justify-content: space-between;
-      padding: 0 5vw;
-      padding-top: 3vh;
+      padding: 0 4vw;
+      padding-top: 20px;
+      /* border:1px solid green; */
 
       .logo-container {
-         width: 200px;
+         width: 150px;
+         img {
+            width: 100%;
+         }
       }
       .link-container {
+         /* border: 1px solid red; */
          display: flex;
+         p {
+            font-size: 16px;
+            padding: 0 15px;
+         }
       }
    }
    @media (min-width: 1000px) {
