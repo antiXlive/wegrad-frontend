@@ -1,0 +1,17 @@
+{
+  "files": {
+    "main.css": "/static/css/main.f2f29425.css",
+    "main.js": "/static/js/main.fc585095.js",
+    "static/media/OpenSans-VariableFont_wdth,wght.ttf": "/static/media/OpenSans-VariableFont_wdth,wght.a42bbe687810bdc6e9e8.ttf",
+    "static/media/welcome-image.webp": "/static/media/welcome-image.1f789362cac07f307516.webp",
+    "static/media/header-logo.png": "/static/media/header-logo.a4d5ae66a48480b72c94.png",
+    "static/media/welcome-background.webp": "/static/media/welcome-background.4672f889c1fa6eced356.webp",
+    "index.html": "/index.html",
+    "main.f2f29425.css.map": "/static/css/main.f2f29425.css.map",
+    "main.fc585095.js.map": "/static/js/main.fc585095.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.f2f29425.css",
+    "static/js/main.fc585095.js"
+  ]
+}
