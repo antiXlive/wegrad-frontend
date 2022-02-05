@@ -3,7 +3,8 @@ import axios from "axios";
 let baseURL;
 
 if (!process.env.NODE_ENV || process.env.NODE_ENV === "development")
-   baseURL = "http://192.168.43.96:3001";
+   // baseURL = "http://192.168.43.96:3001";
+   baseURL = "https://wegrad-backend.herokuapp.com/";
 else baseURL = "https://wegrad-backend.herokuapp.com/";
 
 const axiosInstance = axios.create({

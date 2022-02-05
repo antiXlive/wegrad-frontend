@@ -1,19 +1,19 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import { createStore, applyMiddleware, compose } from "redux";
+import { Provider } from "react-redux";
+import thunk from "redux-thunk";
+import { BrowserRouter } from "react-router-dom";
+
 // import reportWebVitals from "./reportWebVitals";
 import "./index.css";
 import App from "./App";
 
-import { createStore, applyMiddleware, compose } from "redux";
-import { Provider } from "react-redux";
-import thunk from "redux-thunk";
-
-import { BrowserRouter } from "react-router-dom";
-
 import { WebSocketProvider } from "./lib/webSocket";
+import rootReducer from "./redux/reducers/rootReducer";
 
 const store = createStore(
-   //  rootReducer,
+   rootReducer,
    // persistedState,
    compose(
       applyMiddleware(thunk)

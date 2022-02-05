@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 
 import { motion } from "framer-motion";
 
@@ -8,7 +8,7 @@ import { motion } from "framer-motion";
 import Textinput from "../../components/TextInput/TextInput.component";
 // import NotificationToast from "../../components/NotificationToast.component";
 
-import { Div, Button } from "./Shared.styles";
+import { Div, Card, Button } from "./Shared.styles";
 
 import iiitmlogo from "../../assets/iiitm-logo.webp";
 
@@ -18,12 +18,21 @@ import {
    validatePassword,
 } from "../../lib/helperFunctions";
 
-// import { signupUser } from "../../redux/actions/authActions";
+import { signupUser } from "../../redux/actions/authActions";
 
 const Signup = () => {
    const dispatch = useDispatch();
+   const navigate = useNavigate();
+   const location = useLocation();
+
+   const signupEmail = useSelector((state) => state.auth.signupEmail);
+
+   // console.log(location);
 
    const [windowHeight, setWH] = useState(0);
+   const [fullname, setFullname] = useState("");
+   const [email, setEmail] = useState("");
+   const [password, setPassword] = useState("");
 
    useEffect(() => {
       handleResize();
@@ -32,6 +41,10 @@ const Signup = () => {
          window.removeEventListener("resize", handleResize);
       };
    }, []);
+   useEffect(() => {
+      let query = window.btoa("email=" + signupEmail);
+      if (signupEmail) navigate("/auth/verify-otp?" + query);
+   }, [signupEmail]);
 
    const handleResize = () => {
       if (window) {
@@ -44,11 +57,6 @@ const Signup = () => {
    //       (state) => state.shared.notificationType
    //    );
    //    const notificationMsg = useSelector((state) => state.shared.notificationMsg);
-   //    const signupEmail = useSelector((state) => state.auth.signupEmail);
-
-   const [fullname, setFullname] = useState("");
-   const [email, setEmail] = useState("");
-   const [password, setPassword] = useState("");
 
    const handleChange = (e) => {
       const val = e.target.value;
@@ -63,7 +71,7 @@ const Signup = () => {
          validatePassword(password) &&
          validateFullname(fullname)
       ) {
-         //  dispatch(signupUser(fullname, email, password));
+         dispatch(signupUser(fullname, email, password));
       }
    };
 
@@ -76,21 +84,21 @@ const Signup = () => {
             //    opacity: 0,
             //    transition: { duration: 0.5, ease: "easeInOut" },
             // }}
-            disabled={
-               !(
-                  validateEmail(email) &&
-                  validatePassword(password) &&
-                  validateFullname(fullname)
-               )
-                  ? true
-                  : false
-            }
          >
-            <motion.div
-               className="card"
+            <Card
+               // className="card"
                initial={{ y: "90vh", scale: 0.1 }}
                animate={{ y: 0, scale: 1 }}
                transition={{ duration: 0.3, type: "tween" }}
+               disabled={
+                  !(
+                     validateEmail(email) &&
+                     validatePassword(password) &&
+                     validateFullname(fullname)
+                  )
+                     ? true
+                     : false
+               }
             >
                <div className="college-info">
                   <div className="logo">
@@ -153,7 +161,10 @@ const Signup = () => {
                   </div>
                   <div className="footer-links">
                      <p className="signin-cta">
-                        Already an user? <Link to="/auth/signin">Signin</Link>
+                        Already an user?{" "}
+                        <Link to="/auth/signin?source=auth_switcher">
+                           Signin
+                        </Link>
                      </p>
                      <p>By signing up you agree to our</p>
                      <p>
@@ -162,7 +173,7 @@ const Signup = () => {
                      </p>
                   </div>
                </div>
-            </motion.div>
+            </Card>
          </Div>
       )
       //   <Div>

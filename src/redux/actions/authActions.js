@@ -59,7 +59,6 @@ export const setOTPVerified = (status) => ({
 
 export const signupUser = (fullName, email, password) => (dispatch) => {
    dispatch(SET_SPINNER_LOADER(true));
-
    const data = {
       fullName: fullName,
       email: email,
@@ -129,21 +128,22 @@ export const signinUser = (email, password) => (dispatch) => {
                type: res.data.userType,
                profilePic: res.data.profilePic,
             };
-            dispatch(setUser(user));
-            dispatch(setAuthtoken(res.data.token));
-            dispatch(setAuthtokenExpiry(expiryDate));
+            // dispatch(setUser(user));
+            // dispatch(setAuthtoken(res.data.token));
+            // dispatch(setAuthtokenExpiry(expiryDate));
             dispatch(SET_SPINNER_LOADER(false));
-            saveUserData_LS(
-               res.data.token,
-               res.data._id,
-               res.data.userName,
-               res.data.userEmail,
-               res.data.userType,
-               res.data.profilePic
-                  ? JSON.stringify(res.data.profilePic)
-                  : "null",
-               expiryDate
-            );
+            dispatch(setNotification(1, 'Signin done!'));
+            // saveUserData_LS(
+            //    res.data.token,
+            //    res.data._id,
+            //    res.data.userName,
+            //    res.data.userEmail,
+            //    res.data.userType,
+            //    res.data.profilePic
+            //       ? JSON.stringify(res.data.profilePic)
+            //       : "null",
+            //    expiryDate
+            // );
          }
          if (res.data.err) {
             dispatch(setNotification(0, res.data.err));

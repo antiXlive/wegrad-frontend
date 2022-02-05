@@ -8,7 +8,8 @@ const WebSocketContext = createContext();
 let baseURL;
 
 if (!process.env.NODE_ENV || process.env.NODE_ENV === "development")
-   baseURL = "ws://192.168.43.96:3001";
+   // baseURL = "ws://192.168.43.96:3001";
+   baseURL = "wss://wegrad-backend.herokuapp.com/";
 else baseURL = "wss://wegrad-backend.herokuapp.com/";
 
 export const clientEventDispatcher = (payload) => {

@@ -1,30 +1,26 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useLocation } from "react-router-dom";
-
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 
-// import LogoLoader from "../../components/LogoLoader.component";
 import Textinput from "../../components/TextInput/TextInput.component";
-// import NotificationToast from "../../components/NotificationToast.component";
 
-import { Div, Button } from "./Shared.styles";
+import { Div, Card } from "./Shared.styles";
 
 import iiitmlogo from "../../assets/iiitm-logo.webp";
 
-import {
-   validateFullname,
-   validateEmail,
-   validatePassword,
-} from "../../lib/helperFunctions";
+import { validateEmail, validatePassword } from "../../lib/helperFunctions";
 
-// import { signupUser } from "../../redux/actions/authActions";
+import { signinUser } from "../../redux/actions/authActions";
 
 const Signup = () => {
    const dispatch = useDispatch();
    const location = useLocation();
-   //    console.log(location);
+   const navigate = useNavigate();
+   // console.log(location.search);
 
+   const [email, setEmail] = useState("");
+   const [password, setPassword] = useState("");
    const [windowHeight, setWH] = useState(0);
 
    useEffect(() => {
@@ -41,31 +37,17 @@ const Signup = () => {
       }
    };
 
-   //    const loading = useSelector((state) => state.shared.loader);
-   //    const notificationType = useSelector(
-   //       (state) => state.shared.notificationType
-   //    );
-   //    const notificationMsg = useSelector((state) => state.shared.notificationMsg);
-   //    const signupEmail = useSelector((state) => state.auth.signupEmail);
-
-   const [fullname, setFullname] = useState("");
-   const [email, setEmail] = useState("");
-   const [password, setPassword] = useState("");
-
    const handleChange = (e) => {
       const val = e.target.value;
       if (e.target.name === "email") setEmail(val);
       if (e.target.name === "password") setPassword(val);
-      if (e.target.name === "fullname") setFullname(val);
    };
 
    const handleSubmit = () => {
-      if (
-         validateEmail(email) &&
-         validatePassword(password) &&
-         validateFullname(fullname)
-      ) {
-         //  dispatch(signupUser(fullname, email, password));
+      if (email && password) {
+         if (validateEmail(email) && validatePassword(password)) {
+            dispatch(signinUser(email, password));
+         }
       }
    };
 
@@ -78,31 +60,23 @@ const Signup = () => {
             //    opacity: 0,
             //    transition: { duration: 0.5, ease: "easeInOut" },
             // }}
-            disabled={
-               !(
-                  validateEmail(email) &&
-                  validatePassword(password) &&
-                  validateFullname(fullname)
-               )
-                  ? true
-                  : false
-            }
          >
-            <motion.div
-               className="card"
+            <Card
                initial={{ y: "90vh", scale: 0.1 }}
                animate={{ y: 0, scale: 1 }}
                transition={{ duration: 0.3, type: "tween" }}
+               disabled={
+                  !(validateEmail(email) && validatePassword(password))
+                     ? true
+                     : false
+               }
             >
                <div className="college-info">
                   <div className="logo">
                      <img src={iiitmlogo} alt="IIITM" />
                   </div>
                   <div className="name">
-                     <p>
-                        {windowHeight}Indian Institute of Information Technology
-                        Senapati
-                     </p>
+                     <p>Indian Institute of Information Technology Senapati</p>
                   </div>
                </div>
 
@@ -143,14 +117,19 @@ const Signup = () => {
                   <div className="footer-links">
                      <p className="signup-cta">
                         Don't have an account?{" "}
-                        <Link to="/auth/signup">Signup</Link>
+                        {location.search === "?source=auth_switcher" ? (
+                           <a onClick={() => navigate(-1)}>Signup</a>
+                        ) : (
+                           <Link to="/auth/signup">Signup</Link>
+                        )}
                      </p>
                      <p className="forgot-cta">
-                        Forgot Password? <Link to="/auth/signup">Reset</Link>
+                        {/* Forgot Password? <Link to="/auth/signup">Reset</Link> */}
+                        {/* Forgot Password? <Link to="#">Reset</Link> */}
                      </p>
                   </div>
                </div>
-            </motion.div>
+            </Card>
          </Div>
       )
       //   <Div>
