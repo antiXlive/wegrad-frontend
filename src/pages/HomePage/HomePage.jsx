@@ -17,6 +17,7 @@ import {
    NewsFeedCard,
    HighlightCard,
    FixedWrapper,
+   Nodata,
 } from "./HomePage.styles";
 
 import { fetchNewsFeed, setFetchingOld } from "../../redux/actions/postActions";
@@ -31,7 +32,7 @@ const HomePage = () => {
    const TOKEN = useSelector((state) => state.auth.authToken);
 
    useEffect(() => {
-      dispatch(fetchNewsFeed(TOKEN));
+      // dispatch(fetchNewsFeed(TOKEN));
    }, []);
 
    const handleScroll = (e) => {
@@ -137,10 +138,10 @@ const HomePage = () => {
                      return <TextPost post={post} key={i} />;
                   })
                ) : (
-                  <div className="no-data">
+                  <Nodata>
                      <img src={nodata} alt="no-data" />
-                     <p>No posts found!</p>
-                  </div>
+                     <p>No posts found:(</p>
+                  </Nodata>
                )}
             </NewsFeedCard>
             <FixedWrapper className="fw-highlight">

@@ -110,9 +110,27 @@ export const HighlightCard = styled.div`
 `;
 
 export const Nodata = styled(motion.div)`
-   border: 3px solid red;
+   /* border: 3px solid red; */
+   padding-top: 20px;
    width: 100%;
-   height: 100%;
+   height: auto;
+   display: flex;
+   align-items: center;
+   flex-direction: column;
+   img {
+      /* border: 1px solid; */
+      position: relative;
+      /* left: -10%; */
+      height: 200px;
+      /* width: 100%; */
+   }
+   p {
+      opacity: 0.5;
+      font-weight: 700;
+      letter-spacing: 1px;
+      font-size: 18px;
+      margin: 0;
+   }
 `;
 
 const animation = keyframes`
