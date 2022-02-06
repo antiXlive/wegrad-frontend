@@ -21,7 +21,7 @@ const Card = styled.div`
    max-height: 45px;
    border-radius: 4px;
    background-color: ${(props) => (props.type ? "#33d896" : "#fb0604")};
-   padding: 0 2vw;
+   padding: 0 10px;
    box-sizing: border-box;
    display: flex;
    align-items: center;
@@ -45,11 +45,13 @@ const NotifyToast = ({ type, msg }) => {
          <Card type={type}>
             <div
                style={{
-                  minWidth: "12%",
+                  // minWidth: "12%",
+                  width: '35px',
                   height: "100%",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
+                  // border: '1px solid'
                }}
             >
                {type ? (

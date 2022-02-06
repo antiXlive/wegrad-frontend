@@ -19,6 +19,12 @@ const Signup = () => {
    const navigate = useNavigate();
    // console.log(location.search);
 
+   const TOKEN = useSelector((state) => state.auth.authToken);
+
+   useEffect(() => {
+      if (TOKEN) navigate("/");
+   }, [TOKEN]);
+
    const [email, setEmail] = useState("");
    const [password, setPassword] = useState("");
    const [windowHeight, setWH] = useState(0);

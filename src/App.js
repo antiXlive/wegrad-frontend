@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Route, Routes, useLocation } from "react-router-dom";
+import { Route, Routes, useLocation, Link, Navigate } from "react-router-dom";
 
 import { AnimatePresence } from "framer-motion";
 
@@ -11,6 +11,8 @@ import LandingPage from "./pages/LandingPage/LandingPage";
 import Signup from "./pages/Auth/Signup";
 import Signin from "./pages/Auth/Signin";
 import OtpVerification from "./pages/Auth/OtpVerification";
+
+import HomePage from "./pages/HomePage/HomePage";
 
 import LogoLoader from "./components/Loader/LogoLoader";
 import SpinnerLoader from "./components/Loader/SpinnerLoader";
@@ -27,6 +29,7 @@ function App() {
    const dispatch = useDispatch();
    const location = useLocation();
 
+   const TOKEN = useSelector((state) => state.auth.authToken);
    const notificationType = useSelector(
       (state) => state.shared.notificationType
    );
@@ -84,16 +87,58 @@ function App() {
          )}
          {spinnerLoader && <SpinnerLoader />}
          {logoLoader && <LogoLoader />}
-         {!processing && (
-            <AnimatePresence exitBeforeEnter>
-               <Routes location={location} key={location.key}>
-                  <Route path="/auth/signup" element={<Signup />} />
-                  <Route path="/auth/signin" element={<Signin />} />
-                  <Route path="/auth/verify-otp" element={<OtpVerification />} />
-                  <Route path="/" element={<LandingPage />} />
-               </Routes>
-            </AnimatePresence>
-         )}
+         {
+            !processing && (
+               // (TOKEN ? (
+               <AnimatePresence exitBeforeEnter>
+                  <Routes location={location} key={location.key}>
+                     <Route
+                        path="/"
+                        element={
+                           TOKEN ? (
+                              <Navigate to="/home" replace />
+                           ) : (
+                              <LandingPage />
+                           )
+                        }
+                     />
+                     <Route
+                        path="/auth/signup"
+                        element={
+                           TOKEN ? <Navigate to="/home" replace /> : <Signup />
+                        }
+                     />
+                     <Route
+                        path="/auth/signin"
+                        element={
+                           TOKEN ? <Navigate to="/home" replace /> : <Signin />
+                        }
+                     />
+                     <Route
+                        path="/auth/verify-otp"
+                        element={<OtpVerification />}
+                     />
+                     <Route
+                        path="/home"
+                        element={
+                           TOKEN ? <HomePage /> : <Navigate to="/" replace />
+                        }
+                     />
+                     <Route
+                        path="*"
+                        element={
+                           <main style={{ padding: "1rem" }}>
+                              <p>There's nothing here!</p>
+                           </main>
+                        }
+                     />
+                  </Routes>
+               </AnimatePresence>
+            )
+            // ) : (
+
+            // ))
+         }
       </>
    );
 }
