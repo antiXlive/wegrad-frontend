@@ -1,6 +1,7 @@
 import axios from "../../lib/axios";
 import {
    SET_LOGO_LOADER,
+   SET_SPINNER_LOADER,
    setNotification,
 } from "../../redux/actions/sharedActions";
 import { clientEventDispatcher } from "../../lib/webSocket";
@@ -107,6 +108,7 @@ export const createNewPost = (token, text, author, image) => (dispatch) => {
 };
 
 export const deletePost = (token, postid, posts) => (dispatch) => {
+   dispatch(SET_SPINNER_LOADER(true));
    let data = {
       id: postid,
    };
@@ -118,10 +120,12 @@ export const deletePost = (token, postid, posts) => (dispatch) => {
       })
       .then((res) => {
          if (res.data.err) {
+            dispatch(SET_SPINNER_LOADER(false));
             dispatch(
                setNotification(0, "Oops! Your post could not be deleted")
             );
          } else if (res.data.msg) {
+            dispatch(SET_SPINNER_LOADER(false));
             dispatch(setNotification(1, "Post deleted successfully!"));
             dispatch(filterNewsFeed(postid));
             let ws_data = {
@@ -132,6 +136,7 @@ export const deletePost = (token, postid, posts) => (dispatch) => {
          }
       })
       .catch((err) => {
+         dispatch(SET_SPINNER_LOADER(false));
          dispatch(setNotification(0, "Oops! Your post could not be deleted"));
       });
 };
