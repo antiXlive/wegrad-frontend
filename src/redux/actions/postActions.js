@@ -36,7 +36,7 @@ export const appendNewsFeedOld = (feed) => ({
 });
 
 export const fetchNewsFeed = (token, skip) => (dispatch) => {
-   dispatch(SET_LOGO_LOADER(true));
+   if (!skip) dispatch(SET_LOGO_LOADER(true));
    if (skip) dispatch(setFetchingOld(true));
    else dispatch(setFetchingNew(true));
 
