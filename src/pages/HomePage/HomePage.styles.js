@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 
 const Div = styled.div`
    width: 100vw;
+   min-height: 100vh;
    display: flex;
    flex-direction: column;
    background-image: ${(props) => (props.data ? `url(${background})` : null)};
@@ -85,7 +86,7 @@ export const NavigationCard = styled.div`
       display: block;
    }
 `;
-export const NewsFeedCard = styled.div`
+export const MainContentCard = styled.div`
    height: min-content;
    max-width: 550px;
    width: 100vw;
@@ -103,6 +104,8 @@ export const HighlightCard = styled.div`
    width: 250px;
    height: 50vh;
    position: fixed;
+   background-color: #fff;
+   box-shadow: 0px 5px 20px #00000020;
    /* background-color: green; */
    @media (min-width: 1100px) {
       display: block;

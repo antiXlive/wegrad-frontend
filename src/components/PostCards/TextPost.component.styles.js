@@ -81,12 +81,13 @@ const Card = styled.div`
       }
       img {
          width: 7%;
-         max-width: 28px;
+         max-width: 26px;
          margin-right: 10px;
       }
       svg{
          margin-left: 10px;
          margin-right: 5px;
+         cursor: pointer;
       }
    }
 `;

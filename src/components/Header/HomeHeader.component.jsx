@@ -185,7 +185,8 @@ const HomeHeader = () => {
                   style={{
                      width: "90%",
                      borderRadius: "3px",
-                     border: "1px solid #55555550",
+                     border: "none",
+                     background: '#F3F2F6',
                      height: "27px",
                      padding: "0 25px",
                   }}

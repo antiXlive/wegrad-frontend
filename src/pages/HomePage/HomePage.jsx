@@ -1,71 +1,47 @@
 import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { motion } from "framer-motion";
 
-// import LogoLoader from "../../components/LogoLoader.component";
-import NewPost from "../../components/NewPost.component";
-import TextPost from "../../components/PostCards/TextPost.component";
-
 import HomeHeader from "../../components/Header/HomeHeader.component";
-
-import nodata from "../../assets/no-data.webp";
 
 import {
    Div,
    NavigationCard,
-   NewsFeedCard,
+   MainContentCard,
    HighlightCard,
    FixedWrapper,
-   Nodata,
-   Spinner,
 } from "./HomePage.styles";
-
-import { fetchNewsFeed, setFetchingOld } from "../../redux/actions/postActions";
-import { useRef } from "react";
 
 const HomePage = () => {
    const dispatch = useDispatch();
-   const spinnerRef = useRef();
+   const location = useLocation();
+   const navigate = useNavigate();
 
-   const FetchingNew = useSelector((state) => state.postReducer.fetchingNew);
-   const FetchingOld = useSelector((state) => state.postReducer.fetchingOld);
-   const NoMorePosts = useSelector((state) => state.postReducer.noMorePosts);
+   useEffect(() => {
+      if (location.pathname == "/" && TOKEN) navigate("/feed");
+   }, []);
+
    const newsFeed = useSelector((state) => state.postReducer.newsFeed);
    const TOKEN = useSelector((state) => state.auth.authToken);
 
-   useEffect(() => {
-      dispatch(fetchNewsFeed(TOKEN));
-   }, []);
-
-   useEffect(() => {
-      newsFeed &&
-         newsFeed.length > 0 &&
-         window.addEventListener("scroll", handleScroll);
-      return () => {
-         window.removeEventListener("scroll", handleScroll);
-      };
-   }, [newsFeed, NoMorePosts]);
-
-   const efp = (x, y) => {
-      return document.elementFromPoint(x, y);
-   };
-   const handleScroll = (e) => {
-      if (!FetchingOld && !NoMorePosts && spinnerRef.current) {
-         let rect = spinnerRef.current.getBoundingClientRect();
-         if (
-            spinnerRef.current.contains(efp(rect.left, rect.top)) ||
-            spinnerRef.current.contains(efp(rect.right, rect.top)) ||
-            spinnerRef.current.contains(efp(rect.right, rect.bottom)) ||
-            spinnerRef.current.contains(efp(rect.left, rect.bottom))
-         ) {
-            dispatch(setFetchingOld(true));
-            dispatch(fetchNewsFeed(TOKEN, newsFeed.length));
-         }
-      }
-   };
-
    const navigationLinks = [
+      {
+         to: "/feed",
+         title: "Home",
+         path: (
+            <>
+               <path
+                  fill-rule="evenodd"
+                  d="M2 13.5V7h1v6.5a.5.5 0 0 0 .5.5h9a.5.5 0 0 0 .5-.5V7h1v6.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5zm11-11V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z"
+               />
+               <path
+                  fill-rule="evenodd"
+                  d="M7.293 1.5a1 1 0 0 1 1.414 0l6.647 6.646a.5.5 0 0 1-.708.708L8 2.207 1.354 8.854a.5.5 0 1 1-.708-.708L7.293 1.5z"
+               />
+            </>
+         ),
+      },
       {
          to: "/alumni",
          title: "Alumni",
@@ -121,62 +97,38 @@ const HomePage = () => {
    ];
 
    return (
-      !FetchingNew && (
-         <Div data={newsFeed && newsFeed.length > 0 ? 1 : 0}>
-            <HomeHeader />
-            <div className="content-section">
-               <FixedWrapper className="fw-navigation">
-                  <NavigationCard>
-                     {navigationLinks.map((item) => {
-                        return (
-                           <Link
-                              style={{ textDecoration: "none" }}
-                              to={item.to}
-                              key={item.to}
-                           >
-                              <div className="link">
-                                 <svg width="16" height="16">
-                                    {item.path}
-                                 </svg>
-                                 <p>{item.title}</p>
-                              </div>
-                           </Link>
-                        );
-                     })}
-                  </NavigationCard>
-               </FixedWrapper>
+      <Div data={newsFeed && newsFeed.length > 0 ? 1 : 0}>
+         <HomeHeader />
+         <div className="content-section">
+            <FixedWrapper className="fw-navigation">
+               <NavigationCard>
+                  {navigationLinks.map((item) => {
+                     return (
+                        <Link
+                           style={{ textDecoration: "none" }}
+                           to={item.to}
+                           key={item.to}
+                        >
+                           <div className="link">
+                              <svg width="16" height="16">
+                                 {item.path}
+                              </svg>
+                              <p>{item.title}</p>
+                           </div>
+                        </Link>
+                     );
+                  })}
+               </NavigationCard>
+            </FixedWrapper>
 
-               <NewsFeedCard>
-                  <NewPost />
-                  {newsFeed && newsFeed.length > 0 ? (
-                     newsFeed.map((post, i) => {
-                        return <TextPost post={post} key={i} />;
-                     })
-                  ) : (
-                     <Nodata>
-                        <img src={nodata} alt="no-data" />
-                        <p>No posts found:(</p>
-                     </Nodata>
-                  )}
-                  <Spinner ref={spinnerRef}>
-                     {FetchingOld && (
-                        <motion.div
-                           className="spinner"
-                           animate={{ rotate: 360 }}
-                           transition={{ repeat: Infinity, duration: 0.7 }}
-                        ></motion.div>
-                     )}
-                     {NoMorePosts && !FetchingOld && (
-                        <p className="no-more-post"> No More Posts</p>
-                     )}
-                  </Spinner>
-               </NewsFeedCard>
-               <FixedWrapper className="fw-highlight">
-                  <HighlightCard></HighlightCard>
-               </FixedWrapper>
-            </div>
-         </Div>
-      )
+            <MainContentCard>
+               <Outlet />
+            </MainContentCard>
+            <FixedWrapper className="fw-highlight">
+               <HighlightCard></HighlightCard>
+            </FixedWrapper>
+         </div>
+      </Div>
    );
 };
 export default HomePage;

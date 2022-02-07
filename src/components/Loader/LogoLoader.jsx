@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import styled, { keyframes } from "styled-components";
 import iiitmlogo from "../../assets/iiitm-logo.webp";
 
@@ -18,13 +18,12 @@ const breathing = keyframes`
     `;
 
 const Div = styled.div`
-   width: 100vw;
-   height: 100vh;
-   position: absolute;
+   width: 100%;
+   height: 100%;
+   position: fixed;
    top: 0;
    z-index: 1000;
    background-color: #f5f5f5;
-   /* background-color: #dbdbdb; */
    box-sizing: border-box;
    display: flex;
    align-items: center;
@@ -36,24 +35,9 @@ const Div = styled.div`
    }
 `;
 
-const LogoLoader = (props) => {
-   const [windowHeight, setWH] = useState(0);
-
-   useEffect(() => {
-      handleResize();
-      window.addEventListener("resize", handleResize);
-      return () => {
-         window.removeEventListener("resize", handleResize);
-      };
-   }, []);
-
-   const handleResize = () => {
-      if (window) {
-         setWH(window.innerHeight);
-      }
-   };
+const LogoLoader = () => {
    return (
-      <Div style={{ height: windowHeight }}>
+      <Div>
          <img src={iiitmlogo} alt="weGrad" />
       </Div>
    );

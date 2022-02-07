@@ -1,6 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Route, Routes, useLocation, Link, Navigate } from "react-router-dom";
+import {
+   Route,
+   Routes,
+   useLocation,
+   Link,
+   Navigate,
+   Outlet,
+} from "react-router-dom";
 
 import { AnimatePresence } from "framer-motion";
 
@@ -13,6 +20,10 @@ import Signin from "./pages/Auth/Signin";
 import OtpVerification from "./pages/Auth/OtpVerification";
 
 import HomePage from "./pages/HomePage/HomePage";
+import NewsFeed from "./pages/HomePage/NewsFeed/NewsFeed";
+
+import Profile from "./pages/Profile/Profile";
+import EditProfile from "./pages/Profile/EditProfile";
 
 import LogoLoader from "./components/Loader/LogoLoader";
 import SpinnerLoader from "./components/Loader/SpinnerLoader";
@@ -36,8 +47,6 @@ function App() {
    const notificationMsg = useSelector((state) => state.shared.notificationMsg);
    const spinnerLoader = useSelector((state) => state.shared.spinnerLoader);
    const logoLoader = useSelector((state) => state.shared.logoLoader);
-
-   // console.log(location);
 
    const [processing, setProcessing] = useState(true);
 
@@ -80,6 +89,7 @@ function App() {
       }
       setProcessing(false);
    }, []);
+
    return (
       <>
          {notificationMsg && (
@@ -87,58 +97,112 @@ function App() {
          )}
          {spinnerLoader && <SpinnerLoader />}
          {logoLoader && <LogoLoader />}
-         {
-            !processing && (
-               // (TOKEN ? (
-               <AnimatePresence exitBeforeEnter>
-                  <Routes location={location} key={location.key}>
-                     <Route
-                        path="/"
-                        element={
-                           TOKEN ? (
-                              <Navigate to="/home" replace />
-                           ) : (
-                              <LandingPage />
-                           )
-                        }
-                     />
-                     <Route
-                        path="/auth/signup"
-                        element={
-                           TOKEN ? <Navigate to="/home" replace /> : <Signup />
-                        }
-                     />
-                     <Route
-                        path="/auth/signin"
-                        element={
-                           TOKEN ? <Navigate to="/home" replace /> : <Signin />
-                        }
-                     />
-                     <Route
-                        path="/auth/verify-otp"
-                        element={<OtpVerification />}
-                     />
-                     <Route
-                        path="/home"
-                        element={
-                           TOKEN ? <HomePage /> : <Navigate to="/" replace />
-                        }
-                     />
-                     <Route
-                        path="*"
-                        element={
-                           <main style={{ padding: "1rem" }}>
-                              <p>There's nothing here!</p>
-                           </main>
-                        }
-                     />
-                  </Routes>
-               </AnimatePresence>
-            )
-            // ) : (
-
-            // ))
-         }
+         {!processing && (
+            <AnimatePresence exitBeforeEnter>
+               <Routes location={location} key={location.key}>
+                  <Route
+                     path="/auth/signup"
+                     element={
+                        TOKEN ? <Navigate to="/home" replace /> : <Signup />
+                     }
+                  />
+                  <Route
+                     path="/auth/signin"
+                     element={
+                        TOKEN ? <Navigate to="/home" replace /> : <Signin />
+                     }
+                  />
+                  <Route
+                     path="/auth/verify-otp"
+                     element={<OtpVerification />}
+                  />
+                  <Route
+                     path="/"
+                     element={TOKEN ? <HomePage /> : <LandingPage />}
+                  >
+                     {TOKEN && (
+                        <>
+                           <Route
+                              index
+                              element={
+                                 TOKEN ? (
+                                    <NewsFeed />
+                                 ) : (
+                                    <Navigate to="/" replace />
+                                 )
+                              }
+                           />
+                           <Route
+                              path="feed"
+                              element={
+                                 TOKEN ? (
+                                    <NewsFeed />
+                                 ) : (
+                                    <Navigate to="/" replace />
+                                 )
+                              }
+                           />
+                           <Route
+                              path="alumni"
+                              element={
+                                 TOKEN ? (
+                                    <h1>Alumni</h1>
+                                 ) : (
+                                    <Navigate to="/" replace />
+                                 )
+                              }
+                           />
+                           <Route
+                              path="jobs"
+                              element={
+                                 TOKEN ? (
+                                    <h1>Jobs</h1>
+                                 ) : (
+                                    <Navigate to="/" replace />
+                                 )
+                              }
+                           />
+                           <Route
+                              exact
+                              path="profile/:email"
+                              element={
+                                 TOKEN ? (
+                                    <Profile />
+                                 ) : (
+                                    <Navigate to="/" replace />
+                                 )
+                              }
+                           />
+                           <Route
+                              exact
+                              path="edit-profile"
+                              element={
+                                 TOKEN ? (
+                                    <EditProfile />
+                                 ) : (
+                                    <Navigate to="/" replace />
+                                 )
+                              }
+                           />
+                        </>
+                     )}
+                  </Route>
+                  {/* <Route
+                     exact
+                     path="/profile/:email"
+                     element={TOKEN ? <Profile /> : <Navigate to="/" replace />}
+                  /> */}
+                  <Route
+                     path="*"
+                     element={
+                        <main style={{ padding: "1rem" }}>
+                           <p>There's nothing here!</p>
+                        </main>
+                     }
+                  />
+               </Routes>
+            </AnimatePresence>
+         )}
       </>
    );
 }

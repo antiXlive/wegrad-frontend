@@ -98,7 +98,6 @@ const TextPost = (props) => {
                <img src={props.post.image.display_url} alt="post-image" />
             )}
          </div>
-         {/* <div className="post-stats"></div> */}
          <div className="post-actions">
             <img
                src={

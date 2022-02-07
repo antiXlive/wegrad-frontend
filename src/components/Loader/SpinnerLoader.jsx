@@ -1,23 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import styled, { keyframes } from "styled-components";
 
-const loading = keyframes`
-        0%{
-            transform: scale(0);
-            opacity: 0;
-        }
-        50%{
-            opacity: 1;
-        }
-        100%{
-            transform: scale(1);
-            opacity: 0;
-        }
+const fx = keyframes`
+         100% {box-shadow: 0 0 0 80px #0000}
     `;
 
 const Div = styled.div`
    width: 100vw;
-   height: ${(props) => props.height};
+   height: 100%;
    position: fixed;
    top: 0;
    z-index: 1000;
@@ -25,61 +15,42 @@ const Div = styled.div`
    align-items: center;
    justify-content: center;
    .overlay {
-      width: 100vw;
+      width: 100%;
       height: 100%;
       background-color: #00000050;
       display: flex;
       align-items: center;
       justify-content: center;
    }
-`;
-
-const Spinner = styled.div`
-   z-index: 101;
-   border: 0 solid transparent;
-   border-radius: 50%;
-   width: 150px;
-   height: 150px;
-   position: relative;
-   top: -5%;
-   left: -5%;
-   ::before,
-   ::after {
-      content: "";
-      border: 1em solid #11659a;
+   .pulse {
+      width: 25px;
+      height: 25px;
+      position: relative;
       border-radius: 50%;
-      width: inherit;
-      height: inherit;
-      position: absolute;
-      animation: ${loading} 2s linear infinite;
-      opacity: 0;
-   }
-   ::before {
-      animation-delay: 0.5s;
+      background: #0573b9;
+      box-shadow: 0 0 0 0 #1e90ff99;
+      animation: ${fx} 1.5s infinite linear;
+      &:before,
+      &:after {
+         content: "";
+         position: absolute;
+         inset: 0;
+         border-radius: inherit;
+         box-shadow: 0 0 0 0 #1e90ff99;
+         animation: inherit;
+         animation-delay: -0.5s;
+      }
+      &::after {
+         animation-delay: -1s;
+      }
    }
 `;
-const SpinnerLoader = (props) => {
-   const [windowHeight, setWH] = useState(0);
 
-   useEffect(() => {
-      handleResize();
-      window.addEventListener("resize", handleResize);
-      return () => {
-         window.removeEventListener("resize", handleResize);
-      };
-   }, []);
-
-   const handleResize = () => {
-      if (window) {
-         if (window.innerHeight > 700) {
-            setWH(window.innerHeight);
-         }
-      }
-   };
+const SpinnerLoader = () => {
    return (
-      <Div height={windowHeight ? windowHeight + "px" : "100vh"}>
+      <Div>
          <div className="overlay">
-            <Spinner />
+            <div className="pulse" />
          </div>
       </Div>
    );
