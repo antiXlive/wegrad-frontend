@@ -81,6 +81,7 @@ export const fetchNewsFeed = (token, skip) => (dispatch) => {
 };
 
 export const createNewPost = (token, text, author, image) => (dispatch) => {
+   dispatch(SET_SPINNER_LOADER(true));
    let data = new FormData();
    data.append("text", text);
    data.append("author", author);
@@ -93,6 +94,7 @@ export const createNewPost = (token, text, author, image) => (dispatch) => {
       })
       .then((res) => {
          if (res.data) {
+            dispatch(SET_SPINNER_LOADER(false));
             let ws_data = {
                event: "new-post",
                data: res.data,
@@ -103,6 +105,7 @@ export const createNewPost = (token, text, author, image) => (dispatch) => {
          }
       })
       .catch((err) => {
+         dispatch(SET_SPINNER_LOADER(false));
          dispatch(setNotification(0, "Oops! Your post could not be posted"));
       });
 };

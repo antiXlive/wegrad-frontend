@@ -86,6 +86,7 @@ const Card = styled.div`
       }
       svg{
          margin-left: 10px;
+         margin-right: 5px;
       }
    }
 `;
