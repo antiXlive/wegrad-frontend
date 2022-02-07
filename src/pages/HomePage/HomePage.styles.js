@@ -4,8 +4,6 @@ import { motion } from "framer-motion";
 
 const Div = styled.div`
    width: 100vw;
-   min-height: 100vh;
-   height: auto;
    display: flex;
    flex-direction: column;
    background-image: ${(props) => (props.data ? `url(${background})` : null)};
@@ -15,6 +13,7 @@ const Div = styled.div`
    background-size: cover;
    .content-section {
       width: 100vw;
+      height: 100%;
       padding-top: 80px;
       display: flex;
       height: auto;
@@ -90,6 +89,7 @@ export const NewsFeedCard = styled.div`
    height: min-content;
    max-width: 550px;
    width: 100vw;
+   height: 100%;
    /* background-color: blue; */
    @media (min-width: 800px) {
       max-width: 500px;
@@ -133,37 +133,39 @@ export const Nodata = styled(motion.div)`
    }
 `;
 
-const animation = keyframes`
-    0% {
-      stroke-dasharray: 1 98;
-      stroke-dashoffset: -105;
-    }
-    50% {
-      stroke-dasharray: 80 10;
-      stroke-dashoffset: -160;
-    }
-    100% {
-      stroke-dasharray: 1 98;
-      stroke-dashoffset: -300;
-    }
-  `;
-
-const Loader = styled.div`
-   width: 100vw;
-   box-sizing: border-box;
+export const Spinner = styled(motion.div)`
+   width: 100%;
+   height: 80px;
    display: flex;
+   align-items: center;
    justify-content: center;
-   #container {
-      width: 5vh;
-      height: 5vh;
+   .spinner {
+      height: 45px;
+      width: 45px;
+      border: 4px solid rgba(0, 0, 0, 0.2);
+      border-radius: 100%;
+      &:before {
+         content: "";
+         display: block;
+         position: absolute;
+         left: -4px;
+         top: -4px;
+         height: 100%;
+         width: 100%;
+         border-top: 4px solid var(--blue2);
+         border-left: 4px solid transparent;
+         border-bottom: 4px solid transparent;
+         border-right: 4px solid transparent;
+         border-radius: 100%;
+      }
    }
-   #spinner {
-      transform-origin: center;
-      animation-name: ${animation};
-      animation-duration: 1.2s;
-      animation-timing-function: cubic-bezier;
-      animation-iteration-count: infinite;
+   .no-more-post {
+      color: #55555580;
+      font-size: 20px;
+      letter-spacing: 1px;
+      margin: 0;
+      font-weight: 700;
    }
 `;
 
-export { Div, Loader };
+export { Div };

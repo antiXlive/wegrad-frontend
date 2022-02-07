@@ -14,19 +14,16 @@ const Card = styled.div`
    /* border:1px solid red; */
    /* padding: 1vh 1vw; */
    .user-info {
-      /* padding: 1.5vh 2vw; */
+      /* background-color: #f2f3f5; */
       /* border: 1px solid red; */
-      padding-left: 20px;
-      padding-top: 10px;
-      /* flex-grow: 1; */
-      /* max-height: 4vh; */
+      padding-top: 8px;
+      padding-left: 10px;
       display: flex;
       align-items: center;
-      box-sizing: border-box;
       position: relative;
       .user-avatar {
-         width: 30px;
-         height: 30px;
+         width: 35px;
+         height: 35px;
          border-radius: 100vh;
          img {
             width: 100%;
@@ -35,10 +32,8 @@ const Card = styled.div`
          }
       }
       .user-info-data {
-         /* border:1px solid red; */
-         width: 80%;
-         height: 100%;
-         padding-left: 3%;
+         height: 40px;
+         padding-left: 15px;
          display: flex;
          flex-direction: column;
          justify-content: space-evenly;
@@ -48,12 +43,8 @@ const Card = styled.div`
          p {
             margin: 0;
          }
-         .user-name {
-         }
          .time-stamp {
-            /* font-size: calc(1.5vw + 0.5vh); */
-            font-size: 12px;
-            margin-top: 4px;
+            font-size: 11px;
             color: #00000080;
             letter-spacing: 0.8px;
          }
@@ -74,34 +65,27 @@ const Card = styled.div`
       box-sizing: border-box;
    }
    .post-actions {
-      /* flex-grow: 1; */
       height: 50px;
-      padding: 0.5vw 2vw;
-      /* border: 1px solid red; */
-      box-sizing: border-box;
+      padding: 0 8px;
       display: flex;
       align-items: center;
       background-color: #f2f3f5;
       input {
-         width: 80%;
-         height: 75%;
+         height: 70%;
+         max-height: 32px;
          border-radius: 100vh;
          outline: none;
          border: none;
-         /* border:1px solid #555555; */
+         flex-grow: 2;
          padding-left: 15px;
+      }
+      img {
+         width: 7%;
+         max-width: 28px;
          margin-right: 10px;
       }
-      .user-avatar {
-         width: 24px;
-         height: 23px;
-         border-radius: 100vh;
-         margin-right: 10px;
-         img {
-            width: 100%;
-            height: 100%;
-            border-radius: 100vh;
-         }
+      svg{
+         margin-left: 10px;
       }
    }
 `;

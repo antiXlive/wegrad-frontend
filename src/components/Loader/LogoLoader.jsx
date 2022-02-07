@@ -31,6 +31,7 @@ const Div = styled.div`
    justify-content: center;
    img {
       width: 40%;
+      max-width: 150px;
       animation: ${breathing} 4s ease-out infinite;
    }
 `;

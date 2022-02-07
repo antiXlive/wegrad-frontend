@@ -36,6 +36,10 @@ export const appendNewsFeedOld = (feed) => ({
 });
 
 export const fetchNewsFeed = (token, skip) => (dispatch) => {
+   dispatch(SET_LOGO_LOADER(true));
+   if (skip) dispatch(setFetchingOld(true));
+   else dispatch(setFetchingNew(true));
+
    let endpoint = skip ? "/post?skip=" + skip : "/post";
    axios
       .get(endpoint, {
@@ -46,20 +50,24 @@ export const fetchNewsFeed = (token, skip) => (dispatch) => {
       .then((res) => {
          if (res.data.err) {
             dispatch(setNotification(0, res.data.err));
+            dispatch(SET_LOGO_LOADER(false));
          }
          if (res.data) {
             if (res.data.length) {
                if (!skip) {
                   dispatch(setFetchingNew(false));
                   dispatch(setNewsFeed(res.data));
+                  dispatch(SET_LOGO_LOADER(false));
                } else {
                   dispatch(setFetchingOld(false));
                   dispatch(appendNewsFeedOld(res.data));
+                  dispatch(SET_LOGO_LOADER(false));
                }
             } else {
                if (skip) dispatch(setNoMorePost(true));
                dispatch(setFetchingNew(false));
                dispatch(setFetchingOld(false));
+               dispatch(SET_LOGO_LOADER(false));
             }
          }
       })
@@ -88,6 +96,7 @@ export const createNewPost = (token, text, author, image) => (dispatch) => {
                event: "new-post",
                data: res.data,
             };
+            dispatch(setNotification(1, "Post created successfully"));
             clientEventDispatcher(ws_data);
             dispatch(appendNewsFeed(res.data));
          }

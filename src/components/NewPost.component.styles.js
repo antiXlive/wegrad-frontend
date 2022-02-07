@@ -68,11 +68,47 @@ const Card = styled(motion.div)`
             opacity: 0;
          }
          p {
-            font-size: clamp(10px,1vw,12px);
+            font-size: clamp(10px, 1vw, 12px);
             margin: 0;
             display: inline-block;
             margin-left: 5px;
             padding-top: 1px;
+         }
+      }
+   }
+   .button {
+      padding: 8px 28px;
+      border-radius: 3px;
+      margin: 15px auto;
+      background-color: ${(props) =>
+         props.submitButton ? "#0573b9" : "#0000004D"};
+      p {
+         margin: 0;
+         color: #fff;
+         font-weight: 600;
+         letter-spacing: 1px;
+         font-size: 14px;
+      }
+   }
+   .file-preview{
+      /* border: 1px solid red; */
+      height: 150px;
+      display: flex;
+      justify-content: center;
+      margin-bottom: 10px;
+      position: relative;
+      img{
+         width: 50%;
+         height: 100%;
+         object-fit: cover;
+      }
+      .close{
+         position: absolute;
+         width: 30px;
+         height: 30px;
+         right: 15%;
+         svg{
+            transform: scale(1.1);
          }
       }
    }
@@ -193,22 +229,6 @@ const Card = styled(motion.div)`
             }
          }
       }
-   }
-   .button {
-      width: 95px;
-      height: 32px;
-      border-radius: 3px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      opacity: ${(props) => (props.active ? 1 : 0)};
-      /* display: ${(props) => (props.active ? "block" : "none")}; */
-      margin: 0 auto;
-      /* background-color: #0573b9; */
-      background-color: ${(props) =>
-         props.submitButton ? "#0573b9" : "#0000004D"};
-      margin-top: ${(props) => (props.active ? "30px" : "-35px")};
-      transition: all 0.4s;
    }
 `;
 
