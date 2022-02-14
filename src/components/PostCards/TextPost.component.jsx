@@ -1,28 +1,36 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 
 import { Card } from "./TextPost.component.styles";
 import DropDown from "../DropDown.component";
 import ReadMoreText from "../ReadMoreText.component";
 import { timeFormatter } from "../../lib/helperFunctions";
 
-// import {
-//    RiSendPlaneFill,
-//    RiArrowDownSLine,
-//    RiPencilLine,
-//    RiDeleteBin4Line,
-// } from "react-icons/ri";
-
-import { deletePost } from "../../redux/actions/postActions";
+import {
+   deletePost,
+   votePoll,
+   revertvotePoll,
+} from "../../redux/actions/postActions";
 
 import defaultavatar from "../../assets/default-avatar.webp";
-import { useEffect } from "react";
-import { useRef } from "react";
 
 const TextPost = (props) => {
    const dispatch = useDispatch();
    const [dropdown, setDropDown] = useState(false);
+   const [pollOption, setPollOption] = useState(null);
+   const [totalVotes, setTV] = useState(0);
+
+   useEffect(() => {
+      if (props.post.question) {
+         let totalVotes = 0;
+         props.post.options.map((option) => {
+            totalVotes += option.count;
+         });
+         setTV(totalVotes);
+      }
+   }, [props]);
 
    const TOKEN = useSelector((state) => state.auth.authToken);
    const USER = useSelector((state) => state.auth.user);
@@ -35,6 +43,18 @@ const TextPost = (props) => {
    const handleDelete = () => {
       handleDropDown(false);
       dispatch(deletePost(TOKEN, props.post._id, newsFeed));
+   };
+
+   const handleOption = (option) => {
+      let tmp = props.post.options;
+      tmp[option].count += 1;
+      dispatch(votePoll(TOKEN, props.post._id, USER_ID, tmp, option + 1));
+   };
+
+   const handleRevertVote = () => {
+      let tmp = props.post.options;
+      tmp[props.post.userVote.option - 1].count -= 1;
+      dispatch(revertvotePoll(TOKEN, props.post._id, USER_ID, tmp));
    };
 
    return (
@@ -96,6 +116,88 @@ const TextPost = (props) => {
             <ReadMoreText text={props.post.text} />
             {props.post.image && (
                <img src={props.post.image.display_url} alt="post-image" />
+            )}
+            {props.post.question && (
+               <div className="poll-box">
+                  <p className="question">{props.post.question}</p>
+                  <div className="options">
+                     {props.post.options.map((option, index) => {
+                        return props.post.userVote ? (
+                           <div className="option-selected">
+                              <motion.div
+                                 className="overlay"
+                                 initial={{ width: 0 }}
+                                 animate={{
+                                    width:
+                                       (option.count / totalVotes) * 100 > -1 &&
+                                       (option.count / totalVotes) * 100 <
+                                          101 &&
+                                       (option.count / totalVotes) * 100 + "%",
+                                 }}
+                                 transition={{ duration: 0.4 }}
+                              ></motion.div>
+                              <p>
+                                 {option.value}
+                                 {index + 1 === props.post.userVote.option && (
+                                    <svg width="16" height="16">
+                                       <path d="M2.5 8a5.5 5.5 0 0 1 8.25-4.764.5.5 0 0 0 .5-.866A6.5 6.5 0 1 0 14.5 8a.5.5 0 0 0-1 0 5.5 5.5 0 1 1-11 0z" />
+                                       <path d="M15.354 3.354a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l7-7z" />
+                                    </svg>
+                                 )}
+                              </p>
+                              <p>{(option.count / totalVotes) * 100 + "%"}</p>
+                           </div>
+                        ) : (
+                           <motion.div
+                              className="option"
+                              onClick={() => handleOption(index)}
+                              whileHover={
+                                 !pollOption && {
+                                    backgroundColor: "#1e90ff",
+                                    color: "#fff",
+                                    borderColor: "#1e90ff",
+                                 }
+                              }
+                              whileTap={
+                                 !pollOption && {
+                                    backgroundColor: "#1e90ff99",
+                                 }
+                              }
+                              transition={{ type: "tween" }}
+                           >
+                              <p>{option.value}</p>
+                           </motion.div>
+                        );
+                     })}
+                  </div>
+                  <div
+                     style={{
+                        width: "max-content",
+                        marginTop: 5,
+                        fontSize: "13px",
+                     }}
+                  >
+                     <p
+                        style={{
+                           display: "inline-block",
+                           marginRight: "10px",
+                        }}
+                     >
+                        {totalVotes} Vote{totalVotes > 1 && "s"}
+                     </p>
+                     <motion.p
+                        style={{
+                           cursor: "pointer",
+                           color: pollOption ? "#0568a7" : "#555",
+                           display: "inline-block",
+                        }}
+                        onClick={handleRevertVote}
+                        whileTap={{ scale: 0.9 }}
+                     >
+                        Revert
+                     </motion.p>
+                  </div>
+               </div>
             )}
          </div>
          <div className="post-actions">

@@ -29,6 +29,19 @@ const postReducer = (state = INITIAL_STATE, action) => {
             ...state,
             newsFeed: [...state.newsFeed, ...action.payload],
          };
+      case "UPDATE_POLL_VOTE":
+         let tmp = state.newsFeed;
+         let index = tmp.findIndex(
+            (poll) => poll._id === action.payload.pollid
+         );
+         tmp[index].userVote =
+            action.payload.author && action.payload.option
+               ? action.payload
+               : null;
+         return {
+            ...state,
+            newsFeed: [...tmp],
+         };
       case "FETCHING_NEW":
          return {
             ...state,

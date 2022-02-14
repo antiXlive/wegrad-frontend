@@ -58,6 +58,77 @@ const Card = styled.div`
          /* height:100%; */
          object-fit: fill;
       }
+      .poll-box {
+         display: flex;
+         flex-direction: column;
+         margin: 0 auto;
+         width: 96%;
+         border: 1px solid #55555520;
+         border-radius: 6px;
+         padding: 10px;
+         margin-bottom: 5px;
+         .question {
+            font-size: 15px;
+            letter-spacing: 1px;
+            color: #000;
+            font-weight: 600;
+         }
+         .options {
+            margin-top: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            .option {
+               display: flex;
+               align-items: center;
+               justify-content: center;
+               width: 95%;
+               min-height: 30px;
+               border: 1px solid;
+               border-radius: 3px;
+               margin-bottom: 10px;
+               cursor: pointer;
+               p {
+                  font-size: 13px;
+               }
+            }
+            .option-selected {
+               position: relative;
+               display: flex;
+               justify-content: space-between;
+               align-items: center;
+               width: 95%;
+               min-height: 30px;
+               padding: 0 10px;
+               border: 1px solid #55555510;
+               border-radius: 3px;
+               margin-bottom: 10px;
+               svg {
+                  position: relative;
+                  top: 3px;
+                  margin-left: 5px;
+               }
+               p {
+                  font-size: 12px;
+               }
+               p:nth-child(2) {
+                  font-size: 13px;
+               }
+               .overlay {
+                  position: absolute;
+                  border-radius: 3px;
+                  height: 100%;
+                  width: 0;
+                  background-color: #1e90ff30;
+                  top: 0;
+                  left: 0;
+               }
+            }
+         }
+         p {
+            margin: 0;
+         }
+      }
    }
    .post-stats {
       flex-grow: 1;
@@ -84,7 +155,7 @@ const Card = styled.div`
          max-width: 26px;
          margin-right: 10px;
       }
-      svg{
+      svg {
          margin-left: 10px;
          margin-right: 5px;
          cursor: pointer;

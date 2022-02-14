@@ -36,6 +36,11 @@ export const appendNewsFeedOld = (feed) => ({
    payload: feed,
 });
 
+const updatePollVote = (vote) => ({
+   type: "UPDATE_POLL_VOTE",
+   payload: vote,
+});
+
 export const fetchNewsFeed = (token, skip) => (dispatch) => {
    if (!skip) dispatch(SET_LOGO_LOADER(true));
    if (skip) dispatch(setFetchingOld(true));
@@ -146,6 +151,7 @@ export const deletePost = (token, postid, posts) => (dispatch) => {
 
 export const createNewPoll =
    (token, author, text, question, options) => (dispatch) => {
+      dispatch(SET_SPINNER_LOADER(true));
       let data = {
          author: author,
          text: text,
@@ -160,16 +166,76 @@ export const createNewPoll =
          })
          .then((res) => {
             if (res.data) {
+               dispatch(SET_SPINNER_LOADER(false));
+               let ws_data = {
+                  event: "new-post",
+                  data: res.data,
+               };
+               dispatch(setNotification(1, "Poll created successfully"));
+               clientEventDispatcher(ws_data);
+               dispatch(appendNewsFeed(res.data));
+            }
+         })
+         .catch((err) => {
+            dispatch(SET_SPINNER_LOADER(false));
+            dispatch(setNotification(0, "Oops! Your poll could not be posted"));
+         });
+   };
+export const votePoll =
+   (token, pollid, author, options, vote) => (dispatch) => {
+      let data = {
+         pollid: pollid,
+         author: author,
+         options: options,
+         vote: vote,
+      };
+      axios
+         .post("/post/poll/saveVote", data, {
+            headers: {
+               authorization: "Bearer " + token,
+            },
+         })
+         .then((res) => {
+            if (res.data) {
+               dispatch(updatePollVote(res.data));
+               // dispatch(SET_SPINNER_LOADER(false));
+               // let ws_data = {
+               //    event: "new-post",
+               //    data: res.data,
+               // };
+               // dispatch(setNotification(1, "Poll created successfully"));
+               // clientEventDispatcher(ws_data);
+               // dispatch(appendNewsFeed(res.data));
+            }
+         })
+         .catch((err) => {
+            dispatch(setNotification(0, "Oops! Your vote could not be saved"));
+         });
+   };
+export const revertvotePoll =
+   (token, pollid, author, options) => (dispatch) => {
+      let data = {
+         pollid: pollid,
+         author: author,
+         options: options,
+      };
+      axios
+         .post("/post/poll/revertVote", data, {
+            headers: {
+               authorization: "Bearer " + token,
+            },
+         })
+         .then((res) => {
+            if (res.data) {
+               dispatch(updatePollVote(res.data));
                // let ws_data = {
                //    event: "new-post",
                //    data: res.data,
                // };
                // clientEventDispatcher(ws_data);
-               // dispatch(appendNewsFeed(res.data));
-               console.log(res.data);
             }
          })
          .catch((err) => {
-            dispatch(setNotification(0, "Oops! Your poll could not be posted"));
+            dispatch(setNotification(0, "Oops! Your vote could not be saved"));
          });
    };

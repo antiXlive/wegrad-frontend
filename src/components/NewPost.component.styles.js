@@ -81,7 +81,7 @@ const Card = styled(motion.div)`
       border-radius: 3px;
       margin: 15px auto;
       background-color: ${(props) =>
-         props.submitButton ? "#0573b9" : "#0000004D"};
+         props.submitbutton ? "#0573b9" : "#0000004D"};
       p {
          margin: 0;
          color: #fff;
@@ -90,39 +90,40 @@ const Card = styled(motion.div)`
          font-size: 14px;
       }
    }
-   .file-preview{
+   .file-preview {
       /* border: 1px solid red; */
       height: 150px;
       display: flex;
       justify-content: center;
       margin-bottom: 10px;
       position: relative;
-      img{
+      img {
          width: 50%;
          height: 100%;
          object-fit: cover;
       }
-      .close{
+      .close {
          position: absolute;
          width: 30px;
          height: 30px;
          right: 15%;
-         svg{
+         svg {
             transform: scale(1.1);
          }
       }
    }
 
    .poll-box {
+      padding: 0 15px;
       padding-top: 10px;
       height: auto;
       width: 100%;
       display: flex;
       flex-direction: column;
-      align-items: center;
+      margin-bottom: 20px;
       /* border: 1px solid red; */
       .poll-textarea {
-         width: 96.5%;
+         width: 96%;
          height: 70px;
          outline: none;
          border: none;
@@ -132,18 +133,17 @@ const Card = styled(motion.div)`
          border: 1px solid #b1b1b1;
          border-radius: 2px;
          resize: none;
-         margin-left: -8px;
       }
       .answer-box {
          width: 98%;
          /* border: 1px solid orange; */
          margin-bottom: 10px;
          display: flex;
+         align-self: flex-start;
          align-items: center;
-         justify-content: center;
          position: relative;
          input {
-            width: 100%;
+            width: 98%;
             height: 28px;
             outline: none;
             border: none;
@@ -152,6 +152,9 @@ const Card = styled(motion.div)`
             margin-bottom: 5px;
             padding-left: 15px;
             margin-right: 6px;
+         }
+         svg {
+            cursor: pointer;
          }
       }
       .new-answer-box {

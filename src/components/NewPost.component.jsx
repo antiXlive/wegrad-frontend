@@ -40,16 +40,23 @@ const NewPost = (props) => {
    }, [postText, postImage, pollQuestion, pollOptions]);
 
    const createPost = () => {
-      if (postText || postImage) {
+      if ((!poll && postText) || postImage) {
          handleNewPost(false);
          dispatch(createNewPost(TOKEN, postText, USER._id, postImage));
          clearData();
       }
-      // if (poll && pollQuestion && pollOptions[1] && pollOptions[2]) {
-      //    dispatch(
-      //       createNewPoll(TOKEN, USER._id, postText, pollQuestion, pollOptions)
-      //    );
-      // }
+      if (poll && pollQuestion && pollOptions[1] && pollOptions[2]) {
+         handleNewPost(false);
+         clearData();
+         let options = [];
+         if (pollOptions[1]) options.push({ value: pollOptions[1] });
+         if (pollOptions[2]) options.push({ value: pollOptions[2] });
+         if (pollOptions[3]) options.push({ value: pollOptions[3] });
+         if (pollOptions[4]) options.push({ value: pollOptions[4] });
+         dispatch(
+            createNewPoll(TOKEN, USER._id, postText, pollQuestion, options)
+         );
+      }
    };
 
    const handleNewPost = (status) => {
@@ -124,7 +131,8 @@ const NewPost = (props) => {
          <Card
             onClick={() => !active && handleNewPost(true)}
             active={active ? 1 : 0}
-            submitButton={submitButton}
+            poll={poll}
+            submitbutton={submitButton ? "ok" : null}
          >
             <div className="user-info">
                <img
@@ -153,6 +161,51 @@ const NewPost = (props) => {
                         <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
                         <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
                      </svg>
+                  </div>
+               </div>
+            ) : null}
+            {poll ? (
+               <div className="poll-box">
+                  <textarea
+                     className="poll-textarea"
+                     maxLength={100}
+                     placeholder="Your question"
+                     onChange={(e) => setPollQuestion(e.target.value)}
+                     value={pollQuestion}
+                  ></textarea>
+                  {[...Array(poll)].map((_, i) => (
+                     <div className="answer-box" key={i}>
+                        <input
+                           type="text"
+                           maxLength={30}
+                           id={"option" + (i + 1)}
+                           placeholder={"Option " + (i + 1)}
+                           value={pollOptions[i + 1]}
+                           onChange={(e) =>
+                              handlePollOption(e.target.value, i + 1)
+                           }
+                        />
+                        {i > 1 && (
+                           <svg
+                              width="16"
+                              height="16"
+                              onClick={() => removePollOptionInput(i + 1)}
+                           >
+                              <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                              <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
+                           </svg>
+                        )}
+                     </div>
+                  ))}
+                  <div
+                     className="new-answer-box"
+                     onClick={() => addNewPollOption()}
+                  >
+                     <svg width="16" height="16">
+                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                        <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
+                     </svg>
+                     <p>Add new option</p>
                   </div>
                </div>
             ) : null}
@@ -213,59 +266,6 @@ const NewPost = (props) => {
             )}
          </Card>
       </>
-      // <>
-
-      //       {poll ? (
-      //          <div className="poll-box">
-      //             <textarea
-      //                className="poll-textarea"
-      //                maxLength={100}
-      //                placeholder="Your question"
-      //                onChange={(e) => setPollQuestion(e.target.value)}
-      //                value={pollQuestion}
-      //             ></textarea>
-      //             {[...Array(poll)].map((_, i) => (
-      //                <div className="answer-box" key={i}>
-      //                   <input
-      //                      type="text"
-      //                      maxLength={30}
-      //                      id={"option" + (i + 1)}
-      //                      placeholder={"Option " + (i + 1)}
-      //                      value={pollOptions[i + 1]}
-      //                      onChange={(e) =>
-      //                         handlePollOption(e.target.value, i + 1)
-      //                      }
-      //                   />
-      //                   {/* {i > 1 && (
-      //                      <RiCloseLine
-      //                         size={25}
-      //                         color="#FF0000"
-      //                         onClick={() => removePollOptionInput(i + 1)}
-      //                         style={{
-      //                            cursor: "pointer",
-      //                            position: "absolute",
-      //                            left: "90%",
-      //                            top: "5%",
-      //                         }}
-      //                      />
-      //                   )} */}
-      //                </div>
-      //             ))}
-      //             <div
-      //                className="new-answer-box"
-      //                onClick={() => addNewPollOption()}
-      //             >
-      //                {/* <RiAddFill /> */}
-      //                <p>Add new option</p>
-      //             </div>
-      //          </div>
-      //       ) : null}
-
-      //       <div className="option-box">
-
-      //       </div>
-      //    </Card>
-      // </>
    );
 };
 export default NewPost;
