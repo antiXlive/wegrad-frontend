@@ -42,7 +42,7 @@ const TextPost = (props) => {
    };
    const handleDelete = () => {
       handleDropDown(false);
-      dispatch(deletePost(TOKEN, props.post._id, newsFeed));
+      dispatch(deletePost(TOKEN, props.post._id, props.post.question));
    };
 
    const handleOption = (option) => {
@@ -52,9 +52,11 @@ const TextPost = (props) => {
    };
 
    const handleRevertVote = () => {
-      let tmp = props.post.options;
-      tmp[props.post.userVote.option - 1].count -= 1;
-      dispatch(revertvotePoll(TOKEN, props.post._id, USER_ID, tmp));
+      if (props.post.userVote) {
+         let tmp = props.post.options;
+         tmp[props.post.userVote.option - 1].count -= 1;
+         dispatch(revertvotePoll(TOKEN, props.post._id, USER_ID, tmp));
+      }
    };
 
    return (
@@ -123,7 +125,7 @@ const TextPost = (props) => {
                   <div className="options">
                      {props.post.options.map((option, index) => {
                         return props.post.userVote ? (
-                           <div className="option-selected">
+                           <div className="option-selected" key={index}>
                               <motion.div
                                  className="overlay"
                                  initial={{ width: 0 }}
@@ -149,6 +151,7 @@ const TextPost = (props) => {
                            </div>
                         ) : (
                            <motion.div
+                              key={index}
                               className="option"
                               onClick={() => handleOption(index)}
                               whileHover={
@@ -188,7 +191,7 @@ const TextPost = (props) => {
                      <motion.p
                         style={{
                            cursor: "pointer",
-                           color: pollOption ? "#0568a7" : "#555",
+                           color: props.post.userVote ? "#0568a7" : "#66666699",
                            display: "inline-block",
                         }}
                         onClick={handleRevertVote}

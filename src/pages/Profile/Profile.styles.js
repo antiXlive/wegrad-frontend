@@ -4,17 +4,10 @@ const Div = styled.div`
    width: 100vw;
    min-height: 100vh;
    max-width: 550px;
-   /* background-color: #e7ebef; */
    display: flex;
    flex-direction: column;
    box-sizing: border-box;
-   background-repeat: no-repeat;
-   background-attachment: fixed;
-   background-size: auto;
    padding-bottom: 20px;
-   /* @media (min-width: 1024px) {
-      background-size: cover;
-   } */
 `;
 
 const Card = styled.div`

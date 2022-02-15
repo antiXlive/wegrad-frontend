@@ -25,6 +25,8 @@ import NewsFeed from "./pages/HomePage/NewsFeed/NewsFeed";
 import Profile from "./pages/Profile/Profile";
 import EditProfile from "./pages/Profile/EditProfile";
 
+import Alumni from "./pages/Alumni/Alumni";
+
 import LogoLoader from "./components/Loader/LogoLoader";
 import SpinnerLoader from "./components/Loader/SpinnerLoader";
 import NotifyToast from "./components/Notification/NotifyToast";
@@ -146,7 +148,7 @@ function App() {
                               path="alumni"
                               element={
                                  TOKEN ? (
-                                    <h1>Alumni</h1>
+                                    <Alumni />
                                  ) : (
                                     <Navigate to="/" replace />
                                  )
@@ -162,6 +164,47 @@ function App() {
                                  )
                               }
                            />
+                           <Route
+                              path="events"
+                              element={
+                                 TOKEN ? (
+                                    <h1>Events</h1>
+                                 ) : (
+                                    <Navigate to="/" replace />
+                                 )
+                              }
+                           />
+                           <Route
+                              path="moments"
+                              element={
+                                 TOKEN ? (
+                                    <h1>Moments</h1>
+                                 ) : (
+                                    <Navigate to="/" replace />
+                                 )
+                              }
+                           />
+                           <Route
+                              path="mock-interviews"
+                              element={
+                                 TOKEN ? (
+                                    <h1>Mock Interviews</h1>
+                                 ) : (
+                                    <Navigate to="/" replace />
+                                 )
+                              }
+                           />
+                           <Route
+                              path="interview-experience"
+                              element={
+                                 TOKEN ? (
+                                    <h1>Interview Experience</h1>
+                                 ) : (
+                                    <Navigate to="/" replace />
+                                 )
+                              }
+                           />
+
                            <Route
                               exact
                               path="profile/:email"
@@ -187,11 +230,6 @@ function App() {
                         </>
                      )}
                   </Route>
-                  {/* <Route
-                     exact
-                     path="/profile/:email"
-                     element={TOKEN ? <Profile /> : <Navigate to="/" replace />}
-                  /> */}
                   <Route
                      path="*"
                      element={

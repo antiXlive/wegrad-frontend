@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { motion } from "framer-motion";
 
 import HomeHeader from "../../components/Header/HomeHeader.component";
 
@@ -14,7 +13,6 @@ import {
 } from "./HomePage.styles";
 
 const HomePage = () => {
-   const dispatch = useDispatch();
    const location = useLocation();
    const navigate = useNavigate();
 
@@ -31,7 +29,7 @@ const HomePage = () => {
          title: "Home",
          path: (
             <>
-               <path d="M2 13.5V7h1v6.5a.5.5 0 0 0 .5.5h9a.5.5 0 0 0 .5-.5V7h1v6.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5zm11-11V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z" />
+               <path d="m8 3.293 6 6V13.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5V9.293l6-6zm5-.793V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z" />
                <path d="M7.293 1.5a1 1 0 0 1 1.414 0l6.647 6.646a.5.5 0 0 1-.708.708L8 2.207 1.354 8.854a.5.5 0 1 1-.708-.708L7.293 1.5z" />
             </>
          ),
@@ -103,7 +101,17 @@ const HomePage = () => {
                            to={item.to}
                            key={item.to}
                         >
-                           <div className="link">
+                           <div
+                              className="link"
+                              style={
+                                 location.pathname === item.to
+                                    ? {
+                                         filter:
+                                            "invert(51%) sepia(33%) saturate(6768%) hue-rotate(194deg) brightness(102%) contrast(106%)",
+                                      }
+                                    : {}
+                              }
+                           >
                               <svg width="16" height="16">
                                  {item.path}
                               </svg>

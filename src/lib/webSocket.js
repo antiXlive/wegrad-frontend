@@ -1,7 +1,11 @@
 import React, { createContext, useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 
-import { appendNewsFeed, filterNewsFeed } from "../redux/actions/postActions";
+import {
+   appendNewsFeed,
+   filterNewsFeed,
+   updatePollVote,
+} from "../redux/actions/postActions";
 
 const WebSocketContext = createContext();
 
@@ -43,6 +47,10 @@ export const WebSocketProvider = ({ children }) => {
          }
          case "delete-post": {
             dispatch(filterNewsFeed(data));
+            break;
+         }
+         case "poll-vote": {
+            dispatch(updatePollVote(data));
             break;
          }
          default:

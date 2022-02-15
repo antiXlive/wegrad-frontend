@@ -35,18 +35,21 @@ export const appendNewsFeedOld = (feed) => ({
    type: "APPEND_NEWS_FEED_OLD",
    payload: feed,
 });
-
-const updatePollVote = (vote) => ({
-   type: "UPDATE_POLL_VOTE",
+export const updateUserPollVote = (vote) => ({
+   type: "UPDATE_USER_POLL_VOTE",
    payload: vote,
 });
+export const updatePollVote = (data) => ({
+   type: "UPDATE_POLL_VOTE",
+   payload: data,
+});
 
-export const fetchNewsFeed = (token, skip) => (dispatch) => {
-   if (!skip) dispatch(SET_LOGO_LOADER(true));
-   if (skip) dispatch(setFetchingOld(true));
+export const fetchNewsFeed = (token, skip1, skip2) => (dispatch) => {
+   if (!skip1) dispatch(SET_LOGO_LOADER(true));
+   if (skip1) dispatch(setFetchingOld(true));
    else dispatch(setFetchingNew(true));
 
-   let endpoint = skip ? "/post?skip=" + skip : "/post";
+   let endpoint = skip1 ? "/post?skip1=" + skip1 + "&skip2=" + skip2 : "/post";
    axios
       .get(endpoint, {
          headers: {
@@ -60,7 +63,7 @@ export const fetchNewsFeed = (token, skip) => (dispatch) => {
          }
          if (res.data) {
             if (res.data.length) {
-               if (!skip) {
+               if (!skip1) {
                   dispatch(setFetchingNew(false));
                   dispatch(setNewsFeed(res.data));
                   dispatch(SET_LOGO_LOADER(false));
@@ -70,7 +73,7 @@ export const fetchNewsFeed = (token, skip) => (dispatch) => {
                   dispatch(SET_LOGO_LOADER(false));
                }
             } else {
-               if (skip) dispatch(setNoMorePost(true));
+               if (skip1) dispatch(setNoMorePost(true));
                dispatch(setFetchingNew(false));
                dispatch(setFetchingOld(false));
                dispatch(SET_LOGO_LOADER(false));
@@ -115,13 +118,14 @@ export const createNewPost = (token, text, author, image) => (dispatch) => {
       });
 };
 
-export const deletePost = (token, postid, posts) => (dispatch) => {
+export const deletePost = (token, postid, poll) => (dispatch) => {
    dispatch(SET_SPINNER_LOADER(true));
    let data = {
       id: postid,
    };
+   let endpoint = poll ? "/post/delete?poll=true" : "/post/delete";
    axios
-      .post("/post/delete", data, {
+      .post(endpoint, data, {
          headers: {
             authorization: "Bearer " + token,
          },
@@ -181,6 +185,7 @@ export const createNewPoll =
             dispatch(setNotification(0, "Oops! Your poll could not be posted"));
          });
    };
+
 export const votePoll =
    (token, pollid, author, options, vote) => (dispatch) => {
       let data = {
@@ -197,15 +202,12 @@ export const votePoll =
          })
          .then((res) => {
             if (res.data) {
-               dispatch(updatePollVote(res.data));
-               // dispatch(SET_SPINNER_LOADER(false));
-               // let ws_data = {
-               //    event: "new-post",
-               //    data: res.data,
-               // };
-               // dispatch(setNotification(1, "Poll created successfully"));
+               let ws_data = {
+                  event: "poll-vote",
+                  data: { pollid, options },
+               };
                // clientEventDispatcher(ws_data);
-               // dispatch(appendNewsFeed(res.data));
+               // dispatch(updateUserPollVote(res.data));
             }
          })
          .catch((err) => {
@@ -227,12 +229,12 @@ export const revertvotePoll =
          })
          .then((res) => {
             if (res.data) {
-               dispatch(updatePollVote(res.data));
-               // let ws_data = {
-               //    event: "new-post",
-               //    data: res.data,
-               // };
-               // clientEventDispatcher(ws_data);
+               let ws_data = {
+                  event: "poll-vote",
+                  data: { pollid, options },
+               };
+               clientEventDispatcher(ws_data);
+               dispatch(updateUserPollVote(res.data));
             }
          })
          .catch((err) => {

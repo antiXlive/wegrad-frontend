@@ -50,8 +50,14 @@ const NewsFeed = () => {
             spinnerRef.current.contains(efp(rect.right, rect.bottom)) ||
             spinnerRef.current.contains(efp(rect.left, rect.bottom))
          ) {
+            let skip1 = 0,
+               skip2 = 0;
+            newsFeed.map((feed) => {
+               if (feed.question) skip2++;
+               else skip1++;
+            });
             dispatch(setFetchingOld(true));
-            dispatch(fetchNewsFeed(TOKEN, newsFeed.length));
+            dispatch(fetchNewsFeed(TOKEN, skip1, skip2));
          }
       }
    };

@@ -29,7 +29,7 @@ const postReducer = (state = INITIAL_STATE, action) => {
             ...state,
             newsFeed: [...state.newsFeed, ...action.payload],
          };
-      case "UPDATE_POLL_VOTE":
+      case "UPDATE_USER_POLL_VOTE":
          let tmp = state.newsFeed;
          let index = tmp.findIndex(
             (poll) => poll._id === action.payload.pollid
@@ -41,6 +41,16 @@ const postReducer = (state = INITIAL_STATE, action) => {
          return {
             ...state,
             newsFeed: [...tmp],
+         };
+      case "UPDATE_POLL_VOTE":
+         let tmp1 = state.newsFeed;
+         let index1 = tmp1.findIndex(
+            (poll) => poll._id === action.payload.pollid
+         );
+         tmp1[index1].options = action.payload.options;
+         return {
+            ...state,
+            newsFeed: [...tmp1],
          };
       case "FETCHING_NEW":
          return {
