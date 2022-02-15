@@ -206,8 +206,8 @@ export const votePoll =
                   event: "poll-vote",
                   data: { pollid, options },
                };
-               // clientEventDispatcher(ws_data);
-               // dispatch(updateUserPollVote(res.data));
+               clientEventDispatcher(ws_data);
+               dispatch(updateUserPollVote(res.data));
             }
          })
          .catch((err) => {
