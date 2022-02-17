@@ -35,7 +35,6 @@ const TextPost = (props) => {
    const TOKEN = useSelector((state) => state.auth.authToken);
    const USER = useSelector((state) => state.auth.user);
    const USER_ID = useSelector((state) => state.auth.user._id);
-   const newsFeed = useSelector((state) => state.postReducer.newsFeed);
 
    const handleDropDown = (status) => {
       setDropDown(status);
@@ -82,23 +81,23 @@ const TextPost = (props) => {
             <div className="user-avatar">
                <img
                   src={
-                     props.post.authorAvatar
-                        ? props.post.authorAvatar.thumbnail_url
+                     props.post.authorData.avatar
+                        ? props.post.authorData.avatar
                         : defaultavatar
                   }
-                  alt={props.post.author}
+                  alt={props.post.authorData.name}
                />
             </div>
             <div className="user-info-data">
                <Link
                   style={{ textDecoration: "none" }}
-                  to={"/profile/" + props.post.authorEmail}
+                  to={"/profile/" + props.post.authorData.email}
                >
-                  <p className="user-name">{props.post.author}</p>
+                  <p className="user-name">{props.post.authorData.name}</p>
                </Link>
                <p className="time-stamp">{timeFormatter(props.post.time)}</p>
             </div>
-            {USER_ID === props.post.authorId && (
+            {USER_ID === props.post.author && (
                <svg
                   width="16"
                   height="16"
@@ -147,7 +146,11 @@ const TextPost = (props) => {
                                     </svg>
                                  )}
                               </p>
-                              <p>{(option.count / totalVotes) * 100 + "%"}</p>
+                              <p>
+                                 {(option.count / totalVotes) * 100 > -1 &&
+                                    (option.count / totalVotes) * 100 < 101 &&
+                                    (option.count / totalVotes) * 100 + "%"}
+                              </p>
                            </div>
                         ) : (
                            <motion.div

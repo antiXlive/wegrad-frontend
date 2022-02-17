@@ -45,6 +45,7 @@ export const Spinner = styled(motion.div)`
    display: flex;
    align-items: center;
    justify-content: center;
+   /* border: 1px solid red; */
    .spinner {
       height: 45px;
       width: 45px;

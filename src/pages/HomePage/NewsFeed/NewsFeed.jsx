@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { motion } from "framer-motion";
 
@@ -13,7 +13,6 @@ import {
    fetchNewsFeed,
    setFetchingOld,
 } from "../../../redux/actions/postActions";
-import { useRef } from "react";
 
 const NewsFeed = () => {
    const dispatch = useDispatch();
@@ -30,19 +29,38 @@ const NewsFeed = () => {
    }, [newsFeed]);
 
    useEffect(() => {
-      newsFeed &&
-         newsFeed.length > 0 &&
-         window.addEventListener("scroll", handleScroll);
+      if (newsFeed && newsFeed.length > 0) {
+         window.addEventListener("scroll", throttle_handleScroll);
+      }
       return () => {
-         window.removeEventListener("scroll", handleScroll);
+         window.removeEventListener("scroll", throttle_handleScroll);
       };
    }, [newsFeed, NoMorePosts]);
 
+   let executing = false;
+   const throttle_handleScroll = () => {
+      if (!NoMorePosts) {
+         if (visible()) {
+            if (!executing) {
+               let skip1 = 0,
+                  skip2 = 0;
+               newsFeed.map((feed) => {
+                  if (feed.question) skip2++;
+                  else skip1++;
+               });
+               dispatch(setFetchingOld(true));
+               dispatch(fetchNewsFeed(TOKEN, skip1, skip2));
+               executing = true;
+               setTimeout(() => (executing = false), 2000);
+            }
+         }
+      }
+   };
    const efp = (x, y) => {
       return document.elementFromPoint(x, y);
    };
-   const handleScroll = (e) => {
-      if (!FetchingOld && !NoMorePosts && spinnerRef.current) {
+   const visible = () => {
+      if (spinnerRef.current) {
          let rect = spinnerRef.current.getBoundingClientRect();
          if (
             spinnerRef.current.contains(efp(rect.left, rect.top)) ||
@@ -50,16 +68,11 @@ const NewsFeed = () => {
             spinnerRef.current.contains(efp(rect.right, rect.bottom)) ||
             spinnerRef.current.contains(efp(rect.left, rect.bottom))
          ) {
-            let skip1 = 0,
-               skip2 = 0;
-            newsFeed.map((feed) => {
-               if (feed.question) skip2++;
-               else skip1++;
-            });
-            dispatch(setFetchingOld(true));
-            dispatch(fetchNewsFeed(TOKEN, skip1, skip2));
+            return true;
          }
+         return false;
       }
+      return false;
    };
 
    return (
@@ -76,16 +89,14 @@ const NewsFeed = () => {
             </Nodata>
          )}
          <Spinner ref={spinnerRef}>
-            {FetchingOld && (
+            {FetchingOld && !NoMorePosts && (
                <motion.div
                   className="spinner"
                   animate={{ rotate: 360 }}
                   transition={{ repeat: Infinity, duration: 0.7 }}
                ></motion.div>
             )}
-            {NoMorePosts && !FetchingOld && (
-               <p className="no-more-post"> No More Posts</p>
-            )}
+            {NoMorePosts && <p className="no-more-post"> No More Posts</p>}
          </Spinner>
       </NewsFeedCard>
    );
