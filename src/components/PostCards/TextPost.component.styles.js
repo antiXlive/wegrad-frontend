@@ -156,8 +156,7 @@ const Card = styled.div`
             padding-left: 5px;
          }
          .time {
-            width: 50px;
-            /* border: 1px solid red; */
+            width: max-content;
             opacity: 0.5;
             float: right;
             p {
