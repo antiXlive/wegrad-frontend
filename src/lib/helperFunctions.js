@@ -13,7 +13,8 @@ export const timeFormatter = (time) => {
    if (interval > 1) return Math.floor(interval) + "h";
    interval = s / 60;
    if (interval > 1) return Math.floor(interval) + "m";
-   return Math.abs(s < 2 ? s + 1 : s) + "s";
+   // return Math.abs(s < 2 ? s + 1 : s) + "s";
+   return "Just now";
 };
 
 export const validateFullname = (name) => {

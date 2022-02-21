@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useEffect } from "react";
 import styled from "styled-components";
 
 const Text = styled.p`
@@ -11,9 +12,13 @@ const Text = styled.p`
 `;
 
 const ReadMoreText = (props) => {
+   useEffect(() => {
+      setWords(props.text.length);
+      setLines(props.text.split(/\n/g).length);
+   }, [props]);
    const [expand, setExpand] = useState(false);
-   const [words, setWords] = useState(props.text.length);
-   const [lines, setLines] = useState(props.text.split(/\n/g).length);
+   const [words, setWords] = useState(0);
+   const [lines, setLines] = useState(0);
 
    if (words < 200 && lines < 6) {
       return <Text>{props.text}</Text>;

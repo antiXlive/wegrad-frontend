@@ -9,6 +9,7 @@ import ReadMoreText from "../ReadMoreText.component";
 import { timeFormatter } from "../../lib/helperFunctions";
 
 import {
+   addComment,
    deletePost,
    votePoll,
    revertvotePoll,
@@ -21,6 +22,8 @@ const TextPost = (props) => {
    const [dropdown, setDropDown] = useState(false);
    const [pollOption, setPollOption] = useState(null);
    const [totalVotes, setTV] = useState(0);
+   const [newComment, setNewComment] = useState("");
+   const [showComments, setShowComments] = useState(false);
 
    useEffect(() => {
       if (props.post.question) {
@@ -55,6 +58,13 @@ const TextPost = (props) => {
          let tmp = props.post.options;
          tmp[props.post.userVote.option - 1].count -= 1;
          dispatch(revertvotePoll(TOKEN, props.post._id, USER_ID, tmp));
+      }
+   };
+
+   const handleAddComment = () => {
+      if (newComment) {
+         dispatch(addComment(TOKEN, props.post._id, newComment, USER_ID));
+         setNewComment("");
       }
    };
 
@@ -206,6 +216,42 @@ const TextPost = (props) => {
                </div>
             )}
          </div>
+         {props.post.comments.length ? (
+            <div className="comment-container">
+               {showComments ? (
+                  props.post.comments.map((comment) => {
+                     return (
+                        <div key={comment._id} className="comment">
+                           <p className="author">{comment.authorName}</p>
+                           <p className="text">{comment.text}</p>
+                           <span className="time">
+                              <p>{timeFormatter(comment.time)}</p>
+                           </span>
+                        </div>
+                     );
+                  })
+               ) : (
+                  <div className="comment">
+                     <p className="author">
+                        {props.post.comments[0].authorName}
+                     </p>
+                     <p className="text">{props.post.comments[0].text}</p>
+                     <span className="time">
+                        <p>{timeFormatter(props.post.comments[0].time)}</p>
+                     </span>
+                  </div>
+               )}
+               {props.post.comments.length > 1 && (
+                  <motion.p
+                     whileTap={{ scale: 0.9 }}
+                     className="load-more"
+                     onClick={() => setShowComments(true)}
+                  >
+                     Load More
+                  </motion.p>
+               )}
+            </div>
+         ) : null}
          <div className="post-actions">
             <img
                src={
@@ -215,10 +261,27 @@ const TextPost = (props) => {
                }
                alt={USER.fullName}
             />
-            <input type="text" placeholder="Add a comment" />
-            <svg width="16" height="16">
-               <path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576 6.636 10.07Zm6.787-8.201L1.591 6.602l4.339 2.76 7.494-7.493Z" />
-            </svg>
+            <input
+               type="text"
+               maxLength={100}
+               value={newComment}
+               onChange={(e) => setNewComment(e.target.value)}
+               placeholder="Add a comment"
+            />
+            <motion.div whileTap={{ scale: 0.9 }}>
+               <svg
+                  width="16"
+                  height="16"
+                  onClick={handleAddComment}
+                  style={{
+                     filter: newComment
+                        ? "invert(27%) sepia(98%) saturate(1515%) hue-rotate(183deg) brightness(92%) contrast(96%)"
+                        : "invert(34%) sepia(0%) saturate(0%) hue-rotate(73deg) brightness(97%) contrast(95%)",
+                  }}
+               >
+                  <path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576 6.636 10.07Zm6.787-8.201L1.591 6.602l4.339 2.76 7.494-7.493Z" />
+               </svg>
+            </motion.div>
          </div>
       </Card>
    );

@@ -43,6 +43,10 @@ export const updatePollVote = (data) => ({
    type: "UPDATE_POLL_VOTE",
    payload: data,
 });
+export const appendNewComment = (comment) => ({
+   type: "APPEND_NEW_COMMENT",
+   payload: comment,
+});
 
 export const fetchNewsFeed = (token, skip1, skip2) => (dispatch) => {
    if (!skip1) dispatch(SET_LOGO_LOADER(true));
@@ -241,3 +245,30 @@ export const revertvotePoll =
             dispatch(setNotification(0, "Oops! Your vote could not be saved"));
          });
    };
+
+export const addComment = (token, postid, text, author) => (dispatch) => {
+   let data = {
+      postid,
+      text,
+      author,
+   };
+   axios
+      .post("/post/add-comment", data, {
+         headers: {
+            authorization: "Bearer " + token,
+         },
+      })
+      .then((res) => {
+         if (res.data.error) {
+            dispatch(
+               setNotification(0, "Oops! Your comment could not be saved")
+            );
+         }
+         if (res.data.comment) {
+            dispatch(appendNewComment(res.data.comment));
+         }
+      })
+      .catch((err) => {
+         dispatch(setNotification(0, "Oops! Your comment could not be saved"));
+      });
+};

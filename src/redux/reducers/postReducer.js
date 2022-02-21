@@ -5,6 +5,7 @@ const INITIAL_STATE = {
    noMorePosts: false,
 };
 
+let tmp, index;
 const postReducer = (state = INITIAL_STATE, action) => {
    switch (action.type) {
       case "SET_NEWS_FEED":
@@ -29,11 +30,17 @@ const postReducer = (state = INITIAL_STATE, action) => {
             ...state,
             newsFeed: [...state.newsFeed, ...action.payload],
          };
+      case "APPEND_NEW_COMMENT":
+         tmp = state.newsFeed;
+         index = tmp.findIndex((post) => post._id === action.payload.postid);
+         tmp[index].comments = [action.payload, ...tmp[index].comments];
+         return {
+            ...state,
+            newsFeed: [...tmp],
+         };
       case "UPDATE_USER_POLL_VOTE":
-         let tmp = state.newsFeed;
-         let index = tmp.findIndex(
-            (poll) => poll._id === action.payload.pollid
-         );
+         tmp = state.newsFeed;
+         index = tmp.findIndex((poll) => poll._id === action.payload.pollid);
          tmp[index].userVote =
             action.payload.author && action.payload.option
                ? action.payload

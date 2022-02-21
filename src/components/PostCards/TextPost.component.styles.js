@@ -3,13 +3,13 @@ import styled from "styled-components";
 const Card = styled.div`
    width: 100%;
    /* min-height: 35vh; */
-   margin-bottom: 15px;
+   margin-bottom: 10px;
    background-color: #fff;
-   border-radius: 0.4vh;
+   border-radius: 5px;
    display: flex;
    flex-direction: column;
    box-sizing: border-box;
-   box-shadow: 0 1px 5px #00000020;
+   box-shadow: 0 2px 10px #00000010;
    position: relative;
    /* border:1px solid red; */
    /* padding: 1vh 1vw; */
@@ -132,8 +132,55 @@ const Card = styled.div`
    }
    .post-stats {
       flex-grow: 1;
-      /* border: 1px solid red; */
+      border: 1px solid red;
       box-sizing: border-box;
+   }
+   .comment-container {
+      width: 100%;
+      padding: 10px 0;
+      /* border: 1px solid red; */
+      /* height: 100px; */
+      background-color: #f2f3f5;
+      border-bottom: 1px solid #55555515;
+      .comment {
+         width: 100%;
+         padding: 5px 10px;
+         /* border: 1px solid red; */
+         .author {
+            font-weight: 600;
+            /* font-size: 14px; */
+         }
+         .text {
+            /* font-size: 14px; */
+            opacity: 0.8;
+            padding-left: 5px;
+         }
+         .time {
+            width: 50px;
+            /* border: 1px solid red; */
+            opacity: 0.5;
+            float: right;
+            p {
+               font-size: 12px;
+               text-align: left;
+            }
+         }
+         p {
+            margin: 0;
+            font-size: 13px;
+            display: inline-block;
+         }
+      }
+      .load-more {
+         /* border: 1px solid red; */
+         padding: 0 10px;
+         margin: 0;
+         margin-top: 10px;
+         font-size: 13px;
+         opacity: 0.7;
+         cursor: pointer;
+         display: inline-block;
+      }
    }
    .post-actions {
       height: 50px;
