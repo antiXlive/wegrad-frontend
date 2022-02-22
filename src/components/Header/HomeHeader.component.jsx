@@ -50,6 +50,7 @@ const HomeHeader = (props) => {
             <OverLay onClick={() => setDrawer(false)}>
                <motion.div
                   className="bottom-sheet"
+                  style={{height:windowHeight?windowHeight*0.7:'70vh',bottom:0}}
                   initial={{ y: "100vh" }}
                   animate={{ y: 0 }}
                   transition={{ type: "tween", duration: 0.2 }}

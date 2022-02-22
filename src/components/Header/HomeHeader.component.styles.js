@@ -14,10 +14,10 @@ export const OverLay = styled.div`
    }
    .bottom-sheet {
       width: 100vw;
-      height: 70vh;
+      /* height: 70vh; */
       background-color: #fff;
       position: fixed;
-      top: 30vh;
+      /* top: 30vh; */
       border-top-left-radius: 30px;
       border-top-right-radius: 30px;
       padding-top: 20px;
