@@ -38,6 +38,17 @@ const postReducer = (state = INITIAL_STATE, action) => {
             ...state,
             newsFeed: [...tmp],
          };
+      case "REMOVE_COMMENT":
+         tmp = state.newsFeed;
+         index = tmp.findIndex((post) => post._id === action.payload.postid);
+         let commentindex = tmp[index].comments.findIndex(
+            (comment) => comment._id === action.payload.commentid
+         );
+         tmp[index].comments.splice(commentindex, 1);
+         return {
+            ...state,
+            newsFeed: [...tmp],
+         };
       case "UPDATE_USER_POLL_VOTE":
          tmp = state.newsFeed;
          index = tmp.findIndex((poll) => poll._id === action.payload.pollid);

@@ -10,6 +10,7 @@ import { timeFormatter } from "../../lib/helperFunctions";
 
 import {
    addComment,
+   deleteComment,
    deletePost,
    votePoll,
    revertvotePoll,
@@ -66,6 +67,9 @@ const TextPost = (props) => {
          dispatch(addComment(TOKEN, props.post._id, newComment, USER_ID));
          setNewComment("");
       }
+   };
+   const handleDeleteComment = (commentid) => {
+      dispatch(deleteComment(TOKEN, commentid, props.post._id));
    };
 
    return (
@@ -222,11 +226,33 @@ const TextPost = (props) => {
                   props.post.comments.map((comment) => {
                      return (
                         <div key={comment._id} className="comment">
-                           <p className="author">{comment.authorName}</p>
-                           <p className="text">{comment.text}</p>
-                           <span className="time">
-                              <p>{timeFormatter(comment.time)}</p>
-                           </span>
+                           <p className="author">
+                              {comment.authorName}
+                              <span className="text">{comment.text}</span>
+                              <span className="time">
+                                 {comment.author === USER_ID && (
+                                    <motion.span
+                                       onClick={() =>
+                                          handleDeleteComment(comment._id)
+                                       }
+                                       className="delete-button"
+                                       whileTap={{
+                                          filter:
+                                             "invert(34%) sepia(94%) saturate(5794%) hue-rotate(351deg) brightness(88%) contrast(133%)",
+                                       }}
+                                    >
+                                       <svg
+                                          width="12"
+                                          height="12"
+                                          viewBox="0 0 16 16"
+                                       >
+                                          <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z" />
+                                       </svg>
+                                    </motion.span>
+                                 )}
+                                 {timeFormatter(comment.time)}
+                              </span>
+                           </p>
                         </div>
                      );
                   })
@@ -234,14 +260,38 @@ const TextPost = (props) => {
                   <div className="comment">
                      <p className="author">
                         {props.post.comments[0].authorName}
+                        <span className="text">
+                           {props.post.comments[0].text}
+                        </span>
+                        <span className="time">
+                           {props.post.comments[0].author === USER_ID && (
+                              <motion.span
+                                 onClick={() =>
+                                    handleDeleteComment(
+                                       props.post.comments[0]._id
+                                    )
+                                 }
+                                 className="delete-button"
+                                 whileTap={{
+                                    filter:
+                                       "invert(34%) sepia(94%) saturate(5794%) hue-rotate(351deg) brightness(88%) contrast(133%)",
+                                 }}
+                              >
+                                 <svg
+                                    width="12"
+                                    height="12"
+                                    viewBox="0 0 16 16"
+                                 >
+                                    <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z" />
+                                 </svg>
+                              </motion.span>
+                           )}
+                           {timeFormatter(props.post.comments[0].time)}
+                        </span>
                      </p>
-                     <p className="text">{props.post.comments[0].text}</p>
-                     <span className="time">
-                        <p>{timeFormatter(props.post.comments[0].time)}</p>
-                     </span>
                   </div>
                )}
-               {props.post.comments.length > 1 && (
+               {props.post.comments.length > 1 && !showComments && (
                   <motion.p
                      whileTap={{ scale: 0.9 }}
                      className="load-more"

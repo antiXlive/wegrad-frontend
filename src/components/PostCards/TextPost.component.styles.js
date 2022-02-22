@@ -137,37 +137,49 @@ const Card = styled.div`
    }
    .comment-container {
       width: 100%;
-      padding: 10px 0;
-      /* border: 1px solid red; */
-      /* height: 100px; */
+      padding: 5px 0;
+      padding-top: 10px;
       background-color: #f2f3f5;
-      border-bottom: 1px solid #55555515;
+      /* border-bottom: 1px solid #55555515; */
       .comment {
          width: 100%;
-         padding: 5px 10px;
-         /* border: 1px solid red; */
+         padding: 5px 8px;
          .author {
+            width: 100%;
             font-weight: 600;
-            /* font-size: 14px; */
+            font-size: 13px;
+            color: #262626;
          }
          .text {
-            /* font-size: 14px; */
-            opacity: 0.8;
+            font-size: 13px;
+            /* opacity: 0.8; */
             padding-left: 5px;
+            color: #262626;
+            font-weight: 400;
          }
+
          .time {
             width: max-content;
-            opacity: 0.5;
+            /* opacity: 0.5; */
             float: right;
-            p {
+            margin-right: 5px;
+            /* p { */
                font-size: 12px;
                text-align: left;
-            }
+               color: #8e8e8e;
+            /* } */
+         }
+         .delete-button{
+            /* border: 1px solid red; */
+            display: inline-flex;
+            margin-right: 5px;
+            cursor: pointer;
          }
          p {
             margin: 0;
             font-size: 13px;
             display: inline-block;
+            line-height: 18px;
          }
       }
       .load-more {

@@ -47,6 +47,10 @@ export const appendNewComment = (comment) => ({
    type: "APPEND_NEW_COMMENT",
    payload: comment,
 });
+export const removeComment = (data) => ({
+   type: "REMOVE_COMMENT",
+   payload: data,
+});
 
 export const fetchNewsFeed = (token, skip1, skip2) => (dispatch) => {
    if (!skip1) dispatch(SET_LOGO_LOADER(true));
@@ -270,5 +274,31 @@ export const addComment = (token, postid, text, author) => (dispatch) => {
       })
       .catch((err) => {
          dispatch(setNotification(0, "Oops! Your comment could not be saved"));
+      });
+};
+export const deleteComment = (token, commentid, postid) => (dispatch) => {
+   let data = {
+      commentid,
+   };
+   axios
+      .delete("/post/remove-comment", {
+         headers: {
+            authorization: "Bearer " + token,
+         },
+         data,
+      })
+      .then((res) => {
+         if (res.data.error) {
+            dispatch(
+               setNotification(0, "Oops! Your comment could not be deleted1")
+            );
+         } else if (res.data.msg) {
+            dispatch(removeComment({ commentid, postid }));
+         }
+      })
+      .catch((err) => {
+         dispatch(
+            setNotification(0, "Oops! Your comment could not be deleted2")
+         );
       });
 };
