@@ -13,7 +13,6 @@ import {
 } from "./HomePage.styles";
 
 const HomePage = () => {
-   console.log(process.env);
    const location = useLocation();
    const navigate = useNavigate();
 
