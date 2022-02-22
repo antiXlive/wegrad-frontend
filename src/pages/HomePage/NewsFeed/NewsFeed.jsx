@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { motion } from "framer-motion";
 
@@ -16,6 +17,8 @@ import {
 
 const NewsFeed = () => {
    const dispatch = useDispatch();
+   const location = useLocation();
+   const navigate = useNavigate();
    const spinnerRef = useRef();
 
    const FetchingNew = useSelector((state) => state.postReducer.fetchingNew);
@@ -23,6 +26,7 @@ const NewsFeed = () => {
    const NoMorePosts = useSelector((state) => state.postReducer.noMorePosts);
    const newsFeed = useSelector((state) => state.postReducer.newsFeed);
    const TOKEN = useSelector((state) => state.auth.authToken);
+
 
    useEffect(() => {
       !newsFeed && dispatch(fetchNewsFeed(TOKEN));

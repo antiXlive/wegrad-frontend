@@ -27,6 +27,7 @@ import EditProfile from "./pages/Profile/EditProfile";
 
 import Alumni from "./pages/Alumni/Alumni";
 
+import OverLay from "./components/Loader/OverLay";
 import LogoLoader from "./components/Loader/LogoLoader";
 import SpinnerLoader from "./components/Loader/SpinnerLoader";
 import NotifyToast from "./components/Notification/NotifyToast";
@@ -99,20 +100,17 @@ function App() {
          )}
          {spinnerLoader && <SpinnerLoader />}
          {logoLoader && <LogoLoader />}
+         {/* {"op" && <OverLay />} */}
          {!processing && (
             <AnimatePresence exitBeforeEnter>
                <Routes location={location} key={location.key}>
                   <Route
                      path="/auth/signup"
-                     element={
-                        TOKEN ? <Navigate to="/home" replace /> : <Signup />
-                     }
+                     element={TOKEN ? <Navigate to="/" replace /> : <Signup />}
                   />
                   <Route
                      path="/auth/signin"
-                     element={
-                        TOKEN ? <Navigate to="/home" replace /> : <Signin />
-                     }
+                     element={TOKEN ? <Navigate to="/" replace /> : <Signin />}
                   />
                   <Route
                      path="/auth/verify-otp"
@@ -230,14 +228,7 @@ function App() {
                         </>
                      )}
                   </Route>
-                  <Route
-                     path="*"
-                     element={
-                        <main style={{ padding: "1rem" }}>
-                           <p>There's nothing here!</p>
-                        </main>
-                     }
-                  />
+                  <Route path="*" element={<Navigate to="/" replace />} />
                </Routes>
             </AnimatePresence>
          )}

@@ -16,12 +16,12 @@ const HomePage = () => {
    const location = useLocation();
    const navigate = useNavigate();
 
-   useEffect(() => {
-      if (location.pathname == "/" && TOKEN) navigate("/feed");
-   }, []);
-
    const newsFeed = useSelector((state) => state.postReducer.newsFeed);
    const TOKEN = useSelector((state) => state.auth.authToken);
+
+   useEffect(() => {
+      if (location.pathname == "/" && TOKEN) navigate("/feed");
+   }, [TOKEN, location]);
 
    const navigationLinks = [
       {
@@ -90,7 +90,7 @@ const HomePage = () => {
 
    return (
       <Div data={newsFeed && newsFeed.length > 0 ? 1 : 0}>
-         <HomeHeader />
+         <HomeHeader navigationLinks={navigationLinks} />
          <div className="content-section">
             <FixedWrapper className="fw-navigation">
                <NavigationCard>
