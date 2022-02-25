@@ -1,23 +1,15 @@
 import styled from "styled-components";
-import background from "../../assets/background1.png";
+import { motion } from "framer-motion";
 
 const Div = styled.div`
    width: 100vw;
    min-height: 100vh;
-   /* height: auto; */
-   background-color: #e7ebef;
+   max-width: 550px;
    display: flex;
    flex-direction: column;
    box-sizing: border-box;
-   background-image: url(${background});
-   background-repeat: no-repeat;
-   background-attachment: fixed;
-   background-size: auto;
    padding-bottom: 20px;
    margin-top: -32px;
-   @media (min-width: 1024px) {
-      background-size: cover;
-   }
 
    .header-card {
       /* margin-top:10px; */
@@ -30,8 +22,8 @@ const Div = styled.div`
       height: 140px;
       background-color: #0573b9;
       padding: 30px 15px;
-      border-bottom-left-radius: 40px;
-      border-bottom-right-radius: 40px;
+      /* border-bottom-left-radius: 40px; */
+      /* border-bottom-right-radius: 40px; */
       p {
          color: #ededed;
          margin: 0;
@@ -199,7 +191,7 @@ const Card = styled.div`
       }
    }
 `;
-const Button = styled.button`
+const Button = styled(motion.div)`
    width: 120px;
    height: 35px;
    border-radius: 2px;

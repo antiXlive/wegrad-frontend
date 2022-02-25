@@ -2,6 +2,7 @@ const INITIAL_STATE = {
    fetching: true,
    userProfile: null,
    updating: false,
+   alumni:[],
 };
 
 const profileReducer = (state = INITIAL_STATE, action) => {
@@ -16,6 +17,11 @@ const profileReducer = (state = INITIAL_STATE, action) => {
          return {
             ...state,
             updating: action.payload,
+         };
+      case "SET_ALUMNI":
+         return {
+            ...state,
+            alumni: action.payload,
          };
       default:
          return state;

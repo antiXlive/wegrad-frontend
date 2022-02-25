@@ -1,15 +1,27 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 
 import { Div, AlumniCard } from "./Alumni.styles";
-import HomeHeader from "../../components/Header/HomeHeader.component";
 
-import { useEffect } from "react";
+import { fetchAlumni } from "../../redux/actions/profileActions";
+
+import defaultavatar from "../../assets/default-avatar.webp";
 
 const Profile = () => {
+   const dispatch = useDispatch();
+
+   const TOKEN = useSelector((state) => state.auth.authToken);
+   const ALUMNI = useSelector((state) => state.profileReducer.alumni);
+
    useEffect(() => {
       document.title = "Alumni | weGrad";
-   });
+   }, []);
+
+   useEffect(() => {
+      console.log(ALUMNI);
+      !ALUMNI.length && dispatch(fetchAlumni(TOKEN));
+   }, [ALUMNI]);
 
    return (
       <Div>
@@ -24,22 +36,27 @@ const Profile = () => {
                // border: "1px solid green",
             }}
          >
-            <AlumniCard>
-               <Link to="/profile/piyush107@iiitmanipur.ac.in"></Link>
-               <div className="avatar">
-                  <img src="https://i.ibb.co/n3nqKsG/profile-pic61e695285aec07619c8fca71.webp" />
-               </div>
-               <p className="name">Piyush Kumar</p>
-               <p className="role">Application Developer @ IBM GBS</p>
-            </AlumniCard>
-            <AlumniCard>
-               <Link to="/profile/piyush107@iiitmanipur.ac.in"></Link>
-               <div className="avatar">
-                  <img src="https://i.ibb.co/MZDycxW/61c48482f376d28558eb986d.webp" />
-               </div>
-               <p className="name">Piyush Kumar</p>
-               <p className="role">Application Developer @ IBM GBS</p>
-            </AlumniCard>
+            {ALUMNI.map((alumni) => {
+               return (
+                  <AlumniCard key={alumni._id}>
+                     <Link to={"/profile/" + alumni.email}></Link>
+                     <div className="avatar">
+                        <img
+                           src={
+                              alumni.profilePic
+                                 ? alumni.profilePic
+                                 : defaultavatar
+                           }
+                           alt={alumni.fullName}
+                        />
+                     </div>
+                     <p className="name">{alumni.fullName}</p>
+                     <p className="role">
+                        {alumni.currentDesignation} @ {alumni.currentCompany}
+                     </p>
+                  </AlumniCard>
+               );
+            })}
             {/* <div
                style={{
                   border: "1px solid",

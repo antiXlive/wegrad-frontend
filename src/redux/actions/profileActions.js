@@ -12,6 +12,10 @@ const setUserProfile = (profile) => ({
    type: "SET_USER_PROFILE",
    payload: profile,
 });
+const setAlumni = (alumni) => ({
+   type: "SET_ALUMNI",
+   payload: alumni,
+});
 const setUpdating = (status) => ({
    type: "SET_UPDATING",
    payload: status,
@@ -138,5 +142,26 @@ export const updateProfile = (token, data) => (dispatch) => {
          dispatch(
             setNotification(0, "Oops! Your profile could not be updated")
          );
+      });
+};
+
+export const fetchAlumni = (token) => (dispatch) => {
+   dispatch(SET_LOGO_LOADER(true));
+   axios
+      .get("/user/alumni", {
+         headers: {
+            authorization: "Bearer " + token,
+         },
+      })
+      .then((res) => {
+         if (res.data.err) {
+            dispatch(SET_LOGO_LOADER(false));
+         } else if (res.data) {
+            dispatch(setAlumni(res.data));
+            dispatch(SET_LOGO_LOADER(false));
+         }
+      })
+      .catch((err) => {
+         dispatch(SET_LOGO_LOADER(false));
       });
 };

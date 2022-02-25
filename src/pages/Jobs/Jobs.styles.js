@@ -1,20 +1,18 @@
 import styled from "styled-components";
-import background from "../../assets/background1.png";
 
 const Div = styled.div`
+   height: min-content;
+   max-width: 550px;
    width: 100vw;
-   min-height: 100vh;
-   height: auto;
-   background-color: #e7ebef;
+   height: 100%;
    display: flex;
    flex-direction: column;
-   box-sizing: border-box;
-   background-image: url(${background});
-   background-repeat: no-repeat;
-   background-attachment: fixed;
-   background-size: auto;
-   @media (min-width: 1024px) {
-      background-size: cover;
+   /* background-color: blue; */
+   @media (min-width: 800px) {
+      max-width: 500px;
+   }
+   @media (min-width: 1000px) {
+      max-width: 550px;
    }
 
    .new-job {

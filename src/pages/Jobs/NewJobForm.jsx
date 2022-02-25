@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import { Div, Card, Button } from "./NewJobForm.styles";
 
@@ -8,7 +8,7 @@ import { saveJob } from "../../redux/actions/jobActions";
 
 const NewJobForm = () => {
    const dispatch = useDispatch();
-   const history = useHistory();
+   const navigate = useNavigate();
 
    const TOKEN = useSelector((state) => state.auth.authToken);
    const USER = useSelector((state) => state.auth.user);
@@ -18,7 +18,7 @@ const NewJobForm = () => {
       document.title = "New Job";
    });
    useEffect(() => {
-      if (GO_BACK) history.goBack();
+      if (GO_BACK) navigate(-1);
    }, [GO_BACK]);
 
    const [jd, setJD] = useState({
@@ -131,7 +131,7 @@ const NewJobForm = () => {
                />
             </div>
          </Card>
-         <Button onClick={handleSaveNewJob}>
+         <Button onClick={handleSaveNewJob} whileTap={{ scale: 0.9 }}>
             <p>SAVE</p>
          </Button>
       </Div>

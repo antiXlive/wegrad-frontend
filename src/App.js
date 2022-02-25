@@ -26,6 +26,11 @@ import Profile from "./pages/Profile/Profile";
 import EditProfile from "./pages/Profile/EditProfile";
 
 import Alumni from "./pages/Alumni/Alumni";
+import Jobs from "./pages/Jobs/Jobs";
+import JobDetail from "./pages/Jobs/JobDetail";
+import NewJobForm from "./pages/Jobs/NewJobForm";
+
+import InterviewExperience from "./pages/Interview_Experiences/InterviewExperience";
 
 import OverLay from "./components/Loader/OverLay";
 import LogoLoader from "./components/Loader/LogoLoader";
@@ -155,8 +160,25 @@ function App() {
                            <Route
                               path="jobs"
                               element={
+                                 TOKEN ? <Jobs /> : <Navigate to="/" replace />
+                              }
+                           />
+                           <Route
+                              path="jobs/create"
+                              element={
                                  TOKEN ? (
-                                    <h1>Jobs</h1>
+                                    <NewJobForm />
+                                 ) : (
+                                    <Navigate to="/" replace />
+                                 )
+                              }
+                           />
+
+                           <Route
+                              path="jobs/:id"
+                              element={
+                                 TOKEN ? (
+                                    <JobDetail />
                                  ) : (
                                     <Navigate to="/" replace />
                                  )
@@ -196,7 +218,7 @@ function App() {
                               path="interview-experience"
                               element={
                                  TOKEN ? (
-                                    <h1>Interview Experience</h1>
+                                    <InterviewExperience />
                                  ) : (
                                     <Navigate to="/" replace />
                                  )

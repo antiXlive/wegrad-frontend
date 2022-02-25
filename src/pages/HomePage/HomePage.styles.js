@@ -41,18 +41,22 @@ const Div = styled.div`
          }
       }
       @media (min-width: 1250px) {
-         padding: 0 5vw;
+         padding: 0 6vw;
          padding-top: 80px;
       }
       @media (min-width: 1500px) {
-         padding: 0 11vw;
+         padding: 0 12vw;
+         padding-top: 80px;
+      }
+      @media (min-width: 1700px) {
+         padding: 0 18vw;
          padding-top: 80px;
       }
    }
 `;
 
 export const FixedWrapper = styled.div`
-   width: 280px;
+   width: 260px;
    display: flex;
    flex-direction: column;
    align-items: center;

@@ -148,16 +148,68 @@ export const DesktopHeader = styled.div`
       width: 100vw;
       min-height: 50px;
       align-items: center;
-      justify-content: space-between;
+      justify-content: space-around;
       padding: 8px 5vw;
       padding-top: 15px;
-      border: 1px solid green;
+      /* border: 1px solid green; */
       background-color: #fff;
+      @media(min-width: 1300px){
+         padding: 8px 10vw;
+      }
+      @media(min-width: 1500px){
+         padding: 8px 15vw;
+      }
 
       .logo-container {
          width: 150px;
          img {
             width: 100%;
+         }
+      }
+      .search-bar {
+         width: 30%;
+         max-width: 250px;
+         height: 28px;
+         /* border: 1px solid red; */
+         background: #f3f2f6;
+         display: flex;
+         align-items: center;
+         justify-content: center;
+         position: relative;
+         border-radius: 3px;
+         input {
+            width: 100%;
+            height: 100%;
+            background-color: inherit;
+            border: none;
+            padding-left: 30px;
+            border-radius: 3px;
+            &:focus {
+               outline: none;
+               border: 1px solid ${(props) => props.bcolor};
+            }
+         }
+         svg {
+            transform: scale(0.8);
+         }
+      }
+      .link-section{
+         /* border: 1px solid; */
+         /* width: 40%; */
+         height: 100%;
+         display: flex;
+         .link-item{
+            /* border: 1px solid red; */
+            width: 60px;
+            display: flex;
+            align-items: center;
+            img{
+               width: 35px;
+               cursor: pointer;
+            }
+            svg{
+               cursor: pointer;
+            }
          }
       }
    }

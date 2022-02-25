@@ -2,13 +2,14 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
-import { Div, JobCard } from "./Jobs.styles";
-import HomeHeader from "../../components/Header/HomeHeader.component";
+import { motion } from "framer-motion";
 
-import { fetchJob } from "../../redux/actions/jobActions";
+import { Div, JobCard } from "./Jobs.styles";
+
+import { fetchJobs } from "../../redux/actions/jobActions";
 import { timeFormatter } from "../../lib/helperFunctions";
 
-import NoData from "../../assets/no-data.png";
+import nodata from "../../assets/no-data.webp";
 
 const Jobs = () => {
    const dispatch = useDispatch();
@@ -21,16 +22,15 @@ const Jobs = () => {
    });
 
    useEffect(() => {
-      dispatch(fetchJob(TOKEN));
+      dispatch(fetchJobs(TOKEN));
    }, []);
 
    return (
       <Div>
-         <HomeHeader />
-         <div className="new-job">
+         <motion.div className="new-job" whileTap={{ scale: 0.9 }}>
             <Link to="/jobs/create"></Link>
             <p>Post a Job</p>
-         </div>
+         </motion.div>
          {JOBS && JOBS.length ? (
             <>
                <div
@@ -49,7 +49,7 @@ const Jobs = () => {
                         <JobCard key={job._id}>
                            <Link
                               style={{ textDecoration: "none" }}
-                              to="/jobs/1decf234def"
+                              to={`/jobs/` + job._id}
                            ></Link>
                            <div className="company">
                               <p>{job.company}</p>
@@ -70,7 +70,7 @@ const Jobs = () => {
             </>
          ) : (
             <div className="no-data">
-               <img src={NoData} alt="no-data" />
+               <img src={nodata} alt="no-data" />
                <p>No jobs found!</p>
             </div>
          )}

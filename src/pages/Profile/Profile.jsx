@@ -220,6 +220,7 @@ const Profile = () => {
                   USER_PROFILE.experiences.map((experience, index) => {
                      return (
                         <div
+                           key={experience.from}
                            className="experience"
                            style={{
                               borderTop: index > 0 ? "1px solid #55555510" : 0,
