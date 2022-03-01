@@ -52,7 +52,10 @@ const Profile = () => {
                      </div>
                      <p className="name">{alumni.fullName}</p>
                      <p className="role">
-                        {alumni.currentDesignation} @ {alumni.currentCompany}
+                        {alumni.currentDesignation &&
+                           alumni.currentDesignation +
+                              " @ " +
+                              alumni.currentCompany}
                      </p>
                   </AlumniCard>
                );

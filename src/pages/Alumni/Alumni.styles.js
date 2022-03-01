@@ -15,6 +15,7 @@ const AlumniCard = styled.div`
    width: 220px;
    display: flex;
    align-items: center;
+   justify-content: center;
    flex-direction: column;
    padding: 15px 10px;
    background-color: #fff;
@@ -37,6 +38,7 @@ const AlumniCard = styled.div`
    p {
       margin: 0;
       margin-top: 10px;
+      text-align: center;
    }
    .name {
       font-size: 18px;

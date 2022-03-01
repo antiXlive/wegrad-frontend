@@ -48,17 +48,27 @@ const TextPost = (props) => {
       dispatch(deletePost(TOKEN, props.post._id, props.post.question));
    };
 
+   let executing = false;
+
    const handleOption = (option) => {
-      let tmp = props.post.options;
-      tmp[option].count += 1;
-      dispatch(votePoll(TOKEN, props.post._id, USER_ID, tmp, option + 1));
+      if (!executing) {
+         let tmp = props.post.options;
+         tmp[option].count += 1;
+         dispatch(votePoll(TOKEN, props.post._id, USER_ID, tmp, option + 1));
+         executing = true;
+         setTimeout(() => (executing = false), 20000);
+      }
    };
 
    const handleRevertVote = () => {
-      if (props.post.userVote) {
-         let tmp = props.post.options;
-         tmp[props.post.userVote.option - 1].count -= 1;
-         dispatch(revertvotePoll(TOKEN, props.post._id, USER_ID, tmp));
+      if (!executing) {
+         if (props.post.userVote) {
+            let tmp = props.post.options;
+            tmp[props.post.userVote.option - 1].count -= 1;
+            dispatch(revertvotePoll(TOKEN, props.post._id, USER_ID, tmp));
+         }
+         executing = true;
+         setTimeout(() => (executing = false), 20000);
       }
    };
 
@@ -163,7 +173,9 @@ const TextPost = (props) => {
                               <p>
                                  {(option.count / totalVotes) * 100 > -1 &&
                                     (option.count / totalVotes) * 100 < 101 &&
-                                    (option.count / totalVotes) * 100 + "%"}
+                                    Math.round(
+                                       (option.count / totalVotes) * 100
+                                    ) + "%"}
                               </p>
                            </div>
                         ) : (
