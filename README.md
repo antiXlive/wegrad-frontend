@@ -28,8 +28,20 @@ Web app for IIIT Senapati, Manipur Alumni Association.
 
 <img
     width="170"
-    alt="Capture 4"
-    src="https://i.ibb.co/0mjz9Q5/Screenshot-2022-02-10-09-40-49-28-61d79088e1bd2ba5c60fa2dd5f508164.jpg"
+    alt="Welcome Page"
+    src="https://i.ibb.co/68FfK7m/wegrad-iiitm-netlify-app-i-Phone-6-7-8-Plus-1.png"
+/> <img
+    width="170"
+    alt="Signup"
+    src="https://i.ibb.co/Czh7FX6/wegrad-iiitm-netlify-app-i-Phone-SE-1.png"
+/> <img
+    width="170"
+    alt="Signup_input_validation"
+    src="https://i.ibb.co/m9NzpWf/wegrad-iiitm-netlify-app-i-Phone-SE-2-1.png"
+/> <img
+    width="170"
+    alt="Signin"
+    src="https://i.ibb.co/bg5q4Zj/wegrad-iiitm-netlify-app-i-Phone-SE-3-1.png"
 />
 
 
