@@ -18,7 +18,7 @@ export const Div = styled.div`
    display: flex;
    padding-top: 10vh;
    flex-direction: column;
-   border: 2px solid red;
+   /* border: 2px solid red; */
    .section-1 {
       width: 100%;
       /* height: 50%; */
@@ -100,7 +100,7 @@ export const Div = styled.div`
       flex-direction: row;
       padding: 0 5vw;
       /* padding-top: 20vh; */
-      border: 2px solid black;
+      /* border: 2px solid black; */
       height: 100vh;
       .section-1 {
          /* border: 1px solid red; */
