@@ -79,7 +79,7 @@ const WelcomeHeader = () => {
                      About
                   </motion.p>
                </Link>
-               <Link to="/">
+               <Link to="/auth/signin">
                   <motion.p
                      whileTap={{ color: "#0573b9" }}
                      whileHover={{ color: "#0573b9" }}
@@ -87,7 +87,7 @@ const WelcomeHeader = () => {
                      Signin
                   </motion.p>
                </Link>
-               <Link to="/">
+               <Link to="/auth/signup">
                   <motion.p
                      whileTap={{ color: "#0573b9" }}
                      whileHover={{ color: "#0573b9" }}

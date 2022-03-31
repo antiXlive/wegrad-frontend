@@ -28,7 +28,7 @@ const Card = styled.div`
          img {
             width: 100%;
             height: 100%;
-            border-radius: 100vh;
+            border-radius: 100vw;
          }
       }
       .user-info-data {
@@ -212,6 +212,7 @@ const Card = styled.div`
          width: 7%;
          max-width: 26px;
          margin-right: 10px;
+         border-radius: 100vw;
       }
       svg {
          margin-left: 10px;

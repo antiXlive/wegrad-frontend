@@ -79,40 +79,13 @@ const Card = styled.div`
          margin: 0;
          margin-bottom: 10px;
       }
-      input,
-      textarea,
-      select {
+      input,select {
          width: 100%;
          height: 35px;
          border: 1px solid #55555590;
          border-radius: 3px;
          padding: 0 10px;
          background-color: transparent;
-      }
-      textarea {
-         resize: vertical;
-         height: 200px;
-         max-height: 80vh;
-         padding: 10px;
-         overflow: auto;
-      }
-      .radio {
-         max-width: 30px;
-         display: inline-block;
-      }
-      .radio-input {
-         width: 50%;
-         display: flex;
-         align-items: center;
-         justify-content: space-evenly;
-         .input {
-            width: 10%;
-         }
-         p {
-            width: 50%;
-            display: inline-block;
-            margin: 0;
-         }
       }
    }
    .new-button {
@@ -135,73 +108,6 @@ const Card = styled.div`
       svg {
          color: #777;
          position: static;
-      }
-   }
-   .chip {
-      width: 95%;
-      border: 1px solid #77777795;
-      background-color: #77777710;
-      min-height: 45px;
-      padding: 4px 0;
-      border-radius: 100px;
-      position: relative;
-      display: flex;
-      align-items: center;
-      align-self: center;
-      margin-bottom: 30px;
-      overflow: hidden;
-      .one,
-      .one-e,
-      .two,
-      .three {
-         width: 10%;
-         min-height: 40px;
-         text-align: center;
-         display: flex;
-         align-items: center;
-         justify-content: center;
-         flex-direction: column;
-         /* border: 1px solid red; */
-      }
-      .one {
-         width: 15%;
-         align-items: end;
-      }
-      .two {
-         width: 70%;
-         justify-content: space-around;
-         p:nth-child(1) {
-            font-size: 15px;
-         }
-         p:nth-child(2) {
-            font-size: 11px;
-         }
-      }
-      .three {
-         align-items: flex-start;
-      }
-      .one-e {
-         padding: 0 22px;
-         width: 90%;
-         align-items: flex-start;
-         justify-content: space-evenly;
-         text-align: left;
-         p:nth-child(1) {
-            font-size: 13px;
-            line-height: 14px;
-            margin-bottom: 5px;
-         }
-         p:nth-child(2) {
-            font-size: 10px;
-         }
-      }
-      svg {
-         color: #777;
-         position: static;
-      }
-      p {
-         margin: 0;
-         display: inline-block;
       }
    }
 `;

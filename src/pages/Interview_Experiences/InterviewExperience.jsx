@@ -3,10 +3,10 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import { Div, ExperienceCard } from "./InterviewExperience.styles";
-import HomeHeader from "../../components/Header/HomeHeader.component";
 import NoData from "../../assets/no-data.webp";
+import { company, location, personBadge } from "../../svgIcons";
 
-import { fetchInterviewExperience } from "../../redux/actions/interviewExperienceActions";
+import { fetchInterviewExperiences } from "../../redux/actions/interviewExperienceActions";
 
 import { useEffect } from "react";
 
@@ -17,20 +17,18 @@ const InterviewExperience = () => {
    const INTERVIEW_EXPERIENCES = useSelector(
       (state) => state.interviewExperienceReducer.interviewExperiences
    );
-   console.log(INTERVIEW_EXPERIENCES);
 
    useEffect(() => {
       document.title = "Interview Experience | weGrad";
    });
    useEffect(() => {
-      if (!INTERVIEW_EXPERIENCES) dispatch(fetchInterviewExperience(TOKEN));
-      // !INTERVIEW_EXPERIENCES.length && dispatch(fetchInterviewExperience(TOKEN));
-   }, [INTERVIEW_EXPERIENCES]);
+      dispatch(fetchInterviewExperiences(TOKEN));
+   }, []);
 
    return (
       <Div>
          <div className="new-interview-experience">
-            <Link to="/interview-experiences/create"></Link>
+            <Link to="/interview-experience/create"></Link>
             <p>Post your Interview Experience</p>
          </div>
          {INTERVIEW_EXPERIENCES && INTERVIEW_EXPERIENCES.length ? (
@@ -48,46 +46,31 @@ const InterviewExperience = () => {
                {INTERVIEW_EXPERIENCES.map((interviewExperience) => {
                   return (
                      <ExperienceCard>
-                        {/* <Link to="/jobs/1decf234def"></Link> */}
-                        <p
-                           style={{
-                              fontSize: "18px",
-                              margin: 0,
-                              fontWeight: "bold",
-                           }}
-                        >
-                           {interviewExperience.role}
-                        </p>
-                        <p
-                           style={{
-                              fontSize: "14px",
-                              margin: 0,
-                              opacity: "0.8",
-                              marginTop: "3%",
-                           }}
-                        >
-                           {interviewExperience.company}
-                        </p>
-                        <p
-                           style={{
-                              fontSize: "14px",
-                              margin: 0,
-                              opacity: "0.8",
-                              marginTop: "3%",
-                           }}
-                        >
-                           {interviewExperience.mode}
-                        </p>
-                        <p
-                           style={{
-                              fontSize: "12px",
-                              margin: 0,
-                              opacity: "0.8",
-                              marginTop: "2%",
-                           }}
-                        >
-                           {interviewExperience.author}
-                        </p>
+                        <Link
+                           style={{ textDecoration: "none" }}
+                           to={
+                              `/interview-experience/` + interviewExperience._id
+                           }
+                        ></Link>
+                        <div className="role">
+                           <p>{interviewExperience.role}</p>
+                        </div>
+                        <div className="company">
+                           <svg {...company.props} />
+                           <p>{interviewExperience.company}</p>
+                        </div>
+                        <div className="mode">
+                           <svg {...location.props} />
+                           <p>
+                              {interviewExperience.hiring
+                                 ? "On-Campus"
+                                 : "Off-Campus"}
+                           </p>
+                        </div>
+                        <div className="author">
+                           <svg {...personBadge.props} />
+                           <p>{interviewExperience.author}</p>
+                        </div>
                      </ExperienceCard>
                   );
                })}

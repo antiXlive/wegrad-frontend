@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const Div = styled.div`
+export const Div = styled.div`
    height: min-content;
    max-width: 550px;
    width: 100vw;
@@ -14,10 +14,9 @@ const Div = styled.div`
    @media (min-width: 1000px) {
       max-width: 550px;
    }
-
-   .new-job {
+   .button {
       position: fixed;
-      padding: 7px 25px;
+      padding: 7px 15px;
       display: flex;
       align-items: center;
       align-self: center;
@@ -37,7 +36,6 @@ const Div = styled.div`
          height: 100%;
       }
    }
-
    .no-data {
       margin-top: 20vh;
       display: flex;
@@ -55,10 +53,9 @@ const Div = styled.div`
    }
 `;
 
-export const JobCard = styled.div`
+export const EventCard = styled.div`
+   min-height: 110px;
    width: 90%;
-   /* min-height: 130px; */
-   min-height: 140px;
    background-color: #fff;
    border-radius: 3px;
    box-shadow: 0px 3px 20px #00000010;
@@ -66,42 +63,31 @@ export const JobCard = styled.div`
    display: flex;
    flex-direction: column;
    position: relative;
-   padding: 5px 0;
+   padding: 5px 15px;
    padding-bottom: 15px;
+   cursor: pointer;
    a {
       position: absolute;
       width: 100%;
       height: 95%;
    }
-   .company,
-   .role,
-   .location,
-   .date {
-      padding: 0 15px;
-      display: flex;
-      align-items: center;
-      width: 100%;
-      p {
-         margin: 0;
-         display: inline-block;
-         letter-spacing: 0.5px;
-      }
+   p {
+      margin: 0;
    }
-   .company {
+   .name {
       margin-top: 10px;
+      height: 20%;
       font-size: 16px;
       color: var(--blue2);
       letter-spacing: 1px;
+      margin-bottom: 10px;
    }
-   .role {
-      height: 25px;
-      font-size: 15px;
-      color: #333;
-      margin-top: 6px;
-      margin-bottom: 8px;
-   }
-   .location,
    .date {
+      font-size: 12px;
+   }
+   .date,
+   .speaker {
+      /* border: 1px solid red; */
       margin-top: 10px;
       display: flex;
       align-items: center;
@@ -116,5 +102,3 @@ export const JobCard = styled.div`
       }
    }
 `;
-
-export { Div };

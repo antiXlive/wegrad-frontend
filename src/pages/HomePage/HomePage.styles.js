@@ -105,11 +105,40 @@ export const MainContentCard = styled.div`
 `;
 export const HighlightCard = styled.div`
    display: none;
-   width: 250px;
+   width: 260px;
    height: 50vh;
+   max-height: 500px;
    position: fixed;
-   background-color: #fff;
-   box-shadow: 0px 5px 20px #00000020;
+   overflow: hidden;
+   /* background-color: #fff; */
+   /* box-shadow: 0px 5px 20px #00000020; */
+   /* border-radius: 1vw; */
+   img {
+      width: 100%;
+      height: 100%;
+      border-radius: 4px;
+      box-shadow: 0px 5px 20px #00000020;
+      position: relative;
+      /* height: 50%; */
+   }
+   p {
+      position: absolute;
+      top: 10px;
+      left: 15px;
+      color: #101010;
+      font-size: 16px;
+      font-weight: 600;
+      letter-spacing: 1px;
+   }
+   .quote {
+      position: absolute;
+      top: 60px;
+      font-size: 12px;
+      letter-spacing: 0.5px;
+      padding-right: 10px;
+      line-height: 15px;
+      /* color: #464646; */
+   }
    /* background-color: green; */
    @media (min-width: 1100px) {
       display: block;

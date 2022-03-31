@@ -1,8 +1,13 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import HomeHeader from "../../components/Header/HomeHeader.component";
+
+import morning from "../../assets/day.webp";
+import evening from "../../assets/evening.webp";
+import night from "../../assets/night.webp";
 
 import {
    Div,
@@ -12,16 +17,44 @@ import {
    FixedWrapper,
 } from "./HomePage.styles";
 
+import { fetchQuote } from "../../redux/actions/sharedActions";
+
 const HomePage = () => {
    const location = useLocation();
    const navigate = useNavigate();
+   const dispatch = useDispatch();
 
    const newsFeed = useSelector((state) => state.postReducer.newsFeed);
    const TOKEN = useSelector((state) => state.auth.authToken);
+   const QUOTE = useSelector((state) => state.shared.quote);
+
+   const [dayTime, setDT] = useState("");
+
+   useEffect(() => {
+      if (!QUOTE) {
+         dispatch(fetchQuote());
+      }
+   }, [QUOTE]);
 
    useEffect(() => {
       if (location.pathname == "/" && TOKEN) navigate("/feed");
    }, [TOKEN, location]);
+
+   useEffect(() => {
+      let hour = new Date().toLocaleTimeString().split(":")[0];
+      if (hour >= 5 && hour <= 11) setDT("morning");
+      if (hour >= 12 && hour <= 16) setDT("noon");
+      if (hour > 16 && hour <= 19) setDT("evening");
+      if (hour > 19) setDT("night");
+      const interval = setInterval(() => {
+         let hour = new Date().toLocaleTimeString().split(":")[0];
+         if (hour >= 5 && hour <= 11) setDT("morning");
+         if (hour >= 12 && hour <= 16) setDT("noon");
+         if (hour > 16 && hour <= 19) setDT("evening");
+         if (hour > 19) setDT("night");
+      }, 10000);
+      return () => clearInterval(interval);
+   }, []);
 
    const navigationLinks = [
       {
@@ -127,7 +160,40 @@ const HomePage = () => {
                <Outlet />
             </MainContentCard>
             <FixedWrapper className="fw-highlight">
-               <HighlightCard></HighlightCard>
+               <HighlightCard>
+                  <img
+                     src={
+                        dayTime == "morning" || dayTime == "noon"
+                           ? morning
+                           : dayTime == "evening"
+                           ? evening
+                           : dayTime == "night"
+                           ? night
+                           : ""
+                     }
+                  />
+                  <motion.p
+                     initial={{ top: "30px", opacity: 0 }}
+                     animate={{ top: "10px", opacity: [0, 0, 1] }}
+                     transition={{ duration: 0.7, ease: "easeIn" }}
+                  >
+                     {dayTime == "morning"
+                        ? "Good morning, Piyush"
+                        : dayTime == "noon"
+                        ? "Good afternoon, Piyush"
+                        : dayTime == "evening"
+                        ? "Good evening, Piyush"
+                        : "Good night, Piyush"}
+                  </motion.p>
+                  <motion.p
+                     initial={{ top: "80px", opacity: 0 }}
+                     animate={{ top: "60px", opacity: [0, 0, 1] }}
+                     transition={{ duration: 0.7, ease: "easeIn", delay: 0.3 }}
+                     className="quote"
+                  >
+                     {QUOTE}
+                  </motion.p>
+               </HighlightCard>
             </FixedWrapper>
          </div>
       </Div>

@@ -1,42 +1,42 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import { Div, Card, Button } from "./NewInterviewExperienceForm.styles";
 
-import { saveJob } from "../../redux/actions/jobActions";
+import { saveInterviewExperience } from "../../redux/actions/interviewExperienceActions";
 
 const NewInterviewExperienceForm = () => {
    const dispatch = useDispatch();
-   const history = useHistory();
+   const navigate = useNavigate();
 
    const TOKEN = useSelector((state) => state.auth.authToken);
    const USER = useSelector((state) => state.auth.user);
    const GO_BACK = useSelector((state) => state.shared.goBack);
 
    useEffect(() => {
-      document.title = "New Job";
+      document.title = "New Interview Experience";
    });
    useEffect(() => {
-      if (GO_BACK) history.goBack();
+      if (GO_BACK) navigate(-1);
    }, [GO_BACK]);
 
-   const [jd, setJD] = useState({
+   const [ie, setIE] = useState({
       company: "",
       role: "",
-      location: "",
       description: "",
-      link: "",
+      status: null,
+      hiring: null,
    });
 
    const textInputHandler = (category, field, value) => {
       switch (category) {
-         case "JD": {
-            let tmp = { ...jd };
+         case "IE": {
+            let tmp = { ...ie };
             tmp[field] = value;
             if (field === "description") tmp[field] = tmp[field].slice(0, 1000);
             else tmp[field] = tmp[field].slice(0, 42);
-            setJD(tmp);
+            setIE(tmp);
             break;
          }
          default: {
@@ -45,17 +45,17 @@ const NewInterviewExperienceForm = () => {
       }
    };
 
-   const handleSaveNewJob = () => {
-      if (jd.company && jd.role && jd.location && jd.description && jd.link) {
+   const handleSaveNewIE = () => {
+      if (ie.company && ie.role && ie.description && ie.status && ie.hiring) {
          let data = {
-            role: jd.role,
-            company: jd.company,
-            location: jd.location,
-            description: jd.description,
-            link: jd.link,
+            role: ie.role,
+            company: ie.company,
+            description: ie.description,
+            status: ie.status,
+            hiring: ie.hiring,
             author: USER._id,
          };
-         dispatch(saveJob(TOKEN, data));
+         dispatch(saveInterviewExperience(TOKEN, data));
       }
    };
 
@@ -72,12 +72,12 @@ const NewInterviewExperienceForm = () => {
                <p>Company/Organisation:</p>
                <input
                   type="text"
-                  value={jd.company}
+                  value={ie.company}
                   onKeyUp={(e) =>
                      (e.target.value = e.target.value.substring(0, 42))
                   }
                   onChange={(e) =>
-                     textInputHandler("JD", "company", e.target.value)
+                     textInputHandler("IE", "company", e.target.value)
                   }
                />
             </div>
@@ -85,25 +85,12 @@ const NewInterviewExperienceForm = () => {
                <p>Role:</p>
                <input
                   type="text"
-                  value={jd.role}
+                  value={ie.role}
                   onKeyUp={(e) =>
                      (e.target.value = e.target.value.substring(0, 42))
                   }
                   onChange={(e) =>
-                     textInputHandler("JD", "role", e.target.value)
-                  }
-               />
-            </div>
-            <div className="text-input">
-               <p>Location:</p>
-               <input
-                  type="text"
-                  value={jd.location}
-                  onKeyUp={(e) =>
-                     (e.target.value = e.target.value.substring(0, 42))
-                  }
-                  onChange={(e) =>
-                     textInputHandler("JD", "location", e.target.value)
+                     textInputHandler("IE", "role", e.target.value)
                   }
                />
             </div>
@@ -111,9 +98,9 @@ const NewInterviewExperienceForm = () => {
                <p>Description:</p>
                <textarea
                   maxLength={1000}
-                  value={jd.description}
+                  value={ie.description}
                   onChange={(e) =>
-                     textInputHandler("JD", "description", e.target.value)
+                     textInputHandler("IE", "description", e.target.value)
                   }
                ></textarea>
             </div>
@@ -130,7 +117,10 @@ const NewInterviewExperienceForm = () => {
                         className="radio"
                         type="radio"
                         name="status"
-                        value="HTML"
+                        value={1}
+                        onChange={(e) =>
+                           textInputHandler("IE", "status", e.target.value)
+                        }
                      />
                      <p>Accepted</p>
                   </div>
@@ -139,7 +129,10 @@ const NewInterviewExperienceForm = () => {
                         className="radio"
                         type="radio"
                         name="status"
-                        value="HTML"
+                        value={0}
+                        onChange={(e) =>
+                           textInputHandler("IE", "status", e.target.value)
+                        }
                      />
                      <p>Rejected</p>
                   </div>
@@ -158,7 +151,10 @@ const NewInterviewExperienceForm = () => {
                         className="radio"
                         type="radio"
                         name="hiring"
-                        value="HTML"
+                        value={1}
+                        onChange={(e) =>
+                           textInputHandler("IE", "hiring", e.target.value)
+                        }
                      />
                      <p>On-Campus</p>
                   </div>
@@ -167,14 +163,17 @@ const NewInterviewExperienceForm = () => {
                         className="radio"
                         type="radio"
                         name="hiring"
-                        value="HTML"
+                        value={0}
+                        onChange={(e) =>
+                           textInputHandler("IE", "hiring", e.target.value)
+                        }
                      />
                      <p>Off-Campus</p>
                   </div>
                </div>
             </div>
          </Card>
-         <Button onClick={handleSaveNewJob}>
+         <Button onClick={handleSaveNewIE}>
             <p>SAVE</p>
          </Button>
       </Div>

@@ -9,6 +9,7 @@ import { Div, JobCard } from "./Jobs.styles";
 import { fetchJobs } from "../../redux/actions/jobActions";
 import { timeFormatter } from "../../lib/helperFunctions";
 
+import { location, calendarCheck } from "../../svgIcons";
 import nodata from "../../assets/no-data.webp";
 
 const Jobs = () => {
@@ -58,9 +59,11 @@ const Jobs = () => {
                               <p>{job.role}</p>
                            </div>
                            <div className="location">
+                              <svg {...location.props} />
                               <p>{job.location}</p>
                            </div>
                            <div className="date">
+                              <svg {...calendarCheck.props} />
                               <p>Posted: {timeFormatter(job.timestamp)}</p>
                            </div>
                         </JobCard>

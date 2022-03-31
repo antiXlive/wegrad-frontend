@@ -35,6 +35,7 @@ export const OverLay = styled.div`
             justify-content: center;
             img {
                width: 40px;
+               border-radius: 100vw;
             }
          }
          .user-info {
@@ -153,10 +154,10 @@ export const DesktopHeader = styled.div`
       padding-top: 15px;
       /* border: 1px solid green; */
       background-color: #fff;
-      @media(min-width: 1300px){
+      @media (min-width: 1300px) {
          padding: 8px 10vw;
       }
-      @media(min-width: 1500px){
+      @media (min-width: 1500px) {
          padding: 8px 15vw;
       }
 
@@ -193,21 +194,22 @@ export const DesktopHeader = styled.div`
             transform: scale(0.8);
          }
       }
-      .link-section{
+      .link-section {
          /* border: 1px solid; */
          /* width: 40%; */
          height: 100%;
          display: flex;
-         .link-item{
+         .link-item {
             /* border: 1px solid red; */
             width: 60px;
             display: flex;
             align-items: center;
-            img{
+            img {
                width: 35px;
                cursor: pointer;
+               border-radius: 100vw;
             }
-            svg{
+            svg {
                cursor: pointer;
             }
          }

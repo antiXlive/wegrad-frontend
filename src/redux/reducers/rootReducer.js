@@ -4,6 +4,8 @@ import sharedReducer from "./sharedReducer";
 import postReducer from "./postReducer";
 import profileReducer from "./profileReducer";
 import { jobReducer } from "./jobReducer";
+import { eventReducer } from "./eventReducer";
+import { mockInterviewReducer } from "./mockInterviewReducer";
 import { interviewExperienceReducer } from "./interviewExperienceReducer";
 
 const rootReducer = combineReducers({
@@ -12,6 +14,8 @@ const rootReducer = combineReducers({
    postReducer,
    profileReducer,
    jobReducer,
+   eventReducer,
+   mockInterviewReducer,
    interviewExperienceReducer,
 });
 

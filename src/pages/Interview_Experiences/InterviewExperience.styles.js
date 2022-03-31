@@ -5,6 +5,8 @@ export const Div = styled.div`
    max-width: 550px;
    width: 100vw;
    height: 100%;
+   display: flex;
+   flex-direction: column;
    /* background-color: blue; */
    @media (min-width: 800px) {
       max-width: 500px;
@@ -13,9 +15,8 @@ export const Div = styled.div`
       max-width: 550px;
    }
    .new-interview-experience {
-      width: max-content;
       position: fixed;
-      padding: 7px 10px;
+      padding: 7px 15px;
       display: flex;
       align-items: center;
       align-self: center;
@@ -56,8 +57,7 @@ export const Div = styled.div`
 
 export const ExperienceCard = styled.div`
    width: 90%;
-   /* min-height: 130px; */
-   height: 130px;
+   min-height: 135px;
    background-color: #fff;
    border-radius: 3px;
    box-shadow: 0px 3px 20px #00000010;
@@ -65,50 +65,49 @@ export const ExperienceCard = styled.div`
    display: flex;
    flex-direction: column;
    position: relative;
-   padding: 10px;
+   padding: 5px 0;
+   padding-bottom: 15px;
    a {
       position: absolute;
       width: 100%;
       height: 95%;
    }
-   .company,
    .role,
-   .location,
-   .date {
+   .company,
+   .mode,
+   .author {
       padding: 0 15px;
       display: flex;
       align-items: center;
-      /* border: 1px solid red; */
       width: 100%;
       p {
-         /* font-size: 12px; */
          margin: 0;
          display: inline-block;
          letter-spacing: 0.5px;
       }
    }
-   .company {
+   .role {
       margin-top: 10px;
-      height: 20%;
       font-size: 16px;
       color: var(--blue2);
       letter-spacing: 1px;
+      margin-bottom: 7px;
    }
-   .role {
-      height: 25%;
-      font-size: 17px;
-      color: #333;
-   }
-   .location {
-      height: 20%;
-      font-size: 12px;
+
+   .company,
+   .mode,
+   .author {
+      margin-top: 10px;
+      display: flex;
+      align-items: center;
       color: #555;
-      margin-bottom: 5px;
-   }
-   .date {
-      align-items: flex-end;
-      height: 15%;
-      font-size: 11px;
-      color: #555;
+      p {
+         display: inline-block;
+         font-size: 13px;
+         margin-left: 10px;
+      }
+      svg {
+         display: inline-block;
+      }
    }
 `;

@@ -8,18 +8,17 @@ export const ParallaxDiv = styled(motion.div)`
    background-position: center;
    background-size: cover;
    background-image: url(${Welcome_img});
+   /* border: 2px solid red; */
 `;
 export const Div = styled.div`
    width: 100vw;
    max-width: 100vw;
    position: absolute;
    top: 0;
-   /* height: 100%; */
-   /* background-color: #f6f6f6; */
    display: flex;
    padding-top: 10vh;
    flex-direction: column;
-   /* border: 2px solid red; */
+   border: 2px solid red;
    .section-1 {
       width: 100%;
       /* height: 50%; */
@@ -29,7 +28,7 @@ export const Div = styled.div`
       justify-content: flex-end;
       padding: 0 2vw;
       padding-top: 7vh;
-      /* border: 1px solid red; */
+      /* border: 1px solid green; */
       .cta {
          margin-top: 1.5vh;
          margin-bottom: 8vh;
@@ -53,7 +52,7 @@ export const Div = styled.div`
          text-align: center;
          color: var(--blue4);
       }
-      @media (min-width: 900px) {
+      /* @media (min-width: 900px) {
          width: 50%;
          padding-top: 100px;
          padding-top: 0;
@@ -61,7 +60,7 @@ export const Div = styled.div`
          p {
             text-align: left;
          }
-      }
+      } */
    }
    .section-2 {
       width: 100%;
@@ -72,20 +71,20 @@ export const Div = styled.div`
       overflow: hidden;
       height: 50%;
       /* border: 1px solid blue; */
-      @media (min-width: 900px) {
+      /* @media (min-width: 900px) {
          width: 50%;
          padding-top: 100px;
-      }
-
+      } */
       img {
          width: 100%;
+         max-width: 700px;
       }
    }
 
    @media (min-width: 700px) {
-      padding: 0 5vw;
+      padding: 0 10vw;
       padding-top: 100px;
-      .section-1 {
+      /* .section-1 {
          padding-top: 2vh;
          p {
             line-height: 150%;
@@ -95,10 +94,25 @@ export const Div = styled.div`
          img {
             width: 70%;
          }
-      }
+      } */
    }
-   @media (min-width: 900px) {
+   @media (min-width: 1000px) {
       flex-direction: row;
-      /* padding-top: 10vh; */
+      padding: 0 5vw;
+      /* padding-top: 20vh; */
+      border: 2px solid black;
+      height: 100vh;
+      .section-1 {
+         /* border: 1px solid red; */
+         justify-content: center;
+         p {
+            font-size: clamp(45px, 2.5vw, 50px);
+         }
+      }
+      .section-2 {
+         /* border: 1px solid red; */
+         /* justify-content: center; */
+         height: 100%;
+      }
    }
 `;

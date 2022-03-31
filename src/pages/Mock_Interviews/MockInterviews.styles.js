@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const Div = styled.div`
+export const Div = styled.div`
    height: min-content;
    max-width: 550px;
    width: 100vw;
@@ -14,10 +14,9 @@ const Div = styled.div`
    @media (min-width: 1000px) {
       max-width: 550px;
    }
-
-   .new-job {
+   .button {
       position: fixed;
-      padding: 7px 25px;
+      padding: 7px 15px;
       display: flex;
       align-items: center;
       align-self: center;
@@ -37,7 +36,6 @@ const Div = styled.div`
          height: 100%;
       }
    }
-
    .no-data {
       margin-top: 20vh;
       display: flex;
@@ -55,10 +53,9 @@ const Div = styled.div`
    }
 `;
 
-export const JobCard = styled.div`
+export const MICard = styled.div`
    width: 90%;
-   /* min-height: 130px; */
-   min-height: 140px;
+   min-height: 105px;
    background-color: #fff;
    border-radius: 3px;
    box-shadow: 0px 3px 20px #00000010;
@@ -73,9 +70,8 @@ export const JobCard = styled.div`
       width: 100%;
       height: 95%;
    }
-   .company,
-   .role,
-   .location,
+   .topic,
+   .interviewer,
    .date {
       padding: 0 15px;
       display: flex;
@@ -87,20 +83,14 @@ export const JobCard = styled.div`
          letter-spacing: 0.5px;
       }
    }
-   .company {
+   .topic {
       margin-top: 10px;
       font-size: 16px;
       color: var(--blue2);
       letter-spacing: 1px;
+      margin-bottom: 7px;
    }
-   .role {
-      height: 25px;
-      font-size: 15px;
-      color: #333;
-      margin-top: 6px;
-      margin-bottom: 8px;
-   }
-   .location,
+   .interviewer,
    .date {
       margin-top: 10px;
       display: flex;
@@ -116,5 +106,3 @@ export const JobCard = styled.div`
       }
    }
 `;
-
-export { Div };

@@ -1,3 +1,10 @@
+import axios from "axios";
+
+const SET_QUOTE = (quote) => ({
+   type: "SET_QUOTE",
+   payload: quote,
+});
+
 export const SET_LOGO_LOADER = (status) => ({
    type: "SET_LOGO_LOADER",
    payload: status,
@@ -38,4 +45,15 @@ export const setGoBack = () => (dispatch) => {
          payload: false,
       });
    }, 1000);
+};
+
+export const fetchQuote = () => (dispatch) => {
+   axios
+      .get("https://quotes.rest/qod?language=en", {})
+      .then((res) => {
+         dispatch(SET_QUOTE(res.data.contents.quotes[0].quote));
+      })
+      .catch((err) => {
+         // dispatch(setNotification(0, "Server not reachable"));
+      });
 };

@@ -4,6 +4,7 @@ const INITIAL_STATE = {
    notificationMsg: null,
    notificationType: null,
    goBack: false,
+   quote: "",
 };
 
 const sharedReducer = (state = INITIAL_STATE, action) => {
@@ -28,6 +29,11 @@ const sharedReducer = (state = INITIAL_STATE, action) => {
          return {
             ...state,
             goBack: action.payload,
+         };
+      case "SET_QUOTE":
+         return {
+            ...state,
+            quote: action.payload,
          };
       default:
          return state;

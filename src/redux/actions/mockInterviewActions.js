@@ -6,30 +6,30 @@ import {
    setGoBack,
 } from "../actions/sharedActions";
 
-const SET_JOBS = (jobs) => ({
-   type: "SET_JOBS",
-   payload: jobs,
+const SET_MIS = (mis) => ({
+   type: "SET_MIS",
+   payload: mis,
 });
-const SET_JOB = (job) => ({
-   type: "SET_JOB",
-   payload: job,
-});
-
-const APPEND_NEW_JOB = (job) => ({
-   type: "APPEND_NEW_JOB",
-   payload: job,
+const SET_MI = (mi) => ({
+   type: "SET_MI",
+   payload: mi,
 });
 
-export const fetchJobs = (token) => (dispatch) => {
+const APPEND_NEW_MI = (mi) => ({
+   type: "APPEND_NEW_MI",
+   payload: mi,
+});
+
+export const fetchMIS = (token) => (dispatch) => {
    dispatch(SET_LOGO_LOADER(true));
    axios
-      .get("/job", {
+      .get("/mockInterview", {
          headers: {
             authorization: "Bearer " + token,
          },
       })
       .then((res) => {
-         dispatch(SET_JOBS(res.data));
+         dispatch(SET_MIS(res.data));
          dispatch(SET_LOGO_LOADER(false));
       })
       .catch((err) => {
@@ -37,16 +37,16 @@ export const fetchJobs = (token) => (dispatch) => {
          dispatch(setNotification(0, "Server not reachable"));
       });
 };
-export const fetchJob = (token, id) => (dispatch) => {
+export const fetchMI = (token, id) => (dispatch) => {
    dispatch(SET_LOGO_LOADER(true));
    axios
-      .get("/job/" + id, {
+      .get("/mockInterview/" + id, {
          headers: {
             authorization: "Bearer " + token,
          },
       })
       .then((res) => {
-         dispatch(SET_JOB(res.data));
+         dispatch(SET_MI(res.data));
          dispatch(SET_LOGO_LOADER(false));
       })
       .catch((err) => {
@@ -55,10 +55,10 @@ export const fetchJob = (token, id) => (dispatch) => {
       });
 };
 
-export const saveJob = (token, data) => (dispatch) => {
+export const saveMI = (token, data) => (dispatch) => {
    dispatch(SET_SPINNER_LOADER(true));
    axios
-      .post("/job/create/", data, {
+      .post("/mockInterview/create/", data, {
          headers: {
             authorization: "Bearer " + token,
          },
@@ -68,9 +68,8 @@ export const saveJob = (token, data) => (dispatch) => {
          if (res.data.err) {
             dispatch(setNotification(0, "Request Failed"));
          } else {
-            dispatch(APPEND_NEW_JOB(res.data.job));
-
-            dispatch(setNotification(1, "Job Posted Successfully"));
+            dispatch(APPEND_NEW_MI(res.data.mi));
+            dispatch(setNotification(1, "Mock Interview Created Successfully"));
             setTimeout(() => {
                dispatch(setGoBack());
             }, 2500);

@@ -26,11 +26,22 @@ import Profile from "./pages/Profile/Profile";
 import EditProfile from "./pages/Profile/EditProfile";
 
 import Alumni from "./pages/Alumni/Alumni";
+
 import Jobs from "./pages/Jobs/Jobs";
 import JobDetail from "./pages/Jobs/JobDetail";
 import NewJobForm from "./pages/Jobs/NewJobForm";
 
+import Events from "./pages/Events/Events";
+import EventDetail from "./pages/Events/EventDetail";
+import NewEventForm from "./pages/Events/NewEventForm";
+
 import InterviewExperience from "./pages/Interview_Experiences/InterviewExperience";
+import InterviewExperienceDetail from "./pages/Interview_Experiences/InterviewExperienceDetail";
+import NewInterviewExperienceForm from "./pages/Interview_Experiences/NewInterviewExperienceForm";
+
+import MockInterviews from "./pages/Mock_Interviews/MockInterviews";
+import MockInterviewDetail from "./pages/Mock_Interviews/MockInterviewDetail";
+import NewMockInterviewForm from "./pages/Mock_Interviews/NewMockInterviewForm";
 
 import OverLay from "./components/Loader/OverLay";
 import LogoLoader from "./components/Loader/LogoLoader";
@@ -62,7 +73,7 @@ function App() {
       let token = localStorage.getItem("weGrad_USER_AUTH_TOKEN")
          ? localStorage.getItem("weGrad_USER_AUTH_TOKEN")
          : null;
-      console.log(token);
+      // console.log(token);
       if (token && token.length > 5) {
          let userId = localStorage.getItem("weGrad_USER_ID");
          let userType = localStorage.getItem("weGrad_USER_TYPE");
@@ -109,6 +120,7 @@ function App() {
          {!processing && (
             <AnimatePresence exitBeforeEnter>
                <Routes location={location} key={location.key}>
+                  <Route path="/home" element={<LandingPage />} />
                   <Route
                      path="/auth/signup"
                      element={TOKEN ? <Navigate to="/" replace /> : <Signup />}
@@ -188,7 +200,27 @@ function App() {
                               path="events"
                               element={
                                  TOKEN ? (
-                                    <h1>Events</h1>
+                                    <Events />
+                                 ) : (
+                                    <Navigate to="/" replace />
+                                 )
+                              }
+                           />
+                           <Route
+                              path="events/create"
+                              element={
+                                 TOKEN ? (
+                                    <NewEventForm />
+                                 ) : (
+                                    <Navigate to="/" replace />
+                                 )
+                              }
+                           />
+                           <Route
+                              path="events/:id"
+                              element={
+                                 TOKEN ? (
+                                    <EventDetail />
                                  ) : (
                                     <Navigate to="/" replace />
                                  )
@@ -208,7 +240,27 @@ function App() {
                               path="mock-interviews"
                               element={
                                  TOKEN ? (
-                                    <h1>Mock Interviews</h1>
+                                    <MockInterviews />
+                                 ) : (
+                                    <Navigate to="/" replace />
+                                 )
+                              }
+                           />
+                           <Route
+                              path="mock-interviews/create"
+                              element={
+                                 TOKEN ? (
+                                    <NewMockInterviewForm />
+                                 ) : (
+                                    <Navigate to="/" replace />
+                                 )
+                              }
+                           />
+                           <Route
+                              path="mock-interviews/:id"
+                              element={
+                                 TOKEN ? (
+                                    <MockInterviewDetail />
                                  ) : (
                                     <Navigate to="/" replace />
                                  )
@@ -219,6 +271,26 @@ function App() {
                               element={
                                  TOKEN ? (
                                     <InterviewExperience />
+                                 ) : (
+                                    <Navigate to="/" replace />
+                                 )
+                              }
+                           />
+                           <Route
+                              path="interview-experience/create"
+                              element={
+                                 TOKEN ? (
+                                    <NewInterviewExperienceForm />
+                                 ) : (
+                                    <Navigate to="/" replace />
+                                 )
+                              }
+                           />
+                           <Route
+                              path="interview-experience/:id"
+                              element={
+                                 TOKEN ? (
+                                    <InterviewExperienceDetail />
                                  ) : (
                                     <Navigate to="/" replace />
                                  )
@@ -250,7 +322,7 @@ function App() {
                         </>
                      )}
                   </Route>
-                  <Route path="*" element={<Navigate to="/" replace />} />
+                  <Route path="*" element={<Navigate to="/home" replace />} />
                </Routes>
             </AnimatePresence>
          )}

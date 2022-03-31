@@ -12,7 +12,6 @@ const Div = styled.div`
    margin-top: -32px;
 
    .header-card {
-      /* margin-top:10px; */
       position: relative;
       bottom: -30px;
       width: 100%;
@@ -22,8 +21,6 @@ const Div = styled.div`
       height: 140px;
       background-color: #0573b9;
       padding: 30px 15px;
-      /* border-bottom-left-radius: 40px; */
-      /* border-bottom-right-radius: 40px; */
       p {
          color: #ededed;
          margin: 0;
