@@ -21,8 +21,8 @@ const EventDetail = () => {
    });
 
    useEffect(() => {
-      location.pathname.split("/")[2] &&
-         dispatch(fetchMI(TOKEN, location.pathname.split("/")[2]));
+      location.pathname.split("/")[3] &&
+         dispatch(fetchMI(TOKEN, location.pathname.split("/")[3]));
    }, [location]);
 
    return (

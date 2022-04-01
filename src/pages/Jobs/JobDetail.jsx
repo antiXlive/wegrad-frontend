@@ -21,8 +21,8 @@ const JobDetail = () => {
    });
 
    useEffect(() => {
-      location.pathname.split("/")[2] &&
-         dispatch(fetchJob(TOKEN, location.pathname.split("/")[2]));
+      location.pathname.split("/")[3] &&
+         dispatch(fetchJob(TOKEN, location.pathname.split("/")[3]));
    }, [location]);
    return (
       JOB && (

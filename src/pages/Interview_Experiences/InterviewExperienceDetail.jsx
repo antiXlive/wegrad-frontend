@@ -23,9 +23,9 @@ const InterviewExperience = () => {
    });
 
    useEffect(() => {
-      location.pathname.split("/")[2] &&
+      location.pathname.split("/")[3] &&
          dispatch(
-            fetchInterviewExperience(TOKEN, location.pathname.split("/")[2])
+            fetchInterviewExperience(TOKEN, location.pathname.split("/")[3])
          );
    }, [location]);
 
