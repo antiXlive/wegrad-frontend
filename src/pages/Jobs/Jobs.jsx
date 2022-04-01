@@ -50,7 +50,7 @@ const Jobs = () => {
                         <JobCard key={job._id}>
                            <Link
                               style={{ textDecoration: "none" }}
-                              to={`/jobs/` + job._id}
+                              to={`/home/jobs/` + job._id}
                            ></Link>
                            <div className="company">
                               <p>{job.company}</p>

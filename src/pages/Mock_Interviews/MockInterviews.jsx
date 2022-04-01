@@ -50,7 +50,7 @@ const MockInterviews = () => {
                         <MICard key={mi._id}>
                            <Link
                               style={{ textDecoration: "none" }}
-                              to={`/mock-interviews/` + mi._id}
+                              to={`/home/mock-interviews/` + mi._id}
                            ></Link>
                            <div className="topic">
                               <p>{mi.topic}</p>

@@ -51,7 +51,7 @@ const Events = () => {
                         <EventCard key={event._id}>
                            <Link
                               style={{ textDecoration: "none" }}
-                              to={`/events/` + event._id}
+                              to={`/home/events/` + event._id}
                            ></Link>
                            <div className="name">
                               <p>{event.name}</p>

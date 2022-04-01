@@ -49,7 +49,7 @@ const InterviewExperience = () => {
                         <Link
                            style={{ textDecoration: "none" }}
                            to={
-                              `/interview-experience/` + interviewExperience._id
+                              `/home/interview-experience/` + interviewExperience._id
                            }
                         ></Link>
                         <div className="role">
