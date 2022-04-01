@@ -29,7 +29,7 @@ const Jobs = () => {
    return (
       <Div>
          <motion.div className="new-job" whileTap={{ scale: 0.9 }}>
-            <Link to="/jobs/create"></Link>
+            <Link to="/home/jobs/create"></Link>
             <p>Post a Job</p>
          </motion.div>
          {JOBS && JOBS.length ? (

@@ -7,24 +7,38 @@ import {
    OverLay,
    MobileHeader,
    DesktopHeader,
+   SearchOverlay,
+   SearchCard,
 } from "./HomeHeader.component.styles";
 
 import headerlogo from "../../assets/header-logo.png";
 import defaultavatar from "../../assets/default-avatar.webp";
+import { searchIcon } from "../../svgIcons";
 
 import { signoutUser } from "../../redux/actions/authActions";
+import {
+   searchUser,
+   setSearchedUsers,
+} from "../../redux/actions/profileActions";
+import { debounce } from "../../lib/helperFunctions";
+import { useRef } from "react";
 
 const HomeHeader = (props) => {
-   const disptch = useDispatch();
+   const dispatch = useDispatch();
    const location = useLocation();
 
+   const sref = useRef();
+
    const USER = useSelector((state) => state.auth.user);
+   const TOKEN = useSelector((state) => state.auth.authToken);
+   const SU = useSelector((state) => state.profileReducer.searchedUsers);
 
    const handleSignout = () => {
-      disptch(signoutUser());
+      dispatch(signoutUser());
    };
 
    const [drawer, setDrawer] = useState(false);
+   const [searching, setSearching] = useState(false);
 
    const [windowHeight, setWH] = useState(0);
 
@@ -35,7 +49,6 @@ const HomeHeader = (props) => {
          window.removeEventListener("resize", handleResize);
       };
    }, []);
-
    const handleResize = () => {
       if (window) {
          if (window.innerHeight > 700) {
@@ -44,8 +57,29 @@ const HomeHeader = (props) => {
       }
    };
 
+   const searchQuery = (inputQuery) => {
+      if (inputQuery.length > 0) dispatch(searchUser(TOKEN, inputQuery));
+   };
+   const searchQuery__debounce = debounce(
+      (inputQuery) => searchQuery(inputQuery),
+      500
+   );
+
+   const toggleSearchOverlay = (status) => {
+      setSearching(status);
+      sref.current.value = "";
+      dispatch(setSearchedUsers([]));
+   };
+
    return (
       <>
+         {searching && (
+            <SearchOverlay
+               onClick={() => {
+                  toggleSearchOverlay(false);
+               }}
+            />
+         )}
          {drawer ? (
             <OverLay onClick={() => setDrawer(false)}>
                <motion.div
@@ -171,7 +205,75 @@ const HomeHeader = (props) => {
                   >
                      <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
                   </svg>
-                  <input type="search" placeholder="Search" />
+                  <input
+                     type="search"
+                     ref={sref}
+                     placeholder="Search"
+                     onClick={() => setSearching(true)}
+                     onChange={(e) => searchQuery__debounce(e.target.value)}
+                  />
+                  {searching && (
+                     <SearchCard>
+                        {SU?.length > 0 && (
+                           <div className="results">
+                              {SU.map((user) => {
+                                 return (
+                                    <div className="resultItem">
+                                       <Link
+                                          style={{ textDecoration: "none" }}
+                                          to={"/profile/" + user.email}
+                                       />
+                                       <svg {...searchIcon.props} />
+                                       <div className="name">
+                                          {user.fullName}
+                                          {user.currentDesignation && (
+                                             <span
+                                                style={{
+                                                   paddingLeft: "5px",
+                                                   opacity: 0.7,
+                                                }}
+                                             >
+                                                | {user.currentDesignation}
+                                                {user.currentCompany && (
+                                                   <span>
+                                                      @ {user.currentCompany}
+                                                   </span>
+                                                )}
+                                             </span>
+                                          )}
+                                       </div>
+                                       <div className="avatar">
+                                          <img
+                                             style={{ height: "70%" }}
+                                             src={
+                                                user.profilePic
+                                                   ? user.profilePic
+                                                   : defaultavatar
+                                             }
+                                          />
+                                       </div>
+                                    </div>
+                                 );
+                              })}
+                           </div>
+                        )}
+                        <p className="title">Trending Search</p>
+                        <div className="resultItem">
+                           <Link
+                              style={{ textDecoration: "none" }}
+                              to={"/profile/piyush107@iiitmanipur.ac.in"}
+                           />
+                           <svg {...searchIcon.props} />
+                           <div className="name">
+                              Piyush Kumar |{" "}
+                              <span>Software Engineer @ Antix Builds</span>
+                           </div>
+                           <div className="avatar">
+                              <img src="https://i.ibb.co/qdbx0k2/profile-pic61e6ac3b214d69ef9919d0d4.webp" />
+                           </div>
+                        </div>
+                     </SearchCard>
+                  )}
                </>
             </div>
             <div className="menu-bar" onClick={() => setDrawer(true)}>
@@ -194,7 +296,83 @@ const HomeHeader = (props) => {
                   >
                      <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
                   </svg>
-                  <input type="search" placeholder="Search" />
+                  <input
+                     type="search"
+                     ref={sref}
+                     placeholder="Search"
+                     onClick={() => setSearching(true)}
+                     onChange={(e) => searchQuery__debounce(e.target.value)}
+                  />
+                  {searching && (
+                     <SearchCard>
+                        {SU?.length > 0 && (
+                           <div className="results">
+                              {SU?.length > 0 &&
+                                 SU.map((user) => {
+                                    return (
+                                       <div
+                                          className="resultItem"
+                                          key={user.email}
+                                       >
+                                          <Link
+                                             style={{ textDecoration: "none" }}
+                                             to={"/profile/" + user.email}
+                                          />
+                                          <svg {...searchIcon.props} />
+                                          <div className="name">
+                                             {user.fullName}
+                                             {user.currentDesignation && (
+                                                <span
+                                                   style={{
+                                                      paddingLeft: "5px",
+                                                      opacity: 0.7,
+                                                   }}
+                                                >
+                                                   | {user.currentDesignation}
+                                                   {user.currentCompany && (
+                                                      <span>
+                                                         @ {user.currentCompany}
+                                                      </span>
+                                                   )}
+                                                </span>
+                                             )}
+                                          </div>
+                                          <div className="avatar">
+                                             <img
+                                                style={{ height: "70%" }}
+                                                src={
+                                                   user.profilePic
+                                                      ? user.profilePic
+                                                      : defaultavatar
+                                                }
+                                             />
+                                          </div>
+                                       </div>
+                                    );
+                                 })}
+                           </div>
+                        )}
+                        <p className="title">Trending Search</p>
+                        <div className="resultItem">
+                           <Link
+                              style={{ textDecoration: "none" }}
+                              to={"/profile/piyush107@iiitmanipur.ac.in"}
+                           />
+                           <svg {...searchIcon.props} />
+                           <div className="name">
+                              Piyush Kumar
+                              <span
+                                 style={{ paddingLeft: "5px", opacity: 0.7 }}
+                              >
+                                 | Software Engineer @ Antix Builds
+                              </span>
+                           </div>
+                           <div className="avatar">
+                              <img src="https://i.ibb.co/qdbx0k2/profile-pic61e6ac3b214d69ef9919d0d4.webp" />
+                           </div>
+                        </div>
+                     </SearchCard>
+                  )}
                </>
             </div>
             <div className="link-section">
@@ -203,7 +381,7 @@ const HomeHeader = (props) => {
                      width="17"
                      height="17"
                      viewBox="0 0 16 16"
-                     whileTap={{scale:0.8}}
+                     whileTap={{ scale: 0.8 }}
                   >
                      <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zM8 1.918l-.797.161A4.002 4.002 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4.002 4.002 0 0 0-3.203-3.92L8 1.917zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5.002 5.002 0 0 1 13 6c0 .88.32 4.2 1.22 6z" />
                   </motion.svg>
@@ -213,7 +391,7 @@ const HomeHeader = (props) => {
                      width="17"
                      height="17"
                      viewBox="0 0 16 16"
-                     whileTap={{scale:0.8}}
+                     whileTap={{ scale: 0.8 }}
                   >
                      <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4.414A2 2 0 0 0 3 11.586l-2 2V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" />
                   </motion.svg>

@@ -71,8 +71,8 @@ const Profile = () => {
    }, [UPDATING]);
 
    useEffect(() => {
-      document.title = USER.fullName + " | weGrad";
-   });
+      if (USER_PROFILE) document.title = USER_PROFILE.fullName + " | weGrad";
+   }, [USER_PROFILE]);
 
    const handleFile = (file, name) => {
       fileValidator("image", file)

@@ -20,6 +20,10 @@ const setUpdating = (status) => ({
    type: "SET_UPDATING",
    payload: status,
 });
+export const setSearchedUsers = (users) => ({
+   type: "SET_SEARCHED_USERS",
+   payload: users,
+});
 
 export const fetchUserProfile = (token, email) => (dispatch) => {
    dispatch(SET_LOGO_LOADER(true));
@@ -163,5 +167,23 @@ export const fetchAlumni = (token) => (dispatch) => {
       })
       .catch((err) => {
          dispatch(SET_LOGO_LOADER(false));
+      });
+};
+
+export const searchUser = (token, searchQuery) => (dispatch) => {
+   axios
+      .get("/user/search", {
+         headers: {
+            authorization: "Bearer " + token,
+         },
+         params: {
+            searchQuery: searchQuery,
+         },
+      })
+      .then((res) => {
+         if (!res.data.err) dispatch(setSearchedUsers(res.data));
+      })
+      .catch((err) => {
+         // dispatch(SET_LOGO_LOADER(false));
       });
 };

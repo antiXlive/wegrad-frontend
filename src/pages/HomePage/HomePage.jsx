@@ -68,14 +68,14 @@ const HomePage = () => {
          ),
       },
       {
-         to: "/alumni",
+         to: "/home/alumni",
          title: "Alumni",
          path: (
             <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
          ),
       },
       {
-         to: "/jobs",
+         to: "/home/jobs",
          title: "Jobs",
          path: (
             <>
@@ -85,7 +85,7 @@ const HomePage = () => {
          ),
       },
       {
-         to: "/events",
+         to: "/home/events",
          title: "Events",
          path: (
             <>
@@ -95,15 +95,15 @@ const HomePage = () => {
             </>
          ),
       },
+      // {
+      //    to: "/moments",
+      //    title: "Moments",
+      //    path: (
+      //       <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4Zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1H2Zm6 1.5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0v-7Zm3.5.878c1.482-1.42 4.795 1.392 0 4.622-4.795-3.23-1.482-6.043 0-4.622ZM2.5 5a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1h-3Zm0 2a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1h-3Zm0 2a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1h-3Z" />
+      //    ),
+      // },
       {
-         to: "/moments",
-         title: "Moments",
-         path: (
-            <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4Zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1H2Zm6 1.5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0v-7Zm3.5.878c1.482-1.42 4.795 1.392 0 4.622-4.795-3.23-1.482-6.043 0-4.622ZM2.5 5a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1h-3Zm0 2a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1h-3Zm0 2a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1h-3Z" />
-         ),
-      },
-      {
-         to: "/mock-interviews",
+         to: "/home/mock-interviews",
          title: "Mock Interviews",
          path: (
             <>
@@ -113,7 +113,7 @@ const HomePage = () => {
          ),
       },
       {
-         to: "/interview-experience",
+         to: "/home/interview-experience",
          title: "Interview Experience",
          path: (
             <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />

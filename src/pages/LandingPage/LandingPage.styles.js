@@ -4,6 +4,7 @@ import Welcome_img from "../../assets/welcome-background.webp";
 
 export const ParallaxDiv = styled(motion.div)`
    width: 100vw;
+   /* min-height: 90vh; */
    background-attachment: fixed;
    background-position: center;
    background-size: cover;

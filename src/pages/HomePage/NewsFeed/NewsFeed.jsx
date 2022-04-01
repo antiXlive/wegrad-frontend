@@ -27,10 +27,14 @@ const NewsFeed = () => {
    const newsFeed = useSelector((state) => state.postReducer.newsFeed);
    const TOKEN = useSelector((state) => state.auth.authToken);
 
-
    useEffect(() => {
-      !newsFeed && dispatch(fetchNewsFeed(TOKEN));
-   }, [newsFeed]);
+      dispatch(fetchNewsFeed(TOKEN));
+      // !newsFeed && dispatch(fetchNewsFeed(TOKEN));
+   }, []);
+   // useEffect(() => {
+   //    if (!newsFeed || newsFeed.length < 1) dispatch(fetchNewsFeed(TOKEN));
+   //    // !newsFeed && dispatch(fetchNewsFeed(TOKEN));
+   // }, [newsFeed]);
 
    useEffect(() => {
       if (newsFeed && newsFeed.length > 0) {

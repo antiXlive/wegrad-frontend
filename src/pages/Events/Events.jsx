@@ -30,7 +30,7 @@ const Events = () => {
    return (
       <Div>
          <motion.div className="button" whileTap={{ scale: 0.9 }}>
-            <Link to="/events/create"></Link>
+            <Link to="/home/events/create"></Link>
             <p>Schedule an Event</p>
          </motion.div>
          {EVENTS && EVENTS.length ? (

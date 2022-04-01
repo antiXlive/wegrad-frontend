@@ -22,7 +22,6 @@ const MockInterviews = () => {
       document.title = "Mock Interviews | weGrad";
    });
 
-
    useEffect(() => {
       dispatch(fetchMIS(TOKEN));
    }, []);
@@ -30,7 +29,7 @@ const MockInterviews = () => {
    return (
       <Div>
          <motion.div className="button" whileTap={{ scale: 0.9 }}>
-            <Link to="/mock-interviews/create"></Link>
+            <Link to="/home/mock-interviews/create"></Link>
             <p>Schedule Mock Interview</p>
          </motion.div>
          {MIS && MIS.length ? (

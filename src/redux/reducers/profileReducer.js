@@ -2,7 +2,8 @@ const INITIAL_STATE = {
    fetching: true,
    userProfile: null,
    updating: false,
-   alumni:[],
+   alumni: [],
+   searchedUsers: [],
 };
 
 const profileReducer = (state = INITIAL_STATE, action) => {
@@ -22,6 +23,11 @@ const profileReducer = (state = INITIAL_STATE, action) => {
          return {
             ...state,
             alumni: action.payload,
+         };
+      case "SET_SEARCHED_USERS":
+         return {
+            ...state,
+            searchedUsers: action.payload,
          };
       default:
          return state;

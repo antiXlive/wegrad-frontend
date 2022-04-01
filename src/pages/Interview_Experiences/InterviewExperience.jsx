@@ -28,7 +28,7 @@ const InterviewExperience = () => {
    return (
       <Div>
          <div className="new-interview-experience">
-            <Link to="/interview-experience/create"></Link>
+            <Link to="/home/interview-experience/create"></Link>
             <p>Post your Interview Experience</p>
          </div>
          {INTERVIEW_EXPERIENCES && INTERVIEW_EXPERIENCES.length ? (
