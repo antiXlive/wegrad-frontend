@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -19,9 +19,8 @@ const Profile = () => {
    }, []);
 
    useEffect(() => {
-      console.log(ALUMNI);
       !ALUMNI.length && dispatch(fetchAlumni(TOKEN));
-   }, [ALUMNI]);
+   }, [TOKEN]);
 
    return (
       <Div>
@@ -39,7 +38,7 @@ const Profile = () => {
             {ALUMNI.map((alumni) => {
                return (
                   <AlumniCard key={alumni._id}>
-                     <Link to={"/profile/" + alumni.email}></Link>
+                     <Link to={"/home/profile/" + alumni.email}></Link>
                      <div className="avatar">
                         <img
                            src={

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams, Link, useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 import {
    Div,
@@ -34,14 +34,14 @@ const Profile = () => {
    const dispatch = useDispatch();
    const location = useLocation();
 
-   const email = location.pathname.split("/")[2];
+   const email = location.pathname.split("/")[3];
 
    const TOKEN = useSelector((state) => state.auth.authToken);
    const USER = useSelector((state) => state.auth.user);
    const USER_PROFILE = useSelector(
       (state) => state.profileReducer.userProfile
    );
-   const FETCHING = useSelector((state) => state.profileReducer.fetching);
+   // const FETCHING = useSelector((state) => state.profileReducer.fetching);
    const UPDATING = useSelector((state) => state.profileReducer.updating);
 
    const [profilePic, setProfilePic] = useState(null);
@@ -53,16 +53,16 @@ const Profile = () => {
    }, []);
 
    useEffect(() => {
-      if (USER_PROFILE && USER_PROFILE.user == USER._id) setEdit(true);
+      if (USER_PROFILE && USER_PROFILE.user === USER._id) setEdit(true);
       else setEdit(false);
-   }, [USER_PROFILE]);
+   }, [USER_PROFILE, USER]);
 
    useEffect(() => {
       profilePic && dispatch(updateProfilePic(TOKEN, USER._id, profilePic));
-   }, [profilePic]);
+   }, [profilePic, TOKEN, USER]);
    useEffect(() => {
       coverPic && dispatch(updateCoverPic(TOKEN, USER._id, coverPic));
-   }, [coverPic]);
+   }, [coverPic, TOKEN, USER]);
    useEffect(() => {
       if (UPDATING === "failed") {
          setProfilePic(null);
@@ -77,8 +77,8 @@ const Profile = () => {
    const handleFile = (file, name) => {
       fileValidator("image", file)
          .then((res) => {
-            if (name == "profile-pic") setProfilePic(file);
-            else if (name == "cover-pic") setCoverPic(file);
+            if (name === "profile-pic") setProfilePic(file);
+            else if (name === "cover-pic") setCoverPic(file);
          })
          .catch((err) => {
             dispatch(setNotification(0, err));
@@ -112,7 +112,7 @@ const Profile = () => {
 
             <InfoCard>
                {edit && (
-                  <Link to="/edit-profile">
+                  <Link to="/home/edit-profile">
                      {" "}
                      <svg width="16" height="16">
                         <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
@@ -157,7 +157,7 @@ const Profile = () => {
                {edit && (
                   <Link
                      to={{
-                        pathname: "/edit-profile",
+                        pathname: "/home/edit-profile",
                         hash: "#programs-completed",
                      }}
                   >
@@ -202,7 +202,7 @@ const Profile = () => {
                {edit && (
                   <Link
                      to={{
-                        pathname: "/edit-profile",
+                        pathname: "/home/edit-profile",
                         hash: "#professional-experience",
                      }}
                   >
@@ -247,7 +247,7 @@ const Profile = () => {
                {edit && (
                   <Link
                      to={{
-                        pathname: "/edit-profile",
+                        pathname: "/home/edit-profile",
                         hash: "#contact-info",
                      }}
                   >

@@ -115,7 +115,7 @@ const TextPost = (props) => {
             <div className="user-info-data">
                <Link
                   style={{ textDecoration: "none" }}
-                  to={"/profile/" + props.post.authorData.email}
+                  to={"/home/profile/" + props.post.authorData.email}
                >
                   <p className="user-name">{props.post.authorData.name}</p>
                </Link>
@@ -140,7 +140,7 @@ const TextPost = (props) => {
          <div className="post-content">
             <ReadMoreText text={props.post.text} />
             {props.post.image && (
-               <img src={props.post.image.display_url} alt="post-image" />
+               <img src={props.post.image.display_url} alt="post" />
             )}
             {props.post.question && (
                <div className="poll-box">

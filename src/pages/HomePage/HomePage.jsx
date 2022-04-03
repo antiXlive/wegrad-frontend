@@ -37,7 +37,7 @@ const HomePage = () => {
    }, [QUOTE]);
 
    useEffect(() => {
-      if (location.pathname == "/" && TOKEN) navigate("/feed");
+      if (location.pathname === "/home" && TOKEN) navigate("/home/feed");
    }, [TOKEN, location]);
 
    useEffect(() => {
@@ -163,25 +163,26 @@ const HomePage = () => {
                <HighlightCard>
                   <img
                      src={
-                        dayTime == "morning" || dayTime == "noon"
+                        dayTime === "morning" || dayTime === "noon"
                            ? morning
-                           : dayTime == "evening"
+                           : dayTime === "evening"
                            ? evening
-                           : dayTime == "night"
+                           : dayTime === "night"
                            ? night
                            : ""
                      }
+                     alt='highlight'
                   />
                   <motion.p
                      initial={{ top: "30px", opacity: 0 }}
                      animate={{ top: "10px", opacity: [0, 0, 1] }}
                      transition={{ duration: 0.7, ease: "easeIn" }}
                   >
-                     {dayTime == "morning"
+                     {dayTime === "morning"
                         ? "Good morning, Piyush"
-                        : dayTime == "noon"
+                        : dayTime === "noon"
                         ? "Good afternoon, Piyush"
-                        : dayTime == "evening"
+                        : dayTime === "evening"
                         ? "Good evening, Piyush"
                         : "Good night, Piyush"}
                   </motion.p>

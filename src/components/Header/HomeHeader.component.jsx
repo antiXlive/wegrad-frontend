@@ -96,7 +96,7 @@ const HomeHeader = (props) => {
                      <div className="avatar">
                         <Link
                            style={{ textDecoration: "none" }}
-                           to={"/profile/" + USER.email}
+                           to={"/home/profile/" + USER.email}
                         >
                            <img
                               src={
@@ -111,7 +111,7 @@ const HomeHeader = (props) => {
                      <div className="user-info">
                         <Link
                            style={{ textDecoration: "none" }}
-                           to={"/profile/" + USER.email}
+                           to={"/home/profile/" + USER.email}
                         >
                            <p
                               style={{
@@ -125,7 +125,7 @@ const HomeHeader = (props) => {
                         </Link>
                         <Link
                            style={{ textDecoration: "none" }}
-                           to={"/profile/" + USER.email}
+                           to={"/home/profile/" + USER.email}
                         >
                            <p
                               style={{
@@ -221,7 +221,7 @@ const HomeHeader = (props) => {
                                     <div className="resultItem">
                                        <Link
                                           style={{ textDecoration: "none" }}
-                                          to={"/profile/" + user.email}
+                                          to={"/home/profile/" + user.email}
                                        />
                                        <svg {...searchIcon.props} />
                                        <div className="name">
@@ -250,6 +250,7 @@ const HomeHeader = (props) => {
                                                    ? user.profilePic
                                                    : defaultavatar
                                              }
+                                             alt='profile-pic'
                                           />
                                        </div>
                                     </div>
@@ -261,7 +262,7 @@ const HomeHeader = (props) => {
                         <div className="resultItem">
                            <Link
                               style={{ textDecoration: "none" }}
-                              to={"/profile/piyush107@iiitmanipur.ac.in"}
+                              to={"/home/profile/piyush107@iiitmanipur.ac.in"}
                            />
                            <svg {...searchIcon.props} />
                            <div className="name">
@@ -269,7 +270,7 @@ const HomeHeader = (props) => {
                               <span>Software Engineer @ Antix Builds</span>
                            </div>
                            <div className="avatar">
-                              <img src="https://i.ibb.co/qdbx0k2/profile-pic61e6ac3b214d69ef9919d0d4.webp" />
+                              <img src="https://i.ibb.co/qdbx0k2/profile-pic61e6ac3b214d69ef9919d0d4.webp" alt='profile-pic' />
                            </div>
                         </div>
                      </SearchCard>
@@ -316,7 +317,7 @@ const HomeHeader = (props) => {
                                        >
                                           <Link
                                              style={{ textDecoration: "none" }}
-                                             to={"/profile/" + user.email}
+                                             to={"/home/profile/" + user.email}
                                           />
                                           <svg {...searchIcon.props} />
                                           <div className="name">
@@ -345,6 +346,7 @@ const HomeHeader = (props) => {
                                                       ? user.profilePic
                                                       : defaultavatar
                                                 }
+                                                alt='profile-pic'
                                              />
                                           </div>
                                        </div>
@@ -356,7 +358,7 @@ const HomeHeader = (props) => {
                         <div className="resultItem">
                            <Link
                               style={{ textDecoration: "none" }}
-                              to={"/profile/piyush107@iiitmanipur.ac.in"}
+                              to={"/home/profile/piyush107@iiitmanipur.ac.in"}
                            />
                            <svg {...searchIcon.props} />
                            <div className="name">
@@ -368,7 +370,7 @@ const HomeHeader = (props) => {
                               </span>
                            </div>
                            <div className="avatar">
-                              <img src="https://i.ibb.co/qdbx0k2/profile-pic61e6ac3b214d69ef9919d0d4.webp" />
+                              <img src="https://i.ibb.co/qdbx0k2/profile-pic61e6ac3b214d69ef9919d0d4.webp" alt='profile-pic' />
                            </div>
                         </div>
                      </SearchCard>
@@ -399,7 +401,7 @@ const HomeHeader = (props) => {
                <div className="link-item">
                   <Link
                      style={{ textDecoration: "none" }}
-                     to={"/profile/" + USER.email}
+                     to={"/home/profile/" + USER.email}
                   >
                      <img
                         src={

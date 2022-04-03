@@ -13,8 +13,10 @@ const Text = styled.p`
 
 const ReadMoreText = (props) => {
    useEffect(() => {
-      setWords(props.text.length);
-      setLines(props.text.split(/\n/g).length);
+      if (props.text) {
+         setWords(props.text.length);
+         setLines(props.text.split(/\n/g).length);
+      }
    }, [props]);
    const [expand, setExpand] = useState(false);
    const [words, setWords] = useState(0);
