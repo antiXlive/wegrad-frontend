@@ -12,16 +12,19 @@ const Div = styled.div`
 `;
 
 const AlumniCard = styled.div`
-   width: 220px;
+   width: 45%;
+   min-height: 18vh;
+   max-width: 220px;
    display: flex;
    align-items: center;
    justify-content: center;
    flex-direction: column;
    padding: 15px 10px;
    background-color: #fff;
-   box-shadow: 0px 3px 15px #00000010;
+   box-shadow: 0px 3px 15px #00000020;
    position: relative;
    margin-bottom: 20px;
+   border-radius: 5px;
    a {
       width: 100%;
       height: 95%;
@@ -41,14 +44,22 @@ const AlumniCard = styled.div`
       text-align: center;
    }
    .name {
-      font-size: 18px;
+      font-size: 15px;
    }
    .role {
-      font-size: 11px;
-      color: #777;
+      font-size: 10px;
+      color: #666;
       margin-top: 5px;
       text-align: center;
       line-height: 15px;
+   }
+   @media (min-width: 700px) {
+      .name {
+         font-size: 18px;
+      }
+      .role {
+         font-size: 11px;
+      }
    }
 `;
 

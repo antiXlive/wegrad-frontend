@@ -28,9 +28,8 @@ const NewsFeed = () => {
    const TOKEN = useSelector((state) => state.auth.authToken);
 
    useEffect(() => {
-      dispatch(fetchNewsFeed(TOKEN));
-      // !newsFeed && dispatch(fetchNewsFeed(TOKEN));
-   }, []);
+      !newsFeed && dispatch(fetchNewsFeed(TOKEN));
+   }, [newsFeed]);
    // useEffect(() => {
    //    if (!newsFeed || newsFeed.length < 1) dispatch(fetchNewsFeed(TOKEN));
    //    // !newsFeed && dispatch(fetchNewsFeed(TOKEN));

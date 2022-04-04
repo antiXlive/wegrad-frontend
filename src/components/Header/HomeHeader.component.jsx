@@ -194,7 +194,9 @@ const HomeHeader = (props) => {
 
          <MobileHeader>
             <div className="logo-container">
-               <img src={headerlogo} alt="iiitm" />
+               <Link style={{ textDecoration: "none" }} to={"/home"}>
+                  <img src={headerlogo} alt="iiitm" />
+               </Link>
             </div>
             <div className="search-bar">
                <>
@@ -250,7 +252,7 @@ const HomeHeader = (props) => {
                                                    ? user.profilePic
                                                    : defaultavatar
                                              }
-                                             alt='profile-pic'
+                                             alt="profile-pic"
                                           />
                                        </div>
                                     </div>
@@ -270,7 +272,10 @@ const HomeHeader = (props) => {
                               <span>Software Engineer @ Antix Builds</span>
                            </div>
                            <div className="avatar">
-                              <img src="https://i.ibb.co/qdbx0k2/profile-pic61e6ac3b214d69ef9919d0d4.webp" alt='profile-pic' />
+                              <img
+                                 src="https://i.ibb.co/qdbx0k2/profile-pic61e6ac3b214d69ef9919d0d4.webp"
+                                 alt="profile-pic"
+                              />
                            </div>
                         </div>
                      </SearchCard>
@@ -286,7 +291,9 @@ const HomeHeader = (props) => {
 
          <DesktopHeader>
             <div className="logo-container">
-               <img src={headerlogo} alt="iiitm" />
+               <Link style={{ textDecoration: "none" }} to={"/home"}>
+                  <img src={headerlogo} alt="iiitm" />
+               </Link>
             </div>
             <div className="search-bar">
                <>
@@ -346,7 +353,7 @@ const HomeHeader = (props) => {
                                                       ? user.profilePic
                                                       : defaultavatar
                                                 }
-                                                alt='profile-pic'
+                                                alt="profile-pic"
                                              />
                                           </div>
                                        </div>
@@ -370,7 +377,10 @@ const HomeHeader = (props) => {
                               </span>
                            </div>
                            <div className="avatar">
-                              <img src="https://i.ibb.co/qdbx0k2/profile-pic61e6ac3b214d69ef9919d0d4.webp" alt='profile-pic' />
+                              <img
+                                 src="https://i.ibb.co/qdbx0k2/profile-pic61e6ac3b214d69ef9919d0d4.webp"
+                                 alt="profile-pic"
+                              />
                            </div>
                         </div>
                      </SearchCard>

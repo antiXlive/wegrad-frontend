@@ -12,7 +12,6 @@ import { timeFormatter } from "../../lib/helperFunctions";
 import { personWorkspace, calendarCheck } from "../../svgIcons";
 import nodata from "../../assets/no-data.webp";
 
-
 const Events = () => {
    const dispatch = useDispatch();
 
@@ -24,8 +23,8 @@ const Events = () => {
    });
 
    useEffect(() => {
-      dispatch(fetchEvents(TOKEN));
-   }, []);
+      !EVENTS && dispatch(fetchEvents(TOKEN));
+   }, [EVENTS]);
 
    return (
       <Div>
