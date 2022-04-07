@@ -32,7 +32,6 @@ const NewEventForm = () => {
    });
 
    const textInputHandler = (category, field, value) => {
-      console.log(field);
       switch (category) {
          case "EVENT": {
             let tmp = { ...event };

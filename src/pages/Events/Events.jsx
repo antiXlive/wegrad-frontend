@@ -22,8 +22,8 @@ const Events = () => {
    });
 
    useEffect(() => {
-      !EVENTS && dispatch(fetchEvents(TOKEN));
-   }, [EVENTS]);
+      dispatch(fetchEvents(TOKEN));
+   }, []);
 
    return (
       <Div>

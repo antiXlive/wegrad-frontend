@@ -234,16 +234,20 @@ export const SearchOverlay = styled.div`
 export const SearchCard = styled.div`
    width: 100%;
    min-width: 280px;
+   width: 90vw;
    position: absolute;
    min-height: 120px;
    background-color: #fff;
    box-shadow: 0 2px 15px #00000030;
    top: 110%;
-   right: -10%;
+   /* right: -10vw; */
+   left: -27vw;
    padding: 10px 0;
    z-index: 200;
    display: flex;
    flex-direction: column;
+   /* align-self: center; */
+   /* margin:0 auto; */
    /* align-items: center; */
    .results {
       margin-top: 20px;
@@ -306,6 +310,11 @@ export const SearchCard = styled.div`
       font-size: 10px;
       margin-left: 10px;
       color: #444;
+   }
+   @media (min-width: 500px) {
+      /* right: 0; */
+      left: unset;
+      width: 100%;
    }
    @media (min-width: 700px) {
       min-width: 400px;

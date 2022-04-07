@@ -58,8 +58,8 @@ const EventDetail = () => {
                      <p className="title">Link</p>
                      <p className="description">
                         <a target="_blank" href={MI.link}>
-                           {MI.link.slice(0, 100)}
-                           {MI.length > 100 && "..."}
+                           {MI.link.slice(0, 50)}
+                           {MI.link.length > 50 && "..."}
                         </a>
                      </p>
                   </div>

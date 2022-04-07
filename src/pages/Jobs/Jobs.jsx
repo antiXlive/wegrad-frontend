@@ -46,6 +46,7 @@ const Jobs = () => {
                   }}
                >
                   {JOBS.map((job) => {
+                     console.log(job);
                      return (
                         <JobCard key={job._id}>
                            <Link

@@ -232,7 +232,7 @@ const TextPost = (props) => {
                </div>
             )}
          </div>
-         {props.post.comments.length ? (
+         {props.post?.comments?.length ? (
             <div className="comment-container">
                {showComments ? (
                   props.post.comments.map((comment) => {

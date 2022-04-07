@@ -65,8 +65,8 @@ const EventDetail = () => {
                         <p className="title">Link</p>
                         <p className="description">
                            <a target="_blank" href={EVENT.link}>
-                              {EVENT.link.slice(0, 100)}
-                              {EVENT.length > 100 && "..."}
+                              {EVENT.link.slice(0, 50)}
+                              {EVENT.link.length > 50 && "..."}
                            </a>
                         </p>
                      </div>

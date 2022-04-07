@@ -58,7 +58,7 @@ const HomePage = () => {
 
    const navigationLinks = [
       {
-         to: "/feed",
+         to: "/home/feed",
          title: "Home",
          path: (
             <>
@@ -171,7 +171,7 @@ const HomePage = () => {
                            ? night
                            : ""
                      }
-                     alt='highlight'
+                     alt="highlight"
                   />
                   <motion.p
                      initial={{ top: "30px", opacity: 0 }}
