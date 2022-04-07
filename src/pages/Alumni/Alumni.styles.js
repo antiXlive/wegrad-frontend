@@ -31,11 +31,15 @@ const AlumniCard = styled.div`
       position: absolute;
    }
    .avatar {
-      width: 50px;
+      width: 55px;
+      height: 55px;
       border-radius: 1000px;
+      /* border: 1px solid; */
       img {
          width: 100%;
+         height: 100%;
          border-radius: 1000px;
+         object-fit: cover;
       }
    }
    p {
