@@ -32,11 +32,6 @@ const LandingPage = () => {
             height: windowHeight ? windowHeight : "auto",
             maxHeight: windowHeight ? windowHeight : "auto",
          }}
-         // exit={{
-         //    x: "-100vw",
-         //    // opacity: 0,
-         //    transition: { duration: 0.3, ease: "easeInOut" },
-         // }}
       >
          <WelcomeHeader />
          <Div>

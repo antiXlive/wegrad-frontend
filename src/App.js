@@ -25,7 +25,7 @@ import {
    signoutUser,
 } from "./redux/actions/authActions";
 
-const LandingPage = import("./pages/LandingPage/LandingPage");
+const LandingPage = lazy(() => import("./pages/LandingPage/LandingPage"));
 
 const Signup = lazy(() => import("./pages/Auth/Signup"));
 const Signin = lazy(() => import("./pages/Auth/Signin"));

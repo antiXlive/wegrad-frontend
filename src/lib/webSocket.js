@@ -1,5 +1,5 @@
 import React, { createContext, useEffect, useRef, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import {
    appendNewsFeed,
@@ -27,17 +27,20 @@ export const WebSocketProvider = ({ children }) => {
    const [open, setOpen] = useState(false);
    const ws = useRef();
 
+   const TOKEN = useSelector((state) => state.auth.authToken);
+
    useEffect(() => {
-      ws.current = new WebSocket(baseURL);
+      if (TOKEN) {
+         ws.current = new WebSocket(baseURL);
 
-      ws.current.onopen = () => {
-         setOpen(true);
-         ws.current.onmessage = (payload) =>
-            handleIncomingMessage(JSON.parse(payload.data));
-      };
-
-      return () => ws.current.close();
-   }, []);
+         ws.current.onopen = () => {
+            setOpen(true);
+            ws.current.onmessage = (payload) =>
+               handleIncomingMessage(JSON.parse(payload.data));
+         };
+         return () => ws.current.close();
+      }
+   }, [TOKEN]);
 
    const handleIncomingMessage = ({ event, data }) => {
       switch (event) {
