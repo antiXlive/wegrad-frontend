@@ -45,11 +45,12 @@ const InterviewExperience = () => {
             >
                {INTERVIEW_EXPERIENCES.map((interviewExperience) => {
                   return (
-                     <ExperienceCard>
+                     <ExperienceCard key={interviewExperience._id}>
                         <Link
                            style={{ textDecoration: "none" }}
                            to={
-                              `/home/interview-experience/` + interviewExperience._id
+                              `/home/interview-experience/` +
+                              interviewExperience._id
                            }
                         ></Link>
                         <div className="role">

@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { motion } from "framer-motion";
 
 export const Div = styled.div`
    height: min-content;
@@ -53,7 +54,7 @@ export const Div = styled.div`
    }
 `;
 
-export const MICard = styled.div`
+export const MICard = styled(motion.div)`
    width: 90%;
    min-height: 105px;
    background-color: #fff;
@@ -65,6 +66,7 @@ export const MICard = styled.div`
    position: relative;
    padding: 5px 0;
    padding-bottom: 15px;
+   cursor: pointer;
    a {
       position: absolute;
       width: 100%;

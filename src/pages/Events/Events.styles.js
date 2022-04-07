@@ -1,5 +1,5 @@
 import styled from "styled-components";
-
+import { motion } from "framer-motion";
 export const Div = styled.div`
    height: min-content;
    max-width: 550px;
@@ -53,7 +53,7 @@ export const Div = styled.div`
    }
 `;
 
-export const EventCard = styled.div`
+export const EventCard = styled(motion.div)`
    min-height: 110px;
    width: 90%;
    background-color: #fff;
@@ -66,6 +66,7 @@ export const EventCard = styled.div`
    padding: 5px 15px;
    padding-bottom: 15px;
    cursor: pointer;
+   overflow: hidden;
    a {
       position: absolute;
       width: 100%;

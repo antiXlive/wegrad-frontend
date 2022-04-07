@@ -47,7 +47,50 @@ const MockInterviews = () => {
                >
                   {MIS.map((mi) => {
                      return (
-                        <MICard key={mi._id}>
+                        <MICard
+                           key={mi._id}
+                           style={
+                              new Date().getTime() > new Date(mi.date).getTime()
+                                 ? {
+                                      opacity: 0.6,
+                                   }
+                                 : {}
+                           }
+                           whileHover={{ opacity: 1 }}
+                           whileTap={{ opacity: 1 }}
+                        >
+                           {new Date().getTime() >
+                              new Date(mi.date).getTime() && (
+                              <motion.div
+                                 style={{
+                                    position: "absolute",
+                                    width: "100%",
+                                    height: "100%",
+                                    background: "#00000020",
+                                    top: 0,
+                                    left: 0,
+                                    display: "flex",
+                                    alignItems: "center",
+                                    justifyContent: "center",
+                                    opacity: 0,
+                                    zIndex: 100,
+                                 }}
+                                 whileHover={{ opacity: 1 }}
+                                 whileTap={{ opacity: 1 }}
+                              >
+                                 <p
+                                    style={{
+                                       fontSize: "20px",
+                                       fontWeight: "800",
+                                       letterSpacing: 2,
+                                       opacity: 1,
+                                       margin: 0,
+                                    }}
+                                 >
+                                    COMPLETED
+                                 </p>
+                              </motion.div>
+                           )}
                            <Link
                               style={{ textDecoration: "none" }}
                               to={`/home/mock-interviews/` + mi._id}

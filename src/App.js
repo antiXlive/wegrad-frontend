@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, Suspense, lazy } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
    Route,
@@ -13,36 +13,6 @@ import { AnimatePresence } from "framer-motion";
 
 import "./App.css";
 
-import LandingPage from "./pages/LandingPage/LandingPage";
-
-import Signup from "./pages/Auth/Signup";
-import Signin from "./pages/Auth/Signin";
-import OtpVerification from "./pages/Auth/OtpVerification";
-
-import HomePage from "./pages/HomePage/HomePage";
-import NewsFeed from "./pages/HomePage/NewsFeed/NewsFeed";
-
-import Profile from "./pages/Profile/Profile";
-import EditProfile from "./pages/Profile/EditProfile";
-
-import Alumni from "./pages/Alumni/Alumni";
-
-import Jobs from "./pages/Jobs/Jobs";
-import JobDetail from "./pages/Jobs/JobDetail";
-import NewJobForm from "./pages/Jobs/NewJobForm";
-
-import Events from "./pages/Events/Events";
-import EventDetail from "./pages/Events/EventDetail";
-import NewEventForm from "./pages/Events/NewEventForm";
-
-import InterviewExperience from "./pages/Interview_Experiences/InterviewExperience";
-import InterviewExperienceDetail from "./pages/Interview_Experiences/InterviewExperienceDetail";
-import NewInterviewExperienceForm from "./pages/Interview_Experiences/NewInterviewExperienceForm";
-
-import MockInterviews from "./pages/Mock_Interviews/MockInterviews";
-import MockInterviewDetail from "./pages/Mock_Interviews/MockInterviewDetail";
-import NewMockInterviewForm from "./pages/Mock_Interviews/NewMockInterviewForm";
-
 import OverLay from "./components/Loader/OverLay";
 import LogoLoader from "./components/Loader/LogoLoader";
 import SpinnerLoader from "./components/Loader/SpinnerLoader";
@@ -54,6 +24,48 @@ import {
    setUser,
    signoutUser,
 } from "./redux/actions/authActions";
+
+const LandingPage = import("./pages/LandingPage/LandingPage");
+
+const Signup = lazy(() => import("./pages/Auth/Signup"));
+const Signin = lazy(() => import("./pages/Auth/Signin"));
+const OtpVerification = lazy(() => import("./pages/Auth/OtpVerification"));
+
+const HomePage = lazy(() => import("./pages/HomePage/HomePage"));
+const NewsFeed = lazy(() => import("./pages/HomePage/NewsFeed/NewsFeed"));
+
+const Profile = lazy(() => import("./pages/Profile/Profile"));
+const EditProfile = lazy(() => import("./pages/Profile/EditProfile"));
+
+const Alumni = lazy(() => import("./pages/Alumni/Alumni"));
+
+const Jobs = lazy(() => import("./pages/Jobs/Jobs"));
+const JobDetail = lazy(() => import("./pages/Jobs/JobDetail"));
+const NewJobForm = lazy(() => import("./pages/Jobs/NewJobForm"));
+
+const Events = lazy(() => import("./pages/Events/Events"));
+const EventDetail = lazy(() => import("./pages/Events/EventDetail"));
+const NewEventForm = lazy(() => import("./pages/Events/NewEventForm"));
+
+const InterviewExperience = lazy(() =>
+   import("./pages/Interview_Experiences/InterviewExperience")
+);
+const InterviewExperienceDetail = lazy(() =>
+   import("./pages/Interview_Experiences/InterviewExperienceDetail")
+);
+const NewInterviewExperienceForm = lazy(() =>
+   import("./pages/Interview_Experiences/NewInterviewExperienceForm")
+);
+
+const MockInterviews = lazy(() =>
+   import("./pages/Mock_Interviews/MockInterviews")
+);
+const MockInterviewDetail = lazy(() =>
+   import("./pages/Mock_Interviews/MockInterviewDetail")
+);
+const NewMockInterviewForm = lazy(() =>
+   import("./pages/Mock_Interviews/NewMockInterviewForm")
+);
 
 const Rdr = () => {
    //  <h1>404</h1>;
@@ -123,204 +135,226 @@ function App() {
          {/* {"op" && <OverLay />} */}
          {!processing && (
             <AnimatePresence exitBeforeEnter>
-               <Routes location={location} key={location.key}>
-                  <Route path="*" element={<Rdr />} />
-                  <Route
-                     path="/"
-                     element={
-                        TOKEN ? (
-                           <Navigate to="/home" replace />
-                        ) : (
-                           <LandingPage />
-                        )
-                     }
-                  />
-                  <Route
-                     path="/auth/signup"
-                     element={
-                        TOKEN ? <Navigate to="/home" replace /> : <Signup />
-                     }
-                  />
-                  <Route
-                     path="/auth/signin"
-                     element={
-                        TOKEN ? <Navigate to="/home" replace /> : <Signin />
-                     }
-                  />
-                  <Route
-                     path="/auth/verify-otp"
-                     element={<OtpVerification />}
-                  />
-                  <Route
-                     path="/home"
-                     element={
-                        TOKEN ? <HomePage /> : <Navigate to="/" replace />
-                     }
-                  >
-                     <>
-                        <Route
-                           index
-                           element={
-                              TOKEN ? <NewsFeed /> : <Navigate to="/" replace />
-                           }
-                        />
-                        <Route
-                           path="feed"
-                           element={
-                              TOKEN ? <NewsFeed /> : <Navigate to="/" replace />
-                           }
-                        />
-                        <Route
-                           path="/home/alumni"
-                           element={
-                              TOKEN ? <Alumni /> : <Navigate to="/" replace />
-                           }
-                        />
-                        <Route
-                           path="/home/jobs"
-                           element={
-                              TOKEN ? <Jobs /> : <Navigate to="/" replace />
-                           }
-                        />
-                        <Route
-                           path="/home/jobs/create"
-                           element={
-                              TOKEN ? (
-                                 <NewJobForm />
-                              ) : (
-                                 <Navigate to="/" replace />
-                              )
-                           }
-                        />
+               <Suspense fallback={<LogoLoader />}>
+                  <Routes location={location} key={location.key}>
+                     <Route path="*" element={<Rdr />} />
+                     <Route
+                        path="/"
+                        element={
+                           TOKEN ? (
+                              <Navigate to="/home" replace />
+                           ) : (
+                              <LandingPage />
+                           )
+                        }
+                     />
+                     <Route
+                        path="/auth/signup"
+                        element={
+                           TOKEN ? <Navigate to="/home" replace /> : <Signup />
+                        }
+                     />
+                     <Route
+                        path="/auth/signin"
+                        element={
+                           TOKEN ? <Navigate to="/home" replace /> : <Signin />
+                        }
+                     />
+                     <Route
+                        path="/auth/verify-otp"
+                        element={<OtpVerification />}
+                     />
+                     <Route
+                        path="/home"
+                        element={
+                           TOKEN ? <HomePage /> : <Navigate to="/" replace />
+                        }
+                     >
+                        <>
+                           <Route
+                              index
+                              element={
+                                 TOKEN ? (
+                                    <NewsFeed />
+                                 ) : (
+                                    <Navigate to="/" replace />
+                                 )
+                              }
+                           />
+                           <Route
+                              path="feed"
+                              element={
+                                 TOKEN ? (
+                                    <NewsFeed />
+                                 ) : (
+                                    <Navigate to="/" replace />
+                                 )
+                              }
+                           />
+                           <Route
+                              path="/home/alumni"
+                              element={
+                                 TOKEN ? (
+                                    <Alumni />
+                                 ) : (
+                                    <Navigate to="/" replace />
+                                 )
+                              }
+                           />
+                           <Route
+                              path="/home/jobs"
+                              element={
+                                 TOKEN ? <Jobs /> : <Navigate to="/" replace />
+                              }
+                           />
+                           <Route
+                              path="/home/jobs/create"
+                              element={
+                                 TOKEN ? (
+                                    <NewJobForm />
+                                 ) : (
+                                    <Navigate to="/" replace />
+                                 )
+                              }
+                           />
 
-                        <Route
-                           path="/home/jobs/:id"
-                           element={
-                              TOKEN ? (
-                                 <JobDetail />
-                              ) : (
-                                 <Navigate to="/" replace />
-                              )
-                           }
-                        />
-                        <Route
-                           path="/home/events"
-                           element={
-                              TOKEN ? <Events /> : <Navigate to="/" replace />
-                           }
-                        />
-                        <Route
-                           path="/home/events/create"
-                           element={
-                              TOKEN ? (
-                                 <NewEventForm />
-                              ) : (
-                                 <Navigate to="/" replace />
-                              )
-                           }
-                        />
-                        <Route
-                           path="/home/events/:id"
-                           element={
-                              TOKEN ? (
-                                 <EventDetail />
-                              ) : (
-                                 <Navigate to="/" replace />
-                              )
-                           }
-                        />
-                        <Route
-                           path="/home/moments"
-                           element={
-                              TOKEN ? (
-                                 <h1>Moments</h1>
-                              ) : (
-                                 <Navigate to="/" replace />
-                              )
-                           }
-                        />
-                        <Route
-                           path="/home/mock-interviews"
-                           element={
-                              TOKEN ? (
-                                 <MockInterviews />
-                              ) : (
-                                 <Navigate to="/" replace />
-                              )
-                           }
-                        />
-                        <Route
-                           path="/home/mock-interviews/create"
-                           element={
-                              TOKEN ? (
-                                 <NewMockInterviewForm />
-                              ) : (
-                                 <Navigate to="/" replace />
-                              )
-                           }
-                        />
-                        <Route
-                           path="/home/mock-interviews/:id"
-                           element={
-                              TOKEN ? (
-                                 <MockInterviewDetail />
-                              ) : (
-                                 <Navigate to="/" replace />
-                              )
-                           }
-                        />
-                        <Route
-                           path="/home/interview-experience"
-                           element={
-                              TOKEN ? (
-                                 <InterviewExperience />
-                              ) : (
-                                 <Navigate to="/" replace />
-                              )
-                           }
-                        />
-                        <Route
-                           path="/home/interview-experience/create"
-                           element={
-                              TOKEN ? (
-                                 <NewInterviewExperienceForm />
-                              ) : (
-                                 <Navigate to="/" replace />
-                              )
-                           }
-                        />
-                        <Route
-                           path="/home/interview-experience/:id"
-                           element={
-                              TOKEN ? (
-                                 <InterviewExperienceDetail />
-                              ) : (
-                                 <Navigate to="/" replace />
-                              )
-                           }
-                        />
+                           <Route
+                              path="/home/jobs/:id"
+                              element={
+                                 TOKEN ? (
+                                    <JobDetail />
+                                 ) : (
+                                    <Navigate to="/" replace />
+                                 )
+                              }
+                           />
+                           <Route
+                              path="/home/events"
+                              element={
+                                 TOKEN ? (
+                                    <Events />
+                                 ) : (
+                                    <Navigate to="/" replace />
+                                 )
+                              }
+                           />
+                           <Route
+                              path="/home/events/create"
+                              element={
+                                 TOKEN ? (
+                                    <NewEventForm />
+                                 ) : (
+                                    <Navigate to="/" replace />
+                                 )
+                              }
+                           />
+                           <Route
+                              path="/home/events/:id"
+                              element={
+                                 TOKEN ? (
+                                    <EventDetail />
+                                 ) : (
+                                    <Navigate to="/" replace />
+                                 )
+                              }
+                           />
+                           <Route
+                              path="/home/moments"
+                              element={
+                                 TOKEN ? (
+                                    <h1>Moments</h1>
+                                 ) : (
+                                    <Navigate to="/" replace />
+                                 )
+                              }
+                           />
+                           <Route
+                              path="/home/mock-interviews"
+                              element={
+                                 TOKEN ? (
+                                    <MockInterviews />
+                                 ) : (
+                                    <Navigate to="/" replace />
+                                 )
+                              }
+                           />
+                           <Route
+                              path="/home/mock-interviews/create"
+                              element={
+                                 TOKEN ? (
+                                    <NewMockInterviewForm />
+                                 ) : (
+                                    <Navigate to="/" replace />
+                                 )
+                              }
+                           />
+                           <Route
+                              path="/home/mock-interviews/:id"
+                              element={
+                                 TOKEN ? (
+                                    <MockInterviewDetail />
+                                 ) : (
+                                    <Navigate to="/" replace />
+                                 )
+                              }
+                           />
+                           <Route
+                              path="/home/interview-experience"
+                              element={
+                                 TOKEN ? (
+                                    <InterviewExperience />
+                                 ) : (
+                                    <Navigate to="/" replace />
+                                 )
+                              }
+                           />
+                           <Route
+                              path="/home/interview-experience/create"
+                              element={
+                                 TOKEN ? (
+                                    <NewInterviewExperienceForm />
+                                 ) : (
+                                    <Navigate to="/" replace />
+                                 )
+                              }
+                           />
+                           <Route
+                              path="/home/interview-experience/:id"
+                              element={
+                                 TOKEN ? (
+                                    <InterviewExperienceDetail />
+                                 ) : (
+                                    <Navigate to="/" replace />
+                                 )
+                              }
+                           />
 
-                        <Route
-                           exact
-                           path="/home/profile/:email"
-                           element={
-                              TOKEN ? <Profile /> : <Navigate to="/" replace />
-                           }
-                        />
-                        <Route
-                           exact
-                           path="/home/edit-profile"
-                           element={
-                              TOKEN ? (
-                                 <EditProfile />
-                              ) : (
-                                 <Navigate to="/" replace />
-                              )
-                           }
-                        />
-                     </>
-                  </Route>
-               </Routes>
+                           <Route
+                              exact
+                              path="/home/profile/:email"
+                              element={
+                                 TOKEN ? (
+                                    <Profile />
+                                 ) : (
+                                    <Navigate to="/" replace />
+                                 )
+                              }
+                           />
+                           <Route
+                              exact
+                              path="/home/edit-profile"
+                              element={
+                                 TOKEN ? (
+                                    <EditProfile />
+                                 ) : (
+                                    <Navigate to="/" replace />
+                                 )
+                              }
+                           />
+                        </>
+                     </Route>
+                  </Routes>
+               </Suspense>
             </AnimatePresence>
          )}
       </>
