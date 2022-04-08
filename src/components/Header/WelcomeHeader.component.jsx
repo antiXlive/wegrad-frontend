@@ -59,7 +59,7 @@ const WelcomeHeader = () => {
          <DesktopHeader bgcolor={scrolled ? "#f6f6f6" : "transparent"}>
             <div className="logo-container">
                <Link to="/">
-                  <img src={Logo} />
+                  <img src={Logo} alt='wegrad'/>
                </Link>
             </div>
             <div className="link-container">
