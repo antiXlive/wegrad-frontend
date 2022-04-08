@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-import { Div, Card, Button } from "./NewJobForm.styles";
+import { Div, Card, Button } from "../../shared/forms.styles";
 
 import { saveJob } from "../../redux/actions/jobActions";
 

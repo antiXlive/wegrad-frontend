@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 
-import { Div, Card, Button } from "./EditProfile.styles";
+import { Div, Card, Button } from "../../shared/forms.styles";
 
 import {
    fetchUserProfile,

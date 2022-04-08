@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-import { Div, Card, Button } from "./NewMockInterviewForm.styles";
+import { Div, Card, Button } from "../../shared/forms.styles";
 
 import { saveMI } from "../../redux/actions/mockInterviewActions";
 
@@ -90,7 +90,9 @@ const NewMockInterviewForm = () => {
                   }
                >
                   {Array.from({ length: 5 }, (_, i) => (
-                     <option key={i} value={i + 1}>{i + 1}</option>
+                     <option key={i} value={i + 1}>
+                        {i + 1}
+                     </option>
                   ))}
                </select>
             </div>
