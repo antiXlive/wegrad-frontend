@@ -285,16 +285,20 @@ export const SearchCard = styled.div`
          transform: scale(0.8);
       }
       .avatar {
+         /* border: 1px solid red; */
          margin-left: 10px;
          width: 30px;
-         height: 100%;
+         height: 30px;
          display: flex;
          align-items: center;
+         justify-content: center;
          position: absolute;
          right: 0;
          img {
-            height: 70%;
+            min-width: 27px;
+            min-height: 27px;
             border-radius: 100vw;
+            object-fit: cover;
          }
       }
       .name {
