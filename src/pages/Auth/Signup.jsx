@@ -31,7 +31,7 @@ const Signup = () => {
 
    const [windowHeight, setWH] = useState(0);
    const [fullname, setFullname] = useState("");
-   const [email, setEmail] = useState("ab@iiitmanipur.ac.in");
+   const [email, setEmail] = useState("");
    const [password, setPassword] = useState("");
 
    useEffect(() => {

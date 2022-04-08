@@ -53,16 +53,19 @@ const Profile = () => {
    }, []);
 
    useEffect(() => {
+      console.log(1);
       if (USER_PROFILE && USER_PROFILE.user === USER._id) setEdit(true);
       else setEdit(false);
    }, [USER_PROFILE, USER]);
 
    useEffect(() => {
       profilePic && dispatch(updateProfilePic(TOKEN, USER._id, profilePic));
-   }, [profilePic, TOKEN, USER]);
+      // setProfilePic(null);
+   }, [profilePic]);
    useEffect(() => {
       coverPic && dispatch(updateCoverPic(TOKEN, USER._id, coverPic));
-   }, [coverPic, TOKEN, USER]);
+      // setCoverPic(null);
+   }, [coverPic]);
    useEffect(() => {
       if (UPDATING === "failed") {
          setProfilePic(null);
