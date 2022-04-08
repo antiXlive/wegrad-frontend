@@ -273,7 +273,7 @@ const HomeHeader = (props) => {
                            </div>
                            <div className="avatar">
                               <img
-                                 src="https://i.ibb.co/qdbx0k2/profile-pic61e6ac3b214d69ef9919d0d4.webp"
+                                 src="https://i.ibb.co/vJxyxK5/profile-pic61e6ac3b214d69ef9919d0d4.webp"
                                  alt="profile-pic"
                               />
                            </div>
@@ -378,7 +378,7 @@ const HomeHeader = (props) => {
                            </div>
                            <div className="avatar">
                               <img
-                                 src="https://i.ibb.co/qdbx0k2/profile-pic61e6ac3b214d69ef9919d0d4.webp"
+                                 src="https://i.ibb.co/vJxyxK5/profile-pic61e6ac3b214d69ef9919d0d4.webp"
                                  alt="profile-pic"
                               />
                            </div>
