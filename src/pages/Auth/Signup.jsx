@@ -168,8 +168,8 @@ const Signup = () => {
                      </p>
                      <p>By signing up you agree to our</p>
                      <p>
-                        <Link to="/">terms & conditions</Link> and{" "}
-                        <Link to="/">privacy policy</Link>.
+                        <Link to="/terms-conditions">terms & conditions</Link> and{" "}
+                        <Link to="/privacy-policy">privacy policy</Link>.
                      </p>
                   </div>
                </div>

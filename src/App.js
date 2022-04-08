@@ -26,6 +26,8 @@ import {
 } from "./redux/actions/authActions";
 
 const LandingPage = lazy(() => import("./pages/LandingPage/LandingPage"));
+const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy"));
+const Terms = lazy(() => import("./pages/Terms&Conditions"));
 
 const Signup = lazy(() => import("./pages/Auth/Signup"));
 const Signin = lazy(() => import("./pages/Auth/Signin"));
@@ -163,6 +165,14 @@ function App() {
                      <Route
                         path="/auth/verify-otp"
                         element={<OtpVerification />}
+                     />
+                     <Route
+                        path="/privacy-policy"
+                        element={<PrivacyPolicy />}
+                     />
+                     <Route
+                        path="/terms-conditions"
+                        element={<Terms />}
                      />
                      <Route
                         path="/home"
