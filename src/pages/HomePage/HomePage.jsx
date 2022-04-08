@@ -26,7 +26,9 @@ const HomePage = () => {
 
    const newsFeed = useSelector((state) => state.postReducer.newsFeed);
    const TOKEN = useSelector((state) => state.auth.authToken);
+   const USER = useSelector((state) => state.auth.user);
    const QUOTE = useSelector((state) => state.shared.quote);
+
 
    const [dayTime, setDT] = useState("");
 
@@ -179,12 +181,12 @@ const HomePage = () => {
                      transition={{ duration: 0.7, ease: "easeIn" }}
                   >
                      {dayTime === "morning"
-                        ? "Good morning, Piyush"
+                        ? "Good morning"
                         : dayTime === "noon"
-                        ? "Good afternoon, Piyush"
+                        ? "Good afternoon"
                         : dayTime === "evening"
-                        ? "Good evening, Piyush"
-                        : "Good night, Piyush"}
+                        ? "Good evening"
+                        : "Good night"}, {USER.fullName.split(" ")[0]}
                   </motion.p>
                   <motion.p
                      initial={{ top: "80px", opacity: 0 }}

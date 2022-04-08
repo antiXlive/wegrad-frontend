@@ -64,7 +64,7 @@ const InterviewExperience = () => {
                      <p className="description">{IE.description}</p>
                   </div>
                   <div className="section">
-                     <p className="title">Date</p>
+                     <p className="title">Posted</p>
                      <p className="description">
                         {new Date(IE.timestamp).toDateString()}
                      </p>
